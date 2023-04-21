@@ -21,10 +21,10 @@ public class CacheConfig {
         return new ConcurrentMapCacheManager(CACHE_FOR_UTENTE);//inserisce una cache(mappa) nel Contenitore delle cache
     }
 
-    @CacheEvict(allEntries = true,value = {CACHE_FOR_UTENTE})
-    @Scheduled(fixedDelay = 4000,initialDelay = 2500)
-    public void cacheEvictStudent(){
-        System.out.println("Cache Svuotata");
-//        qui potresti chiamare la funzione che ricarica in cache
-    }
+//    @CacheEvict(allEntries = true,value = {CACHE_FOR_UTENTE})
+//    @Scheduled(fixedDelay = 4000,initialDelay = 2500)
+//    public void cacheEvictStudent(){
+//        System.out.println("Cache Svuotata");
+////        qui potresti chiamare la funzione che ricarica in cache
+//    }
 }
