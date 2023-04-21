@@ -4,9 +4,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor//provare a togliere
+@NoArgsConstructor
 public class UtenteDto {
 
+    private Long id;
     private String firstName;
     private String lastName;
 }
