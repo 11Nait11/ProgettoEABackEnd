@@ -17,12 +17,13 @@ public class Utente {
 
     private String lastName;
 
-    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
-    private List<Annuncio> annunci=new ArrayList<>();
+    @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL)
+    private List<Prodotto> prodotti=new ArrayList<>();
 
     @OneToMany(mappedBy = "utente",cascade = CascadeType.ALL)
     private List<Recensione> recensioni= new ArrayList<>();
 
+//    usa @toString ed escludi campi
     @Override
     public String toString() {
         return "Utente{" +

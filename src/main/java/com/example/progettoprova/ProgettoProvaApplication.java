@@ -1,28 +1,22 @@
 package com.example.progettoprova;
 
-import com.example.progettoprova.conf.CacheConfig;
-import com.example.progettoprova.dao.AnnuncioDao;
-import com.example.progettoprova.dao.ImageDao;
-import com.example.progettoprova.dao.RecensioneDao;
+import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.CacheManager;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @SpringBootApplication
 public class ProgettoProvaApplication implements CommandLineRunner {
 
     @Autowired
     UtenteDao utenteDao;
+    @Autowired
+    ProdottoDao prodottoDao;
 
     public static void main(String[] args) throws IOException {
 
@@ -61,6 +55,20 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         u2.setFirstName("Archimede");
         u2.setLastName("Rossi");
         utenteDao.save(u2);
+
+        Prodotto prodotto = new Prodotto();
+        prodotto.setNome("Maglietta");
+        prodotto.setDescrizione("Maglietta in cotone a righe");
+        prodotto.setPrezzo(19.99);
+        prodotto.setCategoria("Abbigliamento");
+        prodotto.setCondizione("Nuovo");
+        prodotto.setDisponibilita("Disponibile");
+        prodotto.setImmagine(new byte[]{1, 2, 3});
+       // prodotto.setDataAggiunta(new Date());
+        prodotto.setVenditore(u1);
+       // prodotto.setUbicazione("Roma");
+        prodottoDao.save(prodotto);
+
     }
 
     @Override
