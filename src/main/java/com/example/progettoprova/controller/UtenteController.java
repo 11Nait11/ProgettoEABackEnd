@@ -5,6 +5,7 @@ import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.services.UtenteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,20 +20,33 @@ public class UtenteController {
 
     private final UtenteService utenteService;
 
-    @GetMapping("utenti")
-    public List<UtenteDto> dammiUtenti(){
-        return utenteService.dammiUtenti();
+    @GetMapping("utenti")//ok
+    public ResponseEntity<List<UtenteDto>> dammiUtenti(){
+        return ResponseEntity.ok(utenteService.dammiUtenti());
     }
+
 
     @GetMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> dammiUtente(@PathVariable Long idUtente){
-        System.out.println("ControllerDammiUtente");
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
 
+
     @PostMapping("/salva")
-    public void salva(@RequestBody UtenteDto u){
+    public HttpStatus salva(@RequestBody UtenteDto u){
         utenteService.salvaDto(u);
+        return HttpStatus.OK;
+    }
+
+    @PutMapping("utenti/{idUtente}")
+    public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {
+        return ResponseEntity.ok(utenteService.aggiorna(id, utente));
+    }
+
+    @DeleteMapping("utenti/{idUtente}")
+    public HttpStatus cancella(@PathVariable("idUtente") Long id){
+        utenteService.cancella(id);
+        return HttpStatus.OK;
     }
 
 

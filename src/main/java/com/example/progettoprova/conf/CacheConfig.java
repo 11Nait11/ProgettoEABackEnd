@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class CacheConfig {
     public static final String CACHE_FOR_UTENTE="UTENTE";//nome cache per oggetti utente
 
-    @Bean//salve istanza di CacheManager nel context, per recuperarlo vedi main
+    @Bean//salve istanza di CacheManager nel context, per recuperarlo vedi main(usa get bean dal context)
     public CacheManager manager(){
         return new ConcurrentMapCacheManager(CACHE_FOR_UTENTE);//inserisce una cache(mappa) nel Contenitore delle cache
     }
