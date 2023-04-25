@@ -11,22 +11,22 @@ public class Prodotto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String nomeProdotto;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String descrizione;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private double prezzo;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String categoria;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String condizione;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String disponibilita;
 
     @Lob

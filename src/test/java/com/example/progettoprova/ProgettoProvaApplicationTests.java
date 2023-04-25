@@ -4,11 +4,16 @@ import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
+import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.entities.Prodotto;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class ProgettoProvaApplicationTests {
@@ -21,6 +26,8 @@ class ProgettoProvaApplicationTests {
     ImageDao imageDao;
     @Autowired
     RecensioneDao recensioneDao;
+    @Autowired
+    ModelMapper modelMapper;
 
 
 
@@ -121,6 +128,14 @@ class ProgettoProvaApplicationTests {
 
        utenteDao.findAll().forEach(u-> System.out.println(u.getNome()));
         System.out.println(utenteDao.cercaProdottiByIdUtente(1L));
+
+    }
+    @Test
+    void dammiInfoProdotto(){
+        Optional<Prodotto> prodotto = prodottoDao.findById(1L);
+        System.out.println("PRODOTTO "+prodotto.get());
+        ProdottoDto dto =  modelMapper.map(prodotto, ProdottoDto.class);
+        System.out.println("PRODOTTODTO "+dto);
     }
 
 }

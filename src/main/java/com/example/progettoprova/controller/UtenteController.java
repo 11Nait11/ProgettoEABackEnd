@@ -26,7 +26,6 @@ public class UtenteController {
 
     @GetMapping("prodotti-venditore")//ok
     public ResponseEntity<List<ProdottoDto>> dammiProdottiVenditore(@RequestParam Long id){
-        System.out.println("t"+utenteService.dammiProdottiUtente(id));
         return ResponseEntity.ok(utenteService.dammiProdottiUtente(id));
     }
 

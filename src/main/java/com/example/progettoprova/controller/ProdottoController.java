@@ -1,11 +1,10 @@
 package com.example.progettoprova.controller;
 
 
-import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.services.ProdottoService;
-import com.example.progettoprova.services.UtenteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +19,21 @@ public class ProdottoController {
     private final ProdottoService prodottoService;
 
 
+//    ok
     @GetMapping("prodotti")
     public ResponseEntity<List<ProdottoDto>>dammiProdotti(){
         return ResponseEntity.ok(prodottoService.dammiProdotti());
     }
+//    ok
     @GetMapping("prodotti-venditore")
-    public ResponseEntity<List<ProdottoDto>>dammiProdottiVenditore(@RequestParam Long id){
-        return ResponseEntity.ok(prodottoService.dammiProdottiVenditore(id));
+    public ResponseEntity<List<ProdottoDto>> dammiProdottiDiUnUtenteById(@RequestParam Long id){
+        return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteById(id));
+    }
+//    ok
+    @PostMapping("salva")
+    public HttpStatus salva(@RequestBody ProdottoDto p){
+        prodottoService.salva(p);
+        return HttpStatus.OK;
     }
 
 

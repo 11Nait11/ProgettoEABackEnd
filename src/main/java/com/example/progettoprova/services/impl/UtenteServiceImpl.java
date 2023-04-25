@@ -3,7 +3,6 @@ package com.example.progettoprova.services.impl;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.UtenteDto;
-import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
@@ -42,12 +41,11 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows
     public List<ProdottoDto> dammiProdottiUtente(Long id) {
 
-        List<Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
+        List<com.example.progettoprova.entities.Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
         if(prodotti.isEmpty())
             throw new ProdottoException(ExceptionMex.PRODOTTI_NON_TROVATI);
 
-        System.out.println("Ho trovato qusto :"+prodotti);
-        return prodotti.stream().map(prodotto -> modelMapper.map(prodotti,ProdottoDto.class)).collect(Collectors.toList());
+        return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
 
     }
 
@@ -56,21 +54,21 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
 
-        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID));
+        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+id));
         return modelMapper.map(utente,UtenteDto.class);}
 
 
     @Override
     public void salva(Utente u) {
         utenteDao.save(u);
-        log.info(ExceptionMex.UTENTE_SALVATO_ID_LOG, u.getCognome());}
+        log.info(ExceptionMex.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
 
 
     @Override
     public void salvaDto(UtenteDto uD) {
         Utente u= modelMapper.map(uD, Utente.class);
         utenteDao.save(u);
-        log.info(ExceptionMex.UTENTE_SALVATO_ID_LOG, u.getCognome());}
+        log.info(ExceptionMex.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
 
 
     @Override

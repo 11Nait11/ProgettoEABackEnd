@@ -6,7 +6,6 @@ import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.entities.Utente;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UtenteService {
 

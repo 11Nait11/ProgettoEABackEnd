@@ -1,5 +1,6 @@
 package com.example.progettoprova.dao;
 
+import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Prodotto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,6 @@ public interface ProdottoDao extends JpaRepository<Prodotto,Long> {
 
     @Query("SELECT p FROM Prodotto p WHERE p.venditore.id = :id")
     List<Prodotto> findAllByVenditoreId(@Param("id") Long id);
+
+
 }
