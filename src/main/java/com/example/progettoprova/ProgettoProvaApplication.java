@@ -18,7 +18,63 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     @Autowired
     ProdottoDao prodottoDao;
 
+
+    private void creaDb(){
+
+        Utente u1=new Utente();
+        u1.setNome("Paperino");
+        u1.setCognome("Bianchi");
+        utenteDao.save(u1);
+
+        Utente u2=new Utente();
+        u2.setNome("Archimede");
+        u2.setCognome("Rossi");
+        utenteDao.save(u2);
+
+        Prodotto prodotto = new Prodotto();
+        prodotto.setNomeProdotto("Maglietta");
+        prodotto.setDescrizione("Maglietta in cotone a righe");
+        prodotto.setPrezzo(19.99);
+        prodotto.setCategoria("Abbigliamento");
+        prodotto.setCondizione("Nuovo");
+        prodotto.setDisponibilita("Disponibile");
+        prodotto.setImmagine(new byte[]{1, 2, 3});
+        // prodotto.setDataAggiunta(new Date());
+        prodotto.setVenditore(u1);
+        // prodotto.setUbicazione("Roma");
+        prodottoDao.save(prodotto);
+
+        Prodotto prodotto2 = new Prodotto();
+        prodotto2.setNomeProdotto("Maglietta2");
+        prodotto2.setDescrizione("Maglietta in cotone a righe");
+        prodotto2.setPrezzo(19.99);
+        prodotto2.setCategoria("Abbigliamento");
+        prodotto2.setCondizione("Nuovo");
+        prodotto2.setDisponibilita("Disponibile");
+        prodotto2.setImmagine(new byte[]{1, 2, 3});
+        // prodotto.setDataAggiunta(new Date());
+        prodotto2.setVenditore(u2);
+        // prodotto.setUbicazione("Roma");
+        prodottoDao.save(prodotto2);
+
+        Prodotto prodotto3 = new Prodotto();
+        prodotto3.setNomeProdotto("Maglietta3");
+        prodotto3.setDescrizione("Maglietta in cotone a righe");
+        prodotto3.setPrezzo(19.99);
+        prodotto3.setCategoria("Abbigliamento");
+        prodotto3.setCondizione("Nuovo");
+        prodotto3.setDisponibilita("Disponibile");
+        prodotto3.setImmagine(new byte[]{1, 2, 3});
+        // prodotto.setDataAggiunta(new Date());
+        prodotto3.setVenditore(u2);
+        // prodotto.setUbicazione("Roma");
+        prodottoDao.save(prodotto3);
+
+    }
+
     public static void main(String[] args) throws IOException {
+
+
 
         SpringApplication.run(ProgettoProvaApplication.class, args);
 
@@ -45,31 +101,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
     }
 
-    private void creaDb(){
-        Utente u1=new Utente();
-        u1.setFirstName("Paperino");
-        u1.setLastName("Bianchi");
-        utenteDao.save(u1);
 
-        Utente u2=new Utente();
-        u2.setFirstName("Archimede");
-        u2.setLastName("Rossi");
-        utenteDao.save(u2);
-
-        Prodotto prodotto = new Prodotto();
-        prodotto.setNome("Maglietta");
-        prodotto.setDescrizione("Maglietta in cotone a righe");
-        prodotto.setPrezzo(19.99);
-        prodotto.setCategoria("Abbigliamento");
-        prodotto.setCondizione("Nuovo");
-        prodotto.setDisponibilita("Disponibile");
-        prodotto.setImmagine(new byte[]{1, 2, 3});
-       // prodotto.setDataAggiunta(new Date());
-        prodotto.setVenditore(u1);
-       // prodotto.setUbicazione("Roma");
-        prodottoDao.save(prodotto);
-
-    }
 
     @Override
     public void run(String... args) throws Exception {

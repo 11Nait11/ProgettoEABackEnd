@@ -1,9 +1,8 @@
 package com.example.progettoprova.controller;
 
+import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.UtenteDto;
-import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.services.UtenteService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +24,18 @@ public class UtenteController {
         return ResponseEntity.ok(utenteService.dammiUtenti());
     }
 
+    @GetMapping("prodotti-venditore")//ok
+    public ResponseEntity<List<ProdottoDto>> dammiProdottiVenditore(@RequestParam Long id){
+        System.out.println("t"+utenteService.dammiProdottiUtente(id));
+        return ResponseEntity.ok(utenteService.dammiProdottiUtente(id));
+    }
+
+
 
     @GetMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> dammiUtente(@PathVariable Long idUtente){
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
-
 
     @PostMapping("/salva")
     public HttpStatus salva(@RequestBody UtenteDto u){

@@ -1,6 +1,7 @@
 package com.example.progettoprova.handler;
 
 import com.example.progettoprova.dto.ServiceError;
+import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UtenteException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ServiceError notFound(WebRequest req, UtenteException ex){
+        return errorResponse(req,ex.getMessage());
+    }
+
+
+    @ExceptionHandler(ProdottoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ServiceError notFound(WebRequest req, ProdottoException ex){
         return errorResponse(req,ex.getMessage());
     }
 
