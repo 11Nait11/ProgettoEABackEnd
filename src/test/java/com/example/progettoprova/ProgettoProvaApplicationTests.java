@@ -4,14 +4,11 @@ import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
-import com.example.progettoprova.entities.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @SpringBootTest
 class ProgettoProvaApplicationTests {
@@ -31,65 +28,63 @@ class ProgettoProvaApplicationTests {
     @Test
     void contextLoads() throws IOException {
 
-        Prodotto p1=new Prodotto();
-        p1.setType("Scarpe");
-        p1.setColor("Rosso");
-        p1.setPrice(150);
-
-
-
-
-
-        Utente u1=new Utente();
-        u1.setFirstName("Paperino");
-        u1.setLastName("Bianchi");
-        utenteDao.save(u1);
-
-        Utente u2=new Utente();
-        u2.setFirstName("Archimede");
-        u2.setLastName("Rossi");
-        utenteDao.save(u2);
-
-        Recensione r=new Recensione();
-        r.setUtente(u1);
-        recensioneDao.save(r);
-
-        Recensione r2=new Recensione();
-        r2.setUtente(u1);
-        recensioneDao.save(r2);
-
-
-        Prodotto a1=new Prodotto();
-        a1.setTitolo("Scarpe Fantastici");
-        a1.setUtente(u1);
-        a1.setProdotto(p1);
-        prodottoDao.save(a1);
-
-        byte[] immagine= Files.readAllBytes(Path.of("src/main/resources/img/Cattura.PNG"));
-        Image i=new Image();
-        i.setProdotto(a1);
-        i.setImage(immagine);
-        imageDao.save(i);
-
-        Image i2=new Image();
-        i2.setProdotto(a1);
-        i2.setImage(immagine);
-        imageDao.save(i2);
+//        Prodotto p1=new Prodotto();
+//        p1.setType("Scarpe");
+//        p1.setColor("Rosso");
+//        p1.setPrice(150);
+//
+//
+//
+//
+//
+//        Utente u1=new Utente();
+//        u1.setNome("Paperino");
+//        u1.setCognome("Bianchi");
+//        utenteDao.save(u1);
+//
+//        Utente u2=new Utente();
+//        u2.setNome("Archimede");
+//        u2.setCognome("Rossi");
+//        utenteDao.save(u2);
+//
+//        Recensione r=new Recensione();
+//        r.setUtente(u1);
+//        recensioneDao.save(r);
+//
+//        Recensione r2=new Recensione();
+//        r2.setUtente(u1);
+//        recensioneDao.save(r2);
+//
+//
+//        Prodotto a1=new Prodotto();
+//        a1.setTitolo("Scarpe Fantastici");
+//        a1.setUtente(u1);
+//        a1.setProdotto(p1);
+//        prodottoDao.save(a1);
+//
+//        byte[] immagine= Files.readAllBytes(Path.of("src/main/resources/img/Cattura.PNG"));
+//        Image i=new Image();
+//        i.setProdotto(a1);
+//        i.setImage(immagine);
+//        imageDao.save(i);
+//
+//        Image i2=new Image();
+//        i2.setProdotto(a1);
+//        i2.setImage(immagine);
+//        imageDao.save(i2);
 
 
 
         //recensioneDao.delete(r);
 
-//
 //        annuncioDao.delete(annuncioDao.findById(1L).get());
 //        utenteDao.delete(utenteDao.findById(1L).get());
 //        recensioneDao.delete(recensioneDao.findById(1L).get());
 //        imageDao.delete(i);
 
-
 //        System.out.println("Tutte Le Recensioni"+recensioneDao.findAll());
 //        System.out.println("Tutte gli Utenti"+utenteDao.findAll());
-        System.out.println("Tutte gli Annunci"+ prodottoDao.findAll());
+        //System.out.println("Tutte gli Annunci"+ prodottoDao.findAll());
 //        System.out.println("Lista Immagini: "+imageDao.findAll());
 //        System.out.println("TUTTI UTENTI: "+utenteDao.findAll());
 //        System.out.println("TUTTE LE RECENSIONI: "+recensioneDao.findAll());
@@ -98,7 +93,6 @@ class ProgettoProvaApplicationTests {
 //        Optional<Utente> recuperoUtente=utenteDao.findById(1L);
 //        System.out.println(recuperoUtente.get().getFirstName());
 //        System.out.println(utenteDao.ciccio2(1L));
-
 
         /**Sorted */
 //        System.out.println(utenteDao.findAll(Sort.by("firstName").descending()));
@@ -119,6 +113,14 @@ class ProgettoProvaApplicationTests {
 
 
 
+    }
+
+    @Test
+    void testProdottiVendutiDaUtente(){
+
+
+       utenteDao.findAll().forEach(u-> System.out.println(u.getNome()));
+        System.out.println(utenteDao.cercaProdottiByIdUtente(1L));
     }
 
 }

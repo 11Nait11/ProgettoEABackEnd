@@ -2,15 +2,6 @@ package com.example.progettoprova.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +12,7 @@ public class Prodotto {
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String nomeProdotto;
 
     @Column(nullable = false)
     private String descrizione;
@@ -43,7 +34,7 @@ public class Prodotto {
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "venditore")
+    @JoinColumn(name = "venditore", referencedColumnName = "ID")
     private Utente venditore;
 
 //    @Column(nullable = false)

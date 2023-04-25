@@ -2,7 +2,6 @@ package com.example.progettoprova.services.impl;
 
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.entities.Utente;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,8 +20,8 @@ public class ServiceProva {
 
     public List<Utente> getAllSorted3(String colSort1, String Ord1, String colSort2, String Ord2,UtenteDao utenteDao) {
         Utente u1=new Utente();
-        u1.setFirstName("Paperino");
-        u1.setLastName("Bianchi");
+        u1.setNome("Paperino");
+        u1.setCognome("Bianchi");
         utenteDao.save(u1);
 
 //        Ord puo essere  ASC o DESC

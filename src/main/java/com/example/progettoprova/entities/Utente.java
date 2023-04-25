@@ -13,12 +13,12 @@ public class Utente {
     @GeneratedValue
     private Long id;
 
-    private String firstName;
+    private String nome;
 
-    private String lastName;
+    private String cognome;
 
     @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL)
-    private List<Prodotto> prodotti=new ArrayList<>();
+    private List<Prodotto> prodotti;
 
     @OneToMany(mappedBy = "utente",cascade = CascadeType.ALL)
     private List<Recensione> recensioni= new ArrayList<>();
@@ -28,8 +28,8 @@ public class Utente {
     public String toString() {
         return "Utente{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName='" + nome + '\'' +
+                ", lastName='" + cognome + '\'' +
                 '}';
     }
 }
