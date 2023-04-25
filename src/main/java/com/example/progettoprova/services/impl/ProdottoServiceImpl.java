@@ -4,7 +4,9 @@ import com.example.progettoprova.conf.ExceptionMex;
 import com.example.progettoprova.dao.ProdottoDao;
 
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.entities.Prodotto;
+import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
 import com.example.progettoprova.services.ProdottoService;
@@ -68,7 +70,15 @@ public class ProdottoServiceImpl implements ProdottoService {
     }
 
     @Override
-    public ProdottoDto aggiorna(Long id, ProdottoDto utente) {
-        return null;
+    @SneakyThrows
+    public ProdottoDto aggiorna(Long id, ProdottoDto prodotto) {
+        Optional<Prodotto> p = prodottoDao.findById(id);
+        if(p.isEmpty())
+            throw new ProdottoException(ExceptionMex.PRODOTTO_NON_TROVATO+id);
+        p.get().setPrezzo(prodotto.getPrezzo());
+        log.info(ExceptionMex.PRODOTTO_AGGIORNATO_ID_LOG, id);
+        return modelMapper.map(prodottoDao.save(p.get()),ProdottoDto.class);
     }
+
+
 }

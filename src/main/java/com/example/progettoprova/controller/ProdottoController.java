@@ -2,6 +2,7 @@ package com.example.progettoprova.controller;
 
 
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.ProdottoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,14 @@ public class ProdottoController {
         prodottoService.salva(p);
         return HttpStatus.OK;
     }
+
+    @PutMapping("prodotti/{idProdotto}")
+    public ResponseEntity<ProdottoDto> aggiorna(@PathVariable("idProdotto") Long id,@RequestBody ProdottoDto prodotto){
+        return ResponseEntity.ok(prodottoService.aggiorna(id,prodotto));
+    }
+
+
+
 
 
 }

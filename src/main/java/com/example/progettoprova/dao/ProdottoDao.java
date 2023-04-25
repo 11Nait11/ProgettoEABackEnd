@@ -18,4 +18,5 @@ public interface ProdottoDao extends JpaRepository<Prodotto,Long> {
     List<Prodotto> findAllByVenditoreId(@Param("id") Long id);
 
 
+
 }

@@ -11,6 +11,9 @@ public class ExceptionMex {
 
 //    Prodotti
     public static final String PRODOTTI_NON_TROVATI = "Non Sono Presenti Prodotti";
+    public static final String PRODOTTO_NON_TROVATO = "Prodotto non trovato con ID:";
     public static final String PRODOTTO_CANCELLATO_NOME_LOG = "Prodotto  {} cancellato con successo";
     public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto  {} salvato con successo";
+    public static final String PRODOTTO_AGGIORNATO_ID_LOG = "Prodotto con id {} aggiornato con successo";
+
 }
