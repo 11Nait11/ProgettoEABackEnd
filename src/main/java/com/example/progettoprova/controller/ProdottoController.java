@@ -42,8 +42,11 @@ public class ProdottoController {
         return ResponseEntity.ok(prodottoService.aggiorna(id,prodotto));
     }
 
-
-
+    @DeleteMapping("prodotti/{idProdotto}")
+    public HttpStatus cancella(@PathVariable Long idProdotto){
+        prodottoService.cancella(idProdotto);
+        return HttpStatus.OK;
+    }
 
 
 }
