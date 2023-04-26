@@ -1,5 +1,6 @@
 package com.example.progettoprova;
 
+import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.entities.*;
@@ -9,6 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @SpringBootApplication
 public class ProgettoProvaApplication implements CommandLineRunner {
@@ -17,9 +20,11 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     UtenteDao utenteDao;
     @Autowired
     ProdottoDao prodottoDao;
+    @Autowired
+    ImageDao imageDao;
 
 
-    private void creaDb(){
+    private void creaDb() throws IOException {
 
         Utente u1=new Utente();
         u1.setNome("Paperino");
@@ -38,7 +43,6 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         prodotto.setCategoria("Abbigliamento");
         prodotto.setCondizione("Nuovo");
         prodotto.setDisponibilita("Disponibile");
-        prodotto.setImmagine(new byte[]{1, 2, 3});
         // prodotto.setDataAggiunta(new Date());
         prodotto.setVenditore(u1);
         // prodotto.setUbicazione("Roma");
@@ -50,8 +54,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         prodotto2.setPrezzo(19.99);
         prodotto2.setCategoria("Abbigliamento");
         prodotto2.setCondizione("Nuovo");
-        prodotto2.setDisponibilita("Disponibile");
-        prodotto2.setImmagine(new byte[]{1, 2, 3});
+        prodotto2.setDisponibilita("Disponibile");;
         // prodotto.setDataAggiunta(new Date());
         prodotto2.setVenditore(u2);
         // prodotto.setUbicazione("Roma");
@@ -64,11 +67,23 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         prodotto3.setCategoria("Abbigliamento");
         prodotto3.setCondizione("Nuovo");
         prodotto3.setDisponibilita("Disponibile");
-        prodotto3.setImmagine(new byte[]{1, 2, 3});
         // prodotto.setDataAggiunta(new Date());
         prodotto3.setVenditore(u2);
         // prodotto.setUbicazione("Roma");
         prodottoDao.save(prodotto3);
+
+        Image i =new Image();
+        byte[] immagine= Files.readAllBytes(Path.of("src/main/resources/img/Cattura.PNG"));
+        i.setProdotto(prodotto);
+        i.setImage(immagine);
+        imageDao.save(i);
+
+        Image i2 =new Image();
+        byte[] immagine2= Files.readAllBytes(Path.of("src/main/resources/img/al.jpg"));
+        i2.setProdotto(prodotto);
+        i2.setImage(immagine2);
+        imageDao.save(i2);
+
 
     }
 

@@ -10,10 +10,15 @@ public class ExceptionMex {
     public static final String UTENTE_SALVATO_NOME_LOG = "Utente  {} salvato con successo";
 
 //    Prodotti
-    public static final String PRODOTTI_NON_TROVATI = "Non Sono Presenti Prodotti";
+    public static final String PRODOTTI_NON_TROVATI = "Non sono oresenti Prodotti";
     public static final String PRODOTTO_NON_TROVATO_ID = "Prodotto non trovato con ID:";
     public static final String PRODOTTO_CANCELLATO_NOME_LOG = "Prodotto  {} cancellato con successo";
     public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto  {} salvato con successo";
     public static final String PRODOTTO_AGGIORNATO_ID_LOG = "Prodotto con id {} aggiornato con successo";
 
+//    images
+    public static final String IMAGES_NON_TROVATO_ID_PRODOTTO = "Images non trovate per Prodotto  ID:";
+    public static final String IMAGES_NON_TROVATO_ID = "Images non trovate   ID:";
+    public static final String IMMAGINE_SALVATO_LOG = "Images  salvato con successo";
+    public static final String IMMAGINE_CANCELLATO_ID_LOG = "Images  {} cancellato con successo";
 }

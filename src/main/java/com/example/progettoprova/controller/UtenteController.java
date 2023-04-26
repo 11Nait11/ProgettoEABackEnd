@@ -30,7 +30,6 @@ public class UtenteController {
     }
 
 
-
     @GetMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> dammiUtente(@PathVariable Long idUtente){
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));

@@ -3,6 +3,8 @@ package com.example.progettoprova.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Prodotto {
@@ -29,15 +31,24 @@ public class Prodotto {
 //    @Column(nullable = false)
     private String disponibilita;
 
-    @Lob
-    private byte[] immagine;
-
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "venditore", referencedColumnName = "ID")
     private Utente venditore;
 
-//    @Column(nullable = false)
+    @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)
+    private List<Image> images;
+
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "id=" + id +
+                ", nomeProdotto='" + nomeProdotto + '\'' +
+                '}';
+    }
+
+
+    //    @Column(nullable = false)
 //    private String ubicazione;
 //
 //

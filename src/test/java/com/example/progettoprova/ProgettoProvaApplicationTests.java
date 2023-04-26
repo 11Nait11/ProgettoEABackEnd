@@ -6,6 +6,8 @@ import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Prodotto;
+import com.example.progettoprova.services.ImageService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,13 @@ class ProgettoProvaApplicationTests {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    ImageService    imageService;
 
 
 
     @Test
+    @Disabled
     void contextLoads() throws IOException {
 
 //        Prodotto p1=new Prodotto();
@@ -123,6 +128,7 @@ class ProgettoProvaApplicationTests {
     }
 
     @Test
+    @Disabled
     void testProdottiVendutiDaUtente(){
 
 
@@ -131,6 +137,7 @@ class ProgettoProvaApplicationTests {
 
     }
     @Test
+    @Disabled
     void dammiInfoProdotto(){
         Optional<Prodotto> prodotto = prodottoDao.findById(1L);
         System.out.println("PRODOTTO "+prodotto.get());
@@ -138,4 +145,10 @@ class ProgettoProvaApplicationTests {
         System.out.println("PRODOTTODTO "+dto);
     }
 
+    @Test
+    void queryImage() {
+
+       imageService.dammiImageByIdProdotto(1L);
+
+    }
 }

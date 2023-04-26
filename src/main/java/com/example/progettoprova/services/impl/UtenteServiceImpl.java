@@ -35,7 +35,11 @@ public class UtenteServiceImpl implements UtenteService {
         List<Utente> utenti = utenteDao.findAll();
         if(utenti.isEmpty())
             throw new UtenteException(ExceptionMex.UTENTI_NON_TROVATI);
-        return utenti.stream().map(u->modelMapper.map(u, UtenteDto.class)).collect(Collectors.toList());}
+        System.out.println("Utenti: "+utenti);
+        List<UtenteDto> utendto = utenti.stream().map(u -> modelMapper.map(u, UtenteDto.class)).collect(Collectors.toList());
+        System.out.println("Utentidto: "+utendto);
+        return  utendto;
+    }
 
     @Override
     @SneakyThrows
@@ -90,8 +94,8 @@ public class UtenteServiceImpl implements UtenteService {
         if(u.isEmpty())
             throw new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+id);
 
-        u.get().setNome(utente.getFirstName());
-        u.get().setCognome(utente.getLastName());
+        u.get().setNome(utente.getNome());
+        u.get().setCognome(utente.getCognome());
         log.info(ExceptionMex.UTENTE_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(utenteDao.save(u.get()),UtenteDto.class);
     }

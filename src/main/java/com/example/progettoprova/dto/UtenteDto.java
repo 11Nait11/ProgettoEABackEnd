@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class UtenteDto {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String nome;
+    private String cognome;
 }
