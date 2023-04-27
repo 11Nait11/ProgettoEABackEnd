@@ -10,9 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class UniConfig {
 
-//  crea un bean e lo ignetta nel codice utilizzando questo metodo
-  @Bean//il bean che crea e' un oggetto scritto da me
-      //che restituisce oggetto AudutoreAware per usare le annotazioni @CreateBY @CreateDate etc.
+//  crea un bean e lo inietta nel codice utilizzando questo metodo
+  @Bean// restituisce oggetto AudutoreAware per usare le annotazioni @CreateBY @CreateDate etc.
   public AuditorAware<Long> auditorProvider()
   {
     return new UserAuditorAware();//Classe Creata manualmente da me

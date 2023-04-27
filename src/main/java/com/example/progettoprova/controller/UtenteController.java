@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Locale;
 
-
 @RestController
 @RequestMapping("/utente-api/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,7 +31,7 @@ public class UtenteController {
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
 
-    private final MessageLang messageLang;
+//    private final MessageLang messageLang;
 
     //non riesce ad prendere requestHeader?
 //    @GetMapping("/test-lang")
