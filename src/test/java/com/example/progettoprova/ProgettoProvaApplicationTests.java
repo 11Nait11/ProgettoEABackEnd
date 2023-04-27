@@ -7,6 +7,7 @@ import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.RecensioneService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,10 @@ class ProgettoProvaApplicationTests {
     RecensioneDao recensioneDao;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    RecensioneService recensioneService;
+
+
 
     @Autowired
     ImageService    imageService;
@@ -146,9 +151,15 @@ class ProgettoProvaApplicationTests {
     }
 
     @Test
+    @Disabled
     void queryImage() {
 
        imageService.dammiImageByIdProdotto(1L);
+
+    }
+    @Test
+    void recensioneService(){
+        System.out.println(recensioneService.dammiRencesioni());
 
     }
 }

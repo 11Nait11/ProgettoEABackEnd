@@ -2,6 +2,7 @@ package com.example.progettoprova;
 
 import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dao.ProdottoDao;
+import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     ProdottoDao prodottoDao;
     @Autowired
     ImageDao imageDao;
+    @Autowired
+    RecensioneDao recensioneDao;
 
 
     private void creaDb() throws IOException {
@@ -83,6 +86,14 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         i2.setProdotto(prodotto);
         i2.setImage(immagine2);
         imageDao.save(i2);
+
+        Recensione r=new Recensione();
+        r.setAutore(u1);
+        r.setProdotto(prodotto);
+        r.setCommento("bella ma non balla");
+        r.setValutazione(2);
+        recensioneDao.save(r);
+
 
 
     }

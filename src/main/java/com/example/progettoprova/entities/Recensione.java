@@ -12,14 +12,23 @@ public class Recensione {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "utente_id", nullable = false)
-    private Utente utente;
+    private Utente autore;
+
+
+    @ManyToOne
+    @JoinColumn(name = "prodotto_id", nullable = false)
+    private Prodotto prodotto;
+
+    private String commento;
+    private int valutazione;
+
 
 
     @Override
     public String toString() {
         return "Recensione{" +
                 "id=" + id +
-                ", utenteRecensione=" + utente.getId() +
+                ", utenteRecensione=" + autore.getId() +
                 '}';
     }
 }
