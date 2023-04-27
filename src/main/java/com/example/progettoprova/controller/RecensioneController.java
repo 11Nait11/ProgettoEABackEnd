@@ -30,7 +30,6 @@ public class RecensioneController {
         return ResponseEntity.ok(recensioneService.dammiRencesioni());
     }
 
-
     @PostMapping("crea-recensione")
     public ResponseEntity<RecensioneDto> creaRecensione(@RequestBody RecensioneDto r) {
         recensioneService.creaRecensione(r);
