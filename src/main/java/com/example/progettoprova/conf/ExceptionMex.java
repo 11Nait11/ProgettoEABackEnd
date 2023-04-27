@@ -21,4 +21,12 @@ public class ExceptionMex {
     public static final String IMAGES_NON_TROVATO_ID = "Images non trovate   ID:";
     public static final String IMMAGINE_SALVATO_LOG = "Images  salvato con successo";
     public static final String IMMAGINE_CANCELLATO_ID_LOG = "Images  {} cancellato con successo";
+
+//    recensioni
+    public static final String RECENSIONE_NON_TROVATO_ID = "Recensione non trovate ID: ";
+    public static final String RENCENSIONI_NON_TROVATE = "Non sono presenti Recensioni";
+    public static final String RECENSIONE_SALVATA_LOG = "Recensione  salvato con successo";
+    public static final String RECENSIONE_CANCELLATO_ID_LOG = "Recensione  {} cancellato con successo";
+
+
 }

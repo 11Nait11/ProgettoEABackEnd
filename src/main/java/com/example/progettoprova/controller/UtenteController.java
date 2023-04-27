@@ -1,5 +1,6 @@
 package com.example.progettoprova.controller;
 
+import com.example.progettoprova.conf.i18n.MessageLang;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.UtenteService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 
 @RestController
@@ -24,16 +26,38 @@ public class UtenteController {
         return ResponseEntity.ok(utenteService.dammiUtenti());
     }
 
-    @GetMapping("prodotti-venditore")//ok
-    public ResponseEntity<List<ProdottoDto>> dammiProdottiVenditore(@RequestParam Long id){
-        return ResponseEntity.ok(utenteService.dammiProdottiUtente(id));
-    }
-
 
     @GetMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> dammiUtente(@PathVariable Long idUtente){
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
+
+    private final MessageLang messageLang;
+
+    //non riesce ad prendere requestHeader?
+//    @GetMapping("/test-lang")
+//    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
+//        return ResponseEntity.ok(messageLang.getMessage("welcome"));
+//    }
+
+    @PutMapping("utenti/{idUtente}")
+    public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {
+        return ResponseEntity.ok(utenteService.aggiorna(id, utente));
+    }
+
+
+    @DeleteMapping("utenti/{idUtente}")
+    public HttpStatus cancella(@PathVariable("idUtente") Long id){
+        utenteService.cancella(id);
+        return HttpStatus.OK;
+    }
+
+
+    @GetMapping("prodotti-venditore")//ok
+    public ResponseEntity<List<ProdottoDto>> dammiProdottiVenditore(@RequestParam Long id){
+        return ResponseEntity.ok(utenteService.dammiProdottiUtente(id));
+    }
+
 
     @PostMapping("/salva")
     public HttpStatus salva(@RequestBody UtenteDto u){
@@ -41,16 +65,7 @@ public class UtenteController {
         return HttpStatus.OK;
     }
 
-    @PutMapping("utenti/{idUtente}")
-    public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {
-        return ResponseEntity.ok(utenteService.aggiorna(id, utente));
-    }
 
-    @DeleteMapping("utenti/{idUtente}")
-    public HttpStatus cancella(@PathVariable("idUtente") Long id){
-        utenteService.cancella(id);
-        return HttpStatus.OK;
-    }
 
 
 }

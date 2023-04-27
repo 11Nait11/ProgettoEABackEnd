@@ -6,7 +6,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-//abilita' audting, nome del bean auditorProvider
+//abilita' auditing, nome del bean auditorProvider
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class UniConfig {
 

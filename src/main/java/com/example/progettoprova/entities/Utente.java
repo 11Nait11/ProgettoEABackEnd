@@ -20,7 +20,7 @@ public class Utente {
     @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL)
     private List<Prodotto> prodotti;
 
-    @OneToMany(mappedBy = "autore",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "utenteRecensito",cascade = CascadeType.ALL)
     private List<Recensione> recensioni= new ArrayList<>();
 
 //    usa @toString ed escludi campi

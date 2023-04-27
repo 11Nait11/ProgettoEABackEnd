@@ -25,9 +25,16 @@ public class RecensioneController {
     private final RecensioneService recensioneService;
     private final ModelMapper modelMapper;
 
-    @GetMapping("recensioni")//togliere logica
+    @GetMapping("recensioni")
     public ResponseEntity<List<RecensioneDto>> dammiRecensioni() {
-       return null;
+        return ResponseEntity.ok(recensioneService.dammiRencesioni());
+    }
+
+
+    @PostMapping("crea-recensione")
+    public ResponseEntity<RecensioneDto> creaRecensione(@RequestBody RecensioneDto r) {
+        recensioneService.creaRecensione(r);
+        return ResponseEntity.ok(r);
     }
 
 

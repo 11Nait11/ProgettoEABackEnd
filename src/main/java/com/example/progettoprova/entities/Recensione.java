@@ -9,18 +9,24 @@ public class Recensione {
     @Id
     @GeneratedValue
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "utente_id", nullable = false)
-    private Utente autore;
-
-
-    @ManyToOne
-    @JoinColumn(name = "prodotto_id", nullable = false)
-    private Prodotto prodotto;
-
     private String commento;
     private int valutazione;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autore_id", nullable = false)
+    private Utente autore;
+
+    @ManyToOne
+    @JoinColumn(name = "utente_recensito_id")
+    private Utente utenteRecensito;
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "prodotto_id", nullable = false)
+//    private Prodotto prodotto;
+
+
+
 
 
 

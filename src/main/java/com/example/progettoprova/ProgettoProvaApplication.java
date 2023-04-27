@@ -89,7 +89,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
         Recensione r=new Recensione();
         r.setAutore(u1);
-        r.setProdotto(prodotto);
+//        r.setUtenteRecensito();
+        r.setUtenteRecensito(u2);
         r.setCommento("bella ma non balla");
         r.setValutazione(2);
         recensioneDao.save(r);

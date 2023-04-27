@@ -25,6 +25,18 @@ public class ProdottoController {
     public ResponseEntity<List<ProdottoDto>>dammiProdotti(){
         return ResponseEntity.ok(prodottoService.dammiProdotti());
     }
+
+    @PutMapping("prodotti/{idProdotto}")
+    public ResponseEntity<ProdottoDto> aggiorna(@PathVariable("idProdotto") Long id,@RequestBody ProdottoDto prodotto){
+        return ResponseEntity.ok(prodottoService.aggiorna(id,prodotto));
+    }
+
+    @DeleteMapping("prodotti/{idProdotto}")
+    public HttpStatus cancella(@PathVariable Long idProdotto){
+        prodottoService.cancella(idProdotto);
+        return HttpStatus.OK;
+    }
+    
 //    ok
     @GetMapping("prodotti-venditore")
     public ResponseEntity<List<ProdottoDto>> dammiProdottiDiUnUtenteById(@RequestParam Long id){
@@ -37,16 +49,7 @@ public class ProdottoController {
         return HttpStatus.OK;
     }
 
-    @PutMapping("prodotti/{idProdotto}")
-    public ResponseEntity<ProdottoDto> aggiorna(@PathVariable("idProdotto") Long id,@RequestBody ProdottoDto prodotto){
-        return ResponseEntity.ok(prodottoService.aggiorna(id,prodotto));
-    }
 
-    @DeleteMapping("prodotti/{idProdotto}")
-    public HttpStatus cancella(@PathVariable Long idProdotto){
-        prodottoService.cancella(idProdotto);
-        return HttpStatus.OK;
-    }
 
 
 }
