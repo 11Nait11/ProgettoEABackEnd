@@ -28,7 +28,7 @@ public class RecensioneServiceImpl implements RecensioneService {
         List<Recensione> recensioni = recensioneDao.findAll();
         if(recensioni.isEmpty())
             throw new RecensioneException(ExceptionMex.RENCENSIONI_NON_TROVATE);
-        log.info("Recensioni Trovate");
+        log.error("Recensioni Trovate");
         return recensioni.stream().map(r->modelMapper.map(r,RecensioneDto.class)).collect(Collectors.toList());
     }
 

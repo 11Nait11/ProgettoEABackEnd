@@ -96,6 +96,11 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         recensioneDao.save(r);
 
 
+        //lista vuota caricamento lazy? richiede on demand ?
+//        System.out.println("Recensioni"+utenteDao.findById(1L));
+        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni());
+
+
 
     }
 
@@ -133,5 +138,6 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         creaDb();
+
     }
 }

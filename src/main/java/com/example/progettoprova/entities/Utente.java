@@ -21,7 +21,7 @@ public class Utente {
     private List<Prodotto> prodotti;
 
     @OneToMany(mappedBy = "utenteRecensito",cascade = CascadeType.ALL)
-    private List<Recensione> recensioni= new ArrayList<>();
+    private List<Recensione> recensioni;
 
 //    usa @toString ed escludi campi
     @Override
@@ -30,6 +30,7 @@ public class Utente {
                 "id=" + id +
                 ", firstName='" + nome + '\'' +
                 ", lastName='" + cognome + '\'' +
+                ", recensioni='" + recensioni + '\'' +
                 '}';
     }
 }

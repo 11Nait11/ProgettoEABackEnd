@@ -3,8 +3,12 @@ package com.example.progettoprova.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
+
+
 @Entity
 @Data
+@Table(name = "Recensione", uniqueConstraints = @UniqueConstraint(columnNames = {"autore_id","utente_recensito_id"}))
 public class Recensione {
     @Id
     @GeneratedValue
@@ -12,7 +16,7 @@ public class Recensione {
     private String commento;
     private int valutazione;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "autore_id", nullable = false)
     private Utente autore;
 
@@ -26,15 +30,14 @@ public class Recensione {
 //    private Prodotto prodotto;
 
 
-
-
-
-
     @Override
     public String toString() {
         return "Recensione{" +
                 "id=" + id +
-                ", utenteRecensione=" + autore.getId() +
+                ", commento='" + commento + '\'' +
+                ", valutazione=" + valutazione +
+                ", autoreId=" + autore.getId() +
+                ", utenteRecensitoId=" + utenteRecensito.getId() +
                 '}';
     }
 }
