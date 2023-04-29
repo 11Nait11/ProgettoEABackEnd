@@ -1,4 +1,4 @@
-package com.example.progettoprova.conf.i18n;
+package com.example.progettoprova.config.i18n;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ public class LanguageResolver extends AcceptHeaderLocaleResolver {
   // dal client sulla base dell'header "Accept-Language" inviato nella richiesta HTTP.
    @Override
   public Locale resolveLocale(HttpServletRequest request) {
-    String language = request.getHeader("Accept-Language");//attengo accept-language da http header
+    String language = request.getHeader("Accept-Language");//ottengo accept-language da http header
 
      //lista di lingue supportate legge da resource bundle. il nome file deve seguire
      // sintassi standard "Messages_en_US.properties" (per l'inglese), "Messages_it.IT.properties" (per l'italiano),

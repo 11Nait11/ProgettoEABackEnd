@@ -1,4 +1,4 @@
-package com.example.progettoprova.conf.i18n;
+package com.example.progettoprova.config.i18n;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;

@@ -1,11 +1,7 @@
-package com.example.progettoprova.conf;
+package com.example.progettoprova.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 import java.util.Random;
 

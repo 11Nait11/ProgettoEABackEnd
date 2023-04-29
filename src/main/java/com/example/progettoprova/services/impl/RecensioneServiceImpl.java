@@ -1,6 +1,6 @@
 package com.example.progettoprova.services.impl;
 
-import com.example.progettoprova.conf.ExceptionMex;
+import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.entities.Recensione;
@@ -27,7 +27,7 @@ public class RecensioneServiceImpl implements RecensioneService {
     public List<RecensioneDto> dammiRencesioni() {
         List<Recensione> recensioni = recensioneDao.findAll();
         if(recensioni.isEmpty())
-            throw new RecensioneException(ExceptionMex.RENCENSIONI_NON_TROVATE);
+            throw new RecensioneException(MessagesConfig.RENCENSIONI_NON_TROVATE);
         log.error("Recensioni Trovate");
         return recensioni.stream().map(r->modelMapper.map(r,RecensioneDto.class)).collect(Collectors.toList());
     }

@@ -6,7 +6,7 @@ import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
-import com.example.progettoprova.conf.ExceptionMex;
+import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.services.UtenteService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -34,7 +34,7 @@ public class UtenteServiceImpl implements UtenteService {
     public List<UtenteDto> dammiUtenti(){
         List<Utente> utenti = utenteDao.findAll();
         if(utenti.isEmpty())
-            throw new UtenteException(ExceptionMex.UTENTI_NON_TROVATI);
+            throw new UtenteException(MessagesConfig.UTENTI_NON_TROVATI);
         List<UtenteDto> utendto = utenti.stream().map(u -> modelMapper.map(u, UtenteDto.class)).collect(Collectors.toList());
         return  utendto;
     }
@@ -45,7 +45,7 @@ public class UtenteServiceImpl implements UtenteService {
 
         List<com.example.progettoprova.entities.Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
         if(prodotti.isEmpty())
-            throw new ProdottoException(ExceptionMex.PRODOTTI_NON_TROVATI);
+            throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
 
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
 
@@ -56,21 +56,21 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
 
-        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+id));
+        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
         return modelMapper.map(utente,UtenteDto.class);}
 
 
     @Override
     public void salva(Utente u) {
         utenteDao.save(u);
-        log.info(ExceptionMex.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
+        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
 
 
     @Override
     public void salvaDto(UtenteDto uD) {
         Utente u= modelMapper.map(uD, Utente.class);
         utenteDao.save(u);
-        log.info(ExceptionMex.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
+        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
 
 
     @Override
@@ -78,9 +78,9 @@ public class UtenteServiceImpl implements UtenteService {
     public void cancella(Long id) {
         Optional<Utente> u = utenteDao.findById(id);
         if(u.isEmpty())
-            throw new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+id);
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id);
         utenteDao.delete(u.get());
-        log.info(ExceptionMex.UTENTE_CANCELLATO_ID_LOG, id);
+        log.info(MessagesConfig.UTENTE_CANCELLATO_ID_LOG, id);
 
     }
 
@@ -90,11 +90,11 @@ public class UtenteServiceImpl implements UtenteService {
     public UtenteDto aggiorna(Long id, UtenteDto utente) {
         Optional<Utente> u = utenteDao.findById(id);
         if(u.isEmpty())
-            throw new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+id);
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id);
 
         u.get().setNome(utente.getNome());
         u.get().setCognome(utente.getCognome());
-        log.info(ExceptionMex.UTENTE_AGGIORNATO_ID_LOG, id);
+        log.info(MessagesConfig.UTENTE_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(utenteDao.save(u.get()),UtenteDto.class);
     }
 }

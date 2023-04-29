@@ -1,12 +1,20 @@
 package com.example.progettoprova.entities;
 
+import com.example.progettoprova.config.JpaAuditingConfig;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@EntityListeners(value = {AuditTrailListener.class, AuditingEntityListener.class})
 public class Prodotto {
 
     @Id
@@ -56,16 +64,16 @@ public class Prodotto {
 //
 //
 
-//    @CreatedBy
-//    private Long createBy;
-//
-//    @CreatedDate
-//    private LocalDateTime createDate;
-//
-//    @LastModifiedBy
-//    private Long lastModifyBy;
-//
-//    @LastModifiedDate
-//    private LocalDateTime lastModifiedDate;
+    @CreatedBy
+    private Long createBy;
+
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @LastModifiedBy
+    private Long lastModifyBy;
+
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
 
 }

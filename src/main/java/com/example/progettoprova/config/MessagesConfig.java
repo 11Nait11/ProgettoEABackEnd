@@ -1,6 +1,6 @@
-package com.example.progettoprova.conf;
+package com.example.progettoprova.config;
 
-public class ExceptionMex {
+public class MessagesConfig {
 
 //    Utenti
     public static final String UTENTI_NON_TROVATI = "Utenti non trovati";

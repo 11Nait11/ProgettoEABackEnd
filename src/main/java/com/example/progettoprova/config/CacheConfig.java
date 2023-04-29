@@ -1,14 +1,11 @@
-package com.example.progettoprova.conf;
+package com.example.progettoprova.config;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableCaching//sara' memorizzata in cache per future richieste

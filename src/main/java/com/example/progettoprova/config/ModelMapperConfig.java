@@ -1,4 +1,4 @@
-package com.example.progettoprova.conf;
+package com.example.progettoprova.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

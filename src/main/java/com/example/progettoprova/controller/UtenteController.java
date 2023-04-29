@@ -1,6 +1,5 @@
 package com.example.progettoprova.controller;
 
-import com.example.progettoprova.conf.i18n.MessageLang;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.UtenteService;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/utente-api/")

@@ -2,12 +2,12 @@ package com.example.progettoprova.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
 @Data
+@EntityListeners(value = {AuditTrailListener.class})
 @Table(name = "Recensione", uniqueConstraints = @UniqueConstraint(columnNames = {"autore_id","utente_recensito_id"}))
 public class Recensione {
     @Id

@@ -1,12 +1,11 @@
 package com.example.progettoprova.services.impl;
 
-import com.example.progettoprova.conf.ExceptionMex;
+import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.exception.ImageException;
-import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.services.ImageService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -31,7 +30,7 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> dammiImageByIdProdotto(Long id) {
         List<Image> i = imageDao.cercaImagesByIdProdotto(id);
         if(i.isEmpty())
-           throw  new ImageException(ExceptionMex.IMAGES_NON_TROVATO_ID_PRODOTTO + id);
+           throw  new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID_PRODOTTO + id);
 
         return i;}
 
@@ -39,7 +38,7 @@ public class ImageServiceImpl implements ImageService {
     public void salva(ImageDto i) {
 
         imageDao.save(modelMapper.map(i, Image.class));
-        log.info(ExceptionMex.IMMAGINE_SALVATO_LOG);
+        log.info(MessagesConfig.IMMAGINE_SALVATO_LOG);
     }
 
     @Override
@@ -47,9 +46,9 @@ public class ImageServiceImpl implements ImageService {
     public void cancella(Long id) {
         Optional<Image> i = imageDao.findById(id);
         if(i.isEmpty())
-            throw new ImageException(ExceptionMex.IMAGES_NON_TROVATO_ID +id);
+            throw new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID +id);
         imageDao.delete(i.get());
-        log.info(ExceptionMex.IMMAGINE_CANCELLATO_ID_LOG+id);
+        log.info(MessagesConfig.IMMAGINE_CANCELLATO_ID_LOG+id);
     }
 
 

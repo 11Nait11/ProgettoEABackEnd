@@ -1,6 +1,6 @@
 package com.example.progettoprova.services.impl;
 
-import com.example.progettoprova.conf.ExceptionMex;
+import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ProdottoDao;
 
 import com.example.progettoprova.dto.ProdottoDto;
@@ -35,7 +35,7 @@ public class ProdottoServiceImpl implements ProdottoService {
 
         List<Prodotto> prodotti = prodottoDao.findAll();
         if(prodotti.isEmpty())
-            throw new ProdottoException(ExceptionMex.PRODOTTI_NON_TROVATI);
+            throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
     }
 
@@ -45,7 +45,7 @@ public class ProdottoServiceImpl implements ProdottoService {
     public List<ProdottoDto> dammiProdottiDiUnUtenteById(Long id) {
          List<Prodotto> prodotti=prodottoDao.findAllByVenditoreId(id);
          if(prodotti.isEmpty())
-             throw new ProdottoException(ExceptionMex.PRODOTTI_NON_TROVATI);
+             throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
     }
 
@@ -54,9 +54,9 @@ public class ProdottoServiceImpl implements ProdottoService {
     public void salva(ProdottoDto p) {
 
         if(utenteService.dammiUtente(p.getVenditoreId())==null)
-            throw new UtenteException(ExceptionMex.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
         prodottoDao.save(modelMapper.map(p,Prodotto.class));
-        log.info(ExceptionMex.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
+        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 
 
@@ -67,9 +67,9 @@ public class ProdottoServiceImpl implements ProdottoService {
     public void cancella(Long id) {
         Optional<Prodotto> prodotto = prodottoDao.findById(id);
         if(prodotto.isEmpty())
-            throw new ProdottoException(ExceptionMex.PRODOTTO_NON_TROVATO_ID +id);
+            throw new ProdottoException(MessagesConfig.PRODOTTO_NON_TROVATO_ID +id);
         prodottoDao.delete(prodotto.get());
-        log.info(ExceptionMex.PRODOTTO_CANCELLATO_NOME_LOG+prodotto.get().getNomeProdotto());
+        log.info(MessagesConfig.PRODOTTO_CANCELLATO_NOME_LOG+prodotto.get().getNomeProdotto());
     }
 
     @Override
@@ -77,10 +77,10 @@ public class ProdottoServiceImpl implements ProdottoService {
     public ProdottoDto aggiorna(Long id, ProdottoDto prodotto) {
         Optional<Prodotto> p = prodottoDao.findById(id);
         if(p.isEmpty())
-            throw new ProdottoException(ExceptionMex.PRODOTTO_NON_TROVATO_ID +id);
+            throw new ProdottoException(MessagesConfig.PRODOTTO_NON_TROVATO_ID +id);
         p.get().setPrezzo(prodotto.getPrezzo());
         prodottoDao.save(p.get());
-        log.info(ExceptionMex.PRODOTTO_AGGIORNATO_ID_LOG, id);
+        log.info(MessagesConfig.PRODOTTO_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(prodottoDao.save(p.get()),ProdottoDto.class);
     }
 
