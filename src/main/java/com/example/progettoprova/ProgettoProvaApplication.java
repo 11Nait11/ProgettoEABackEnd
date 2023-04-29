@@ -33,6 +33,10 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         u1.setNome("Paperino");
         u1.setCognome("Bianchi");
         utenteDao.save(u1);
+        Utente u3=new Utente();
+        u1.setNome("ZioPaperone");
+        u1.setCognome("Gialli");
+        utenteDao.save(u1);
 
         Utente u2=new Utente();
         u2.setNome("Archimede");
