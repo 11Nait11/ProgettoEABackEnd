@@ -33,15 +33,17 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         u1.setNome("Paperino");
         u1.setCognome("Bianchi");
         utenteDao.save(u1);
-        Utente u3=new Utente();
-        u1.setNome("ZioPaperone");
-        u1.setCognome("Gialli");
-        utenteDao.save(u1);
 
         Utente u2=new Utente();
         u2.setNome("Archimede");
         u2.setCognome("Rossi");
         utenteDao.save(u2);
+
+        Utente u3=new Utente();
+        u3.setNome("ZioPaperone");
+        u3.setCognome("Gialli");
+        utenteDao.save(u3);
+
 
         Prodotto prodotto = new Prodotto();
         prodotto.setNomeProdotto("Maglietta");
@@ -92,17 +94,25 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         imageDao.save(i2);
 
         Recensione r=new Recensione();
-        r.setAutore(u1);
+        r.setAutore(u2);
 //        r.setUtenteRecensito();
-        r.setUtenteRecensito(u2);
+        r.setUtenteRecensito(u1);
         r.setCommento("bella ma non balla");
-        r.setValutazione(2);
+        r.setValutazione(3);
         recensioneDao.save(r);
+
+        Recensione r2=new Recensione();
+        r2.setAutore(u3);
+//        r.setUtenteRecensito();
+        r2.setUtenteRecensito(u1);
+        r2.setCommento("veramente pessimo ");
+        r2.setValutazione(1);
+        recensioneDao.save(r2);
 
 
         //lista vuota caricamento lazy? richiede on demand ?
 //        System.out.println("Recensioni"+utenteDao.findById(1L));
-        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni());
+        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni(1L));
 
 
 

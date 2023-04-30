@@ -23,6 +23,7 @@ public class Utente {
     @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL)
     private List<Prodotto> prodotti;
 
+//    lista delle recensioni ricevute (dove utenteRecensito=this.id)
     @OneToMany(mappedBy = "utenteRecensito",cascade = CascadeType.ALL)
     private List<Recensione> recensioni;
 

@@ -8,6 +8,7 @@ public class MessagesConfig {
     public static final String UTENTE_AGGIORNATO_ID_LOG = "Utente con id {} aggiornato con successo";
     public static final String UTENTE_CANCELLATO_ID_LOG = "Utente con id {} cancellato con successo";
     public static final String UTENTE_SALVATO_NOME_LOG = "Utente  {} salvato con successo";
+    public static final String UTENTE_RECENSIONE_ID = "Recensioni non presenti per Utente id : ";
 
 //    Prodotti
     public static final String PRODOTTI_NON_TROVATI = "Non sono oresenti Prodotti";

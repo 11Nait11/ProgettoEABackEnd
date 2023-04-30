@@ -2,7 +2,9 @@ package com.example.progettoprova.services.impl;
 
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
+import com.example.progettoprova.entities.Recensione;
 import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
@@ -40,6 +42,13 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
+    @SneakyThrows//ok
+    public UtenteDto dammiUtente(Long id) {
+
+        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
+        return modelMapper.map(utente,UtenteDto.class);}
+
+    @Override
     @SneakyThrows
     public List<ProdottoDto> dammiProdottiUtente(Long id) {
 
@@ -51,13 +60,15 @@ public class UtenteServiceImpl implements UtenteService {
 
     }
 
-
     @Override
-    @SneakyThrows//ok
-    public UtenteDto dammiUtente(Long id) {
+    @SneakyThrows
+    public List<RecensioneDto> dammiRecensioniUtente(Long id) {
 
-        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
-        return modelMapper.map(utente,UtenteDto.class);}
+        List<Recensione> recensioni = utenteDao.dammiRecensioni(id);
+        if(recensioni.isEmpty())
+            throw new UtenteException(MessagesConfig.UTENTE_RECENSIONE_ID+id);
+
+        return recensioni.stream().map(recensione -> modelMapper.map(recensione,RecensioneDto.class)).collect(Collectors.toList());}
 
 
     @Override

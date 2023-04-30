@@ -22,8 +22,8 @@ public interface UtenteDao extends JpaRepository<Utente,Long> {
     @Query("select u.prodotti from Utente u where u.id=:id")
     List<Prodotto> cercaProdottiByIdUtente(@Param("id") Long id);
 
-    @Query("select u.recensioni from Utente u")
-    List<Recensione> dammiRecensioni();
+    @Query("select u.recensioni from Utente u where u.id=:id")
+    List<Recensione> dammiRecensioni(@Param("id") Long id);
 
 }
 

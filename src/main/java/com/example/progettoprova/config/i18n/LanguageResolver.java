@@ -18,8 +18,7 @@ public class LanguageResolver extends AcceptHeaderLocaleResolver {
 
 
    // codice per determinare la lingua richiesta
-  // dal client sulla base dell'header "Accept-Language" inviato nella richiesta HTTP.
-   @Override
+  // dal client sulla base dell'header "Accept-Language" inviato nella richiesta HTTP.@Override
   public Locale resolveLocale(HttpServletRequest request) {
     String language = request.getHeader("Accept-Language");//ottengo accept-language da http header
 
