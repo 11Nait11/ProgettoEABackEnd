@@ -59,7 +59,13 @@ public class ProdottoServiceImpl implements ProdottoService {
         log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 
+    @Override
+    public List<ProdottoDto> dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(Long id) {
 
+        return prodottoDao.findAllByVenditoreIdOrderByPrezzoAsc(id)
+                        .stream().map(prodotto -> modelMapper.map(prodotto,ProdottoDto.class))
+                        .collect(Collectors.toList());
+    }
 
 
     @Override
