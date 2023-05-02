@@ -2,6 +2,7 @@ package com.example.progettoprova.handler;
 
 import com.example.progettoprova.dto.ServiceError;
 import com.example.progettoprova.exception.ImageException;
+import com.example.progettoprova.exception.MessaggioException;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(ImageException.class)
+    @ExceptionHandler(MessaggioException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ServiceError notFound(WebRequest req, ImageException ex){
         return errorResponse(req,ex.getMessage());

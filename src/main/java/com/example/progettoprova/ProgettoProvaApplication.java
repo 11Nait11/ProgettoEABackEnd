@@ -1,9 +1,6 @@
 package com.example.progettoprova;
 
-import com.example.progettoprova.dao.ImageDao;
-import com.example.progettoprova.dao.ProdottoDao;
-import com.example.progettoprova.dao.RecensioneDao;
-import com.example.progettoprova.dao.UtenteDao;
+import com.example.progettoprova.dao.*;
 import com.example.progettoprova.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class ProgettoProvaApplication implements CommandLineRunner {
@@ -25,6 +23,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     ImageDao imageDao;
     @Autowired
     RecensioneDao recensioneDao;
+    @Autowired
+    MessaggioDao messaggioDao;
 
 
     private void creaDb() throws IOException {
@@ -108,6 +108,13 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         r2.setCommento("veramente pessimo ");
         r2.setValutazione(1);
         recensioneDao.save(r2);
+
+        Messaggio m=new Messaggio();
+        m.setMittente(u1);
+        m.setDestinatario(u2);
+        m.setTesto("Ciao, ci sei?");
+        m.setDataInvio(LocalDateTime.now());
+        messaggioDao.save(m);
 
 
         //lista vuota caricamento lazy? richiede on demand ?

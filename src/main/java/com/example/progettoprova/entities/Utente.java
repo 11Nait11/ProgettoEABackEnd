@@ -27,6 +27,12 @@ public class Utente {
     @OneToMany(mappedBy = "utenteRecensito",cascade = CascadeType.ALL)
     private List<Recensione> recensioni;
 
+    @OneToMany(mappedBy = "destinatario",cascade = CascadeType.ALL)
+    private List<Messaggio> messaggi;
+
+
+
+
 //    usa @toString ed escludi campi
     @Override
     public String toString() {
