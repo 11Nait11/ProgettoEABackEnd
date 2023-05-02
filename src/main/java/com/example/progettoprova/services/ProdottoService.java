@@ -10,6 +10,7 @@ public interface ProdottoService {
     public List<ProdottoDto> dammiProdotti();
     public List<ProdottoDto> dammiProdottiDiUnUtenteById(Long id);
     public void salva(ProdottoDto p);
+    public List<ProdottoDto> dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(Long id);
 
     public void cancella(Long id);
     public ProdottoDto aggiorna(Long id, ProdottoDto utente);

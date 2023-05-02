@@ -48,8 +48,11 @@ public class ProdottoController {
         prodottoService.salva(p);
         return HttpStatus.OK;
     }
-
-
+    @GetMapping("prodotti-venditore-crescByPrezzo")
+    public ResponseEntity<List<ProdottoDto>> dammiProdittiUtenteByIdOrdCrescByPrzzo(@RequestParam Long id)
+    {
+        return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(id));
+    }
 
 
 }

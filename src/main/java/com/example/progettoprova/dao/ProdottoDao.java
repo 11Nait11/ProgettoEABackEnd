@@ -17,6 +17,10 @@ public interface ProdottoDao extends JpaRepository<Prodotto,Long> {
     @Query("SELECT p FROM Prodotto p WHERE p.venditore.id = :id")
     List<Prodotto> findAllByVenditoreId(@Param("id") Long id);
 
+    @Query("SELECT p FROM Prodotto p WHERE p.venditore.id = :id ORDER BY p.prezzo ASC")
+    List<Prodotto> findAllByVenditoreIdOrderByPrezzoAsc(@Param("id") Long id);
+
+
 
 
 }

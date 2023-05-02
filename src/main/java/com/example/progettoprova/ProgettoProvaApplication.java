@@ -72,7 +72,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         Prodotto prodotto3 = new Prodotto();
         prodotto3.setNomeProdotto("Maglietta3");
         prodotto3.setDescrizione("Maglietta in cotone a righe");
-        prodotto3.setPrezzo(19.99);
+        prodotto3.setPrezzo(9.99);
         prodotto3.setCategoria("Abbigliamento");
         prodotto3.setCondizione("Nuovo");
         prodotto3.setDisponibilita("Disponibile");
