@@ -47,8 +47,8 @@ public class Prodotto {
     @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)
     private List<Image> images;
 
-//    @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)
-//    private List<Recensione> recensioni;
+
+
 
     @Override
     public String toString() {

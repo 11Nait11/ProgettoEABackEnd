@@ -7,6 +7,7 @@ import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.exception.ImageException;
 import com.example.progettoprova.services.ImageService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,12 +29,18 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @SneakyThrows
-    public List<Image> dammiImageByIdProdotto(Long id) {
-        List<Image> i = imageDao.cercaImagesByIdProdotto(id);
-        if(i.isEmpty())
-           throw  new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID_PRODOTTO + id);
+    @Transactional
+    public List<ImageDto> dammiImmaginiByIdProdotto(Long id) {
+        List<Image> immagini=imageDao.dammiImmaginiByIdProdotto(id);
+//        List<byte[]> immagini = imageDao.cercaImagesByIdProdotto(id);
+        System.out.println("Server sono dentro "+immagini);
+        if (immagini.isEmpty())
+            throw new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID_PRODOTTO + id);
 
-        return i;}
+        return immagini.stream().map(i ->modelMapper.map(i, ImageDto.class)).collect(Collectors.toList());
+    }
+
+
 
     @Override
     public void salva(ImageDto i) {

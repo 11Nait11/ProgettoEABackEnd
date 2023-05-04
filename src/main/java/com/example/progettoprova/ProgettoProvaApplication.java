@@ -1,7 +1,10 @@
 package com.example.progettoprova;
 
 import com.example.progettoprova.dao.*;
+import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.*;
+import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.ProdottoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class ProgettoProvaApplication implements CommandLineRunner {
@@ -25,6 +30,12 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     RecensioneDao recensioneDao;
     @Autowired
     MessaggioDao messaggioDao;
+    @Autowired
+    OrdineDao ordineDao;
+    @Autowired
+    ImageService imageService;
+    @Autowired
+    ProdottoService prodottoService;
 
 
     private void creaDb() throws IOException {
@@ -93,6 +104,17 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         i2.setImage(immagine2);
         imageDao.save(i2);
 
+
+
+
+
+//        salva img letta dal db
+//        List<byte[]> im = imageDao.cercaImagesByIdProdotto(1L);
+//        int x=0;
+//        for(byte[] d:im){
+//            Files.write(Paths.get("image"+x+".png"),d);
+//            x++;}
+
         Recensione r=new Recensione();
         r.setAutore(u2);
 //        r.setUtenteRecensito();
@@ -116,11 +138,25 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         m.setDataInvio(LocalDateTime.now());
         messaggioDao.save(m);
 
+        Ordine o=new Ordine();
+        o.setVenditore(u1);
+        o.setCompratore(u2);
+        ordineDao.save(o);
+
+        Ordine o1=new Ordine();
+        o1.setVenditore(u2);
+        o1.setCompratore(u1);
+        ordineDao.save(o1);
+
 
         //lista vuota caricamento lazy? richiede on demand ?
 //        System.out.println("Recensioni"+utenteDao.findById(1L));
-        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni(1L));
-
+//        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni(1L));
+        //System.out.println("listaImg"+prodottoDao.dammiListaImmaginiDiUnProdottoByIdProdotto(1L));
+        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniVenduti(1L));
+        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniComprati(1L));
+//        System.out.println("Image"+imageService.dammiImmaginiByIdProdotto(1L));
+//        System.out.println(prodottoService.dammiImmaginiByIdProdotto(1L));
 
 
     }

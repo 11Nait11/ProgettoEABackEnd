@@ -30,6 +30,12 @@ public class Utente {
     @OneToMany(mappedBy = "destinatario",cascade = CascadeType.ALL)
     private List<Messaggio> messaggi;
 
+    @OneToMany(mappedBy ="venditore", cascade = CascadeType.ALL)
+    private List<Ordine> ordiniVenduti;
+
+    @OneToMany(mappedBy ="compratore", cascade = CascadeType.ALL)
+    private List<Ordine> ordiniComprati;
+
 
 
 

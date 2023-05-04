@@ -4,6 +4,7 @@ import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
+import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.entities.Recensione;
 import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ProdottoException;
@@ -52,7 +53,7 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows
     public List<ProdottoDto> dammiProdottiUtente(Long id) {
 
-        List<com.example.progettoprova.entities.Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
+        List<Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
         if(prodotti.isEmpty())
             throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
 

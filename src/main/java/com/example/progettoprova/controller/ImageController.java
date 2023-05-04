@@ -29,8 +29,8 @@ public class ImageController {
 
     @GetMapping("images")//togliere logica da qui
     public ResponseEntity<List<ImageDto>> dammiImagesByIdProdotto(@RequestParam Long idProdotto){
-        List<Image> images = imageService.dammiImageByIdProdotto(idProdotto);
-        return ResponseEntity.ok( images.stream().map(i ->modelMapper.map(i,ImageDto.class)).collect(Collectors.toList()));
+
+        return ResponseEntity.ok(imageService.dammiImmaginiByIdProdotto(idProdotto));
     }
 
     @DeleteMapping("images/{idImage}")

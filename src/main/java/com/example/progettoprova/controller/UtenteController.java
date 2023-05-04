@@ -5,6 +5,9 @@ import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.UtenteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +29,11 @@ public class UtenteController {
         return ResponseEntity.ok(utenteService.dammiUtenti());
     }
 
-
+    @Operation(description = "restituisce utente by id")
+    @ApiResponse(description = "Resti", responseCode = "200")
+    @Parameter(name ="idUtente",description = "id Utente",required = true, example = "1")
     @GetMapping("utenti/{idUtente}")
-    public ResponseEntity<UtenteDto> dammiUtente(@PathVariable Long idUtente){
+    public ResponseEntity<UtenteDto> dammiUtente(@PathVariable("idUtente") Long idUtente){
         return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
 

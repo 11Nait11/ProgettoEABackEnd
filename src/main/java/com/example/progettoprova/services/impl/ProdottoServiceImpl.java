@@ -4,11 +4,14 @@ import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ProdottoDao;
 
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
+import com.example.progettoprova.services.ImageService;
 import com.example.progettoprova.services.ProdottoService;
 import com.example.progettoprova.services.UtenteService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,7 @@ public class ProdottoServiceImpl implements ProdottoService {
     private final ProdottoDao prodottoDao;
     private final ModelMapper modelMapper;
     private final UtenteService utenteService;
+    private final ImageService imageService;
 
     @Override
     @SneakyThrows
@@ -39,15 +43,19 @@ public class ProdottoServiceImpl implements ProdottoService {
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
     }
 
-//    meglio implementarla in utente?
+
     @Override
     @SneakyThrows
+    @Transactional
     public List<ProdottoDto> dammiProdottiDiUnUtenteById(Long id) {
          List<Prodotto> prodotti=prodottoDao.findAllByVenditoreId(id);
+
+        System.out.println("Lista trvata "+ prodotti);
          if(prodotti.isEmpty())
              throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
     }
+
 
     @Override
     @SneakyThrows
@@ -88,6 +96,13 @@ public class ProdottoServiceImpl implements ProdottoService {
         prodottoDao.save(p.get());
         log.info(MessagesConfig.PRODOTTO_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(prodottoDao.save(p.get()),ProdottoDto.class);
+    }
+
+    @Override
+    @Transactional
+    public List<Image> dammiImmaginiByIdProdotto(Long id) {
+        return prodottoDao.listaImmaginiByProdottoId(id);
+
     }
 
 
