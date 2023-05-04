@@ -35,6 +35,7 @@ public class ProdottoServiceImpl implements ProdottoService {
 
     @Override
     @SneakyThrows
+    @Transactional
     public List<ProdottoDto> dammiProdotti() {
 
         List<Prodotto> prodotti = prodottoDao.findAll();
