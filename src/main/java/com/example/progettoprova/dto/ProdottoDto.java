@@ -19,6 +19,6 @@ public class ProdottoDto {
     private String nomeProdotto;
     private double prezzo;
     private Long venditoreId;
-//    private List<ImageDto> images;
+    private List<ImageDto> images;
 
 }
