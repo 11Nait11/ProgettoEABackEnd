@@ -51,6 +51,7 @@ public class ProdottoController {
 //    ok
     @PostMapping("salva")
     public HttpStatus salva(@RequestBody ProdottoDto p){
+        System.out.println("RICEVUTOOOOOOOOO: "+p);
         prodottoService.salva(p);
         return HttpStatus.OK;
     }
