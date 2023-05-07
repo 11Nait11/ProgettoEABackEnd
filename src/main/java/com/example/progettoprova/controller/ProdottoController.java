@@ -26,7 +26,12 @@ public class ProdottoController {
     }
 
     @GetMapping("prodotti/{idProdotto}")
-    public ResponseEntity<List<ProdottoDto>> dammiProdottiDiUnUtenteById(@PathVariable("idProdotto") Long id){
+    public ResponseEntity<ProdottoDto> dammiProdottoById(@PathVariable("idProdotto") Long id){
+        return ResponseEntity.ok(prodottoService.dammiProdottoById(id));
+    }
+
+    @GetMapping("prodotti/utente/{idUtente}")
+    public ResponseEntity<List<ProdottoDto>> dammiProdottiDiUnUtenteById(@PathVariable("idUtente") Long id){
         return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteById(id));
     }
 

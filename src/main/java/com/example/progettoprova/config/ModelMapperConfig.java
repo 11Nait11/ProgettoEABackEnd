@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
+//     utilizzo nomi dei campi per mappare:
+//      .setFieldMatchingEnabled(true)
+//    accedo anche sui campi privati :
+//      .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 
     @Bean
     public ModelMapper getModelMapper() {
@@ -15,7 +19,7 @@ public class ModelMapperConfig {
         modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 
         modelMapper.createTypeMap(Image.class, ImageDto.class)
-                .addMapping(Image::getImage, ImageDto::setImage);
+                .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)1
     return modelMapper;
     }
 }

@@ -50,11 +50,17 @@ public class ProdottoServiceImpl implements ProdottoService {
     @Transactional
     public List<ProdottoDto> dammiProdottiDiUnUtenteById(Long id) {
          List<Prodotto> prodotti=prodottoDao.findAllByVenditoreId(id);
-
-        System.out.println("Lista trvata "+ prodotti);
          if(prodotti.isEmpty())
              throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    @SneakyThrows
+    @Transactional
+    public ProdottoDto dammiProdottoById(Long id) {
+        Prodotto prodotto = prodottoDao.findById(id).orElseThrow(() -> new ProdottoException(MessagesConfig.PRODOTTO_NON_TROVATO_ID + id));
+        return  modelMapper.map(prodotto, ProdottoDto.class);
     }
 
 
@@ -99,10 +105,12 @@ public class ProdottoServiceImpl implements ProdottoService {
         return modelMapper.map(prodottoDao.save(p.get()),ProdottoDto.class);
     }
 
+
+//    cancellare?
     @Override
     @Transactional
     public List<Image> dammiImmaginiByIdProdotto(Long id) {
-        return prodottoDao.listaImmaginiByProdottoId(id);
+        return prodottoDao.dammiListaImmaginiByProdottoId(id);
 
     }
 

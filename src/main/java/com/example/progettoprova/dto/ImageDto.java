@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 public class ImageDto {
 
-
     private Long id;
     private byte[] image;
 }

@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProdottoService {
     public List<ProdottoDto> dammiProdotti();
     public List<ProdottoDto> dammiProdottiDiUnUtenteById(Long id);
+    public ProdottoDto dammiProdottoById(Long id);
     public void salva(ProdottoDto p);
     public List<ProdottoDto> dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(Long id);
 
@@ -15,4 +16,6 @@ public interface ProdottoService {
     public ProdottoDto aggiorna(Long id, ProdottoDto utente);
 
     public List<Image> dammiImmaginiByIdProdotto(Long id);
+
+
 }
