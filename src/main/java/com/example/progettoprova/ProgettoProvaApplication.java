@@ -1,6 +1,7 @@
 package com.example.progettoprova;
 
 import com.example.progettoprova.dao.*;
+import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.*;
 import com.example.progettoprova.services.ImageService;
@@ -15,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -103,6 +105,24 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         i2.setProdotto(prodotto);
         i2.setImage(immagine2);
         imageDao.save(i2);
+
+
+
+
+
+
+//        ProdottoDto pDto=new ProdottoDto();
+//        pDto.setNomeProdotto("gino");
+//        pDto.setPrezzo(15);
+//        pDto.setVenditoreId(1L);
+//
+//        ImageDto imageDto = new ImageDto();
+//        byte[] imageData = new byte[] { 0x00, 0x01, 0x02, 0x03 };
+//        imageDto.setImage(imageData);
+//        List<ImageDto> images = new ArrayList<>();
+//        images.add(imageDto);
+//        pDto.setImages(images);
+//        prodottoService.salva(pDto);
 
 
 

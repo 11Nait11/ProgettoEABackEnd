@@ -1,13 +1,21 @@
 package com.example.progettoprova.controller;
 
 
+import com.example.progettoprova.dao.ProdottoDao;
+import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.entities.Prodotto;
+import com.example.progettoprova.services.ImageService;
 import com.example.progettoprova.services.ProdottoService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,6 +25,11 @@ import java.util.List;
 public class ProdottoController {
 
     private final ProdottoService prodottoService;
+
+//    togliere
+    private final ModelMapper modelMapper;
+    private final ImageService imageService;
+    private final ProdottoDao prodottoDao;
 
 
 //    ok
@@ -51,7 +64,7 @@ public class ProdottoController {
 //    ok
     @PostMapping("salva")
     public HttpStatus salva(@RequestBody ProdottoDto p){
-        System.out.println("RICEVUTOOOOOOOOO: "+p);
+        System.out.println("RICEVUTOoooo"+p);
         prodottoService.salva(p);
         return HttpStatus.OK;
     }
@@ -59,6 +72,35 @@ public class ProdottoController {
     public ResponseEntity<List<ProdottoDto>> dammiProdittiUtenteByIdOrdCrescByPrzzo(@RequestParam Long id)
     {
         return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(id));
+    }
+    @PostMapping("salva2")
+    public HttpStatus salva(@RequestParam("nomeProdotto") String nomeProdotto,
+                            @RequestParam("prezzo") double prezzo,
+                            @RequestParam("venditoreId") Long venditoreId,
+                            @RequestParam("immagine") MultipartFile immagine) throws IOException {
+
+        ProdottoDto prodottoDto = new ProdottoDto();
+        prodottoDto.setNomeProdotto(nomeProdotto);
+        prodottoDto.setPrezzo(prezzo);
+        prodottoDto.setVenditoreId(venditoreId);
+        Prodotto prodottoSalvato=prodottoDao.save(modelMapper.map(prodottoDto,Prodotto.class));
+
+        if (immagine != null && !immagine.isEmpty()) {
+            byte[] imageBytes = immagine.getBytes();
+            ImageDto imageDto = new ImageDto();
+            imageDto.setImage(imageBytes);
+            List<ImageDto> images = new ArrayList<>();
+            images.add(imageDto);
+            imageDto.setProdotto(prodottoSalvato);
+            imageService.salva(imageDto);
+
+
+        }
+
+
+
+
+        return HttpStatus.OK;
     }
 
 

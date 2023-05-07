@@ -1,7 +1,9 @@
 package com.example.progettoprova.config;
 
 import com.example.progettoprova.dto.ImageDto;
+import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
+import com.example.progettoprova.entities.Prodotto;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,11 @@ public class ModelMapperConfig {
 
         modelMapper.createTypeMap(Image.class, ImageDto.class)
                 .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)1
-    return modelMapper;
+        modelMapper.createTypeMap(ImageDto.class, Image.class)
+                .addMapping(ImageDto::getImage, Image::setImage);
+        // Mappa la lista di ImageDto all'elenco corrispondente di Image all'interno di Prodotto
+        modelMapper.typeMap(ProdottoDto.class, Prodotto.class)
+                .addMapping(ProdottoDto::getImages, Prodotto::setImages);
+        return modelMapper;
     }
 }
