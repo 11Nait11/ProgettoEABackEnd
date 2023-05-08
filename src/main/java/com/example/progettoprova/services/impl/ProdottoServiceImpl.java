@@ -68,7 +68,7 @@ public class ProdottoServiceImpl implements ProdottoService {
     @SneakyThrows
     public void salva(ProdottoDto p) {
         System.out.println("sto salvato "+p);
-        System.out.println("lista "+p.getImages());
+
 
         if(utenteService.dammiUtente(p.getVenditoreId())==null)
             throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());

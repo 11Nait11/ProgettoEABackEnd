@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 
 public class ProdottoDto {
-    @JsonIgnore
+
     private Long id;
     private String nomeProdotto;
     private double prezzo;

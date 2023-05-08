@@ -10,6 +10,5 @@ import java.util.List;
 public class ImageDto {
 
     private byte[] image;
-    private Prodotto prodotto;
 
 }

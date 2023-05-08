@@ -65,9 +65,11 @@ public class ProdottoController {
     @PostMapping("salva")
     public HttpStatus salva(@RequestBody ProdottoDto p){
         System.out.println("RICEVUTOoooo"+p);
-        prodottoService.salva(p);
+        System.out.println("HO QUESTA IMAGEEEEEEEE:"+p.getImages());
+        //prodottoService.salva(p);
         return HttpStatus.OK;
     }
+
     @GetMapping("prodotti-venditore-crescByPrezzo")
     public ResponseEntity<List<ProdottoDto>> dammiProdittiUtenteByIdOrdCrescByPrzzo(@RequestParam Long id)
     {
@@ -91,7 +93,7 @@ public class ProdottoController {
             imageDto.setImage(imageBytes);
             List<ImageDto> images = new ArrayList<>();
             images.add(imageDto);
-            imageDto.setProdotto(prodottoSalvato);
+           //.setProdotto(prodottoSalvato);
             imageService.salva(imageDto);
 
 
