@@ -154,7 +154,7 @@ class ProgettoProvaApplicationTests {
     @Disabled
     void queryImage() {
 
-       imageService.dammiImageByIdProdotto(1L);
+       //imageService.dammiImageByIdProdotto(1L);
 
     }
     @Test
