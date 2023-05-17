@@ -178,7 +178,6 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 //        System.out.println("Image"+imageService.dammiImmaginiByIdProdotto(1L));
 //        System.out.println(prodottoService.dammiImmaginiByIdProdotto(1L));
 
-
     }
 
     public static void main(String[] args) throws IOException {
