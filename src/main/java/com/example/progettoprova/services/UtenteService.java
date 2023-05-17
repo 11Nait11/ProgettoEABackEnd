@@ -14,6 +14,7 @@ public interface UtenteService {
     public List<UtenteDto> dammiUtenti();
     public UtenteDto dammiUtente(Long id);
     public List<ProdottoDto> dammiProdottiUtente(Long id);
+    public Utente dammiEntityUtente(Long id);
     public List<RecensioneDto> dammiRecensioniUtente(Long id);
 
     public void salva(Utente u);

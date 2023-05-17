@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class UtenteDto {
 
 
-
     private Long id;
     private String nome;
     private String cognome;

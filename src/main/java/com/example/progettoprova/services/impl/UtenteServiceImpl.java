@@ -45,9 +45,14 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
-
         Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
         return modelMapper.map(utente,UtenteDto.class);}
+
+    @Override
+    @SneakyThrows//ok
+    public Utente dammiEntityUtente(Long id) {
+        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
+        return utente;}
 
     @Override
     @SneakyThrows

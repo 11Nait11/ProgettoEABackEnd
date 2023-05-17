@@ -67,13 +67,9 @@ public class ProdottoServiceImpl implements ProdottoService {
     @Override
     @SneakyThrows
     public void salva(ProdottoDto p) {
-        System.out.println("sto salvato "+p);
-
-
         if(utenteService.dammiUtente(p.getVenditoreId())==null)
             throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
         prodottoDao.save(modelMapper.map(p,Prodotto.class));
-
         log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 

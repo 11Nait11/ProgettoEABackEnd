@@ -20,15 +20,15 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 
-        modelMapper.createTypeMap(Image.class, ImageDto.class)
-                .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)1
-
-        modelMapper.createTypeMap(ImageDto.class, Image.class)
-                .addMapping(ImageDto::getImage, Image::setImage);
-
-        // Mappa la lista di ImageDto all'elenco corrispondente di Image all'interno di Prodotto
-        modelMapper.typeMap(ProdottoDto.class, Prodotto.class)
-                .addMapping(ProdottoDto::getImages, Prodotto::setImages);
+//        modelMapper.createTypeMap(Image.class, ImageDto.class)
+//                .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)1
+//
+//        modelMapper.createTypeMap(ImageDto.class, Image.class)
+//                .addMapping(ImageDto::getImage, Image::setImage);
+//
+//        // Mappa la lista di ImageDto all'elenco corrispondente di Image all'interno di Prodotto
+//        modelMapper.typeMap(ProdottoDto.class, Prodotto.class)
+//                .addMapping(ProdottoDto::getImages, Prodotto::setImages);
         return modelMapper;
     }
 }

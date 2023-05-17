@@ -16,10 +16,12 @@ import java.util.List;
 
 public class ProdottoDto {
 
+    @JsonIgnore
     private Long id;
     private String nomeProdotto;
     private double prezzo;
     private Long venditoreId;
     private List<ImageDto> images;
+
 
 }

@@ -26,13 +26,9 @@ public class ProdottoController {
 
     private final ProdottoService prodottoService;
 
-//    togliere
-    private final ModelMapper modelMapper;
-    private final ImageService imageService;
-    private final ProdottoDao prodottoDao;
 
 
-//    ok
+
     @GetMapping("prodotti")
     public ResponseEntity<List<ProdottoDto>>dammiProdotti(){
         return ResponseEntity.ok(prodottoService.dammiProdotti());
@@ -59,14 +55,11 @@ public class ProdottoController {
         return HttpStatus.OK;
     }
     
-//    ok
 
-//    ok
     @PostMapping("salva")
     public HttpStatus salva(@RequestBody ProdottoDto p){
-        System.out.println("RICEVUTOoooo"+p);
-        System.out.println("HO QUESTA IMAGEEEEEEEE:"+p.getImages());
-        //prodottoService.salva(p);
+//        aggiungere validazione nella entity per non salvare adMinkia
+        prodottoService.salva(p);
         return HttpStatus.OK;
     }
 
@@ -75,35 +68,7 @@ public class ProdottoController {
     {
         return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(id));
     }
-    @PostMapping("salva2")
-    public HttpStatus salva(@RequestParam("nomeProdotto") String nomeProdotto,
-                            @RequestParam("prezzo") double prezzo,
-                            @RequestParam("venditoreId") Long venditoreId,
-                            @RequestParam("immagine") MultipartFile immagine) throws IOException {
 
-        ProdottoDto prodottoDto = new ProdottoDto();
-        prodottoDto.setNomeProdotto(nomeProdotto);
-        prodottoDto.setPrezzo(prezzo);
-        prodottoDto.setVenditoreId(venditoreId);
-        Prodotto prodottoSalvato=prodottoDao.save(modelMapper.map(prodottoDto,Prodotto.class));
-
-        if (immagine != null && !immagine.isEmpty()) {
-            byte[] imageBytes = immagine.getBytes();
-            ImageDto imageDto = new ImageDto();
-            imageDto.setImage(imageBytes);
-            List<ImageDto> images = new ArrayList<>();
-            images.add(imageDto);
-           //.setProdotto(prodottoSalvato);
-            imageService.salva(imageDto);
-
-
-        }
-
-
-
-
-        return HttpStatus.OK;
-    }
 
 
 }
