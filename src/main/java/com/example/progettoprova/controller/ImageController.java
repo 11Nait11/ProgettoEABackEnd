@@ -40,7 +40,7 @@ public class ImageController {
     }
 
     @PostMapping("salva")
-    public HttpStatus salvaImage(@RequestBody ImageDto i){
+    public HttpStatus salvaImage(@RequestBody Image i){
         imageService.salva(i);
         return HttpStatus.OK;
     }

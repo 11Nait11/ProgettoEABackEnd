@@ -100,11 +100,11 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         i.setImage(immagine);
         imageDao.save(i);
 
-        Image i2 =new Image();
-        byte[] immagine2= Files.readAllBytes(Path.of("src/main/resources/img/al.jpg"));
-        i2.setProdotto(prodotto);
-        i2.setImage(immagine2);
-        imageDao.save(i2);
+//        Image i2 =new Image();
+//        byte[] immagine2= Files.readAllBytes(Path.of("src/main/resources/img/al.jpg"));
+//        i2.setProdotto(prodotto);
+//        i2.setImage(immagine2);
+//        imageDao.save(i2);
 
 
 

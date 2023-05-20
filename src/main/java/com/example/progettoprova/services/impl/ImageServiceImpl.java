@@ -43,9 +43,9 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
-    public void salva(ImageDto i) {
+    public void salva(Image i) {
 
-        imageDao.save(modelMapper.map(i, Image.class));
+        imageDao.save(i);
         log.info(MessagesConfig.IMMAGINE_SALVATO_LOG);
     }
 
