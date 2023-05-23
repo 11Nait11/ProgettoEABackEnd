@@ -14,6 +14,7 @@ public class MessaggioDto {
 
     @JsonIgnore
     private Long id;
+    private String oggetto;
     private String testo;
     private LocalDateTime dataInvio;
     private Long mittenteId;

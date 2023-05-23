@@ -13,6 +13,7 @@ public class Messaggio {
     @GeneratedValue
     private Long id;
 
+    private String oggetto;
     private String testo;
     private LocalDateTime dataInvio;
 
