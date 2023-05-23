@@ -3,6 +3,7 @@ package com.example.progettoprova.services.impl;
 import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ProdottoDao;
 
+import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.entities.Prodotto;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,7 +71,20 @@ public class ProdottoServiceImpl implements ProdottoService {
     public void salva(ProdottoDto p) {
         if(utenteService.dammiUtente(p.getVenditoreId())==null)
             throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
-        prodottoDao.save(modelMapper.map(p,Prodotto.class));
+
+        List<ImageDto> imagesDto=p.getImages();
+        p.setImages(new ArrayList<>());
+        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
+
+        System.out.println("prodotto ritornato"+prodotto);
+        for (ImageDto imageDto:imagesDto){
+            Image image=modelMapper.map(imageDto, Image.class);
+            image.setProdotto(prodotto);
+            imageService.salva(image);
+
+        }
+
+
         log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 

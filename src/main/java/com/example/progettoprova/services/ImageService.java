@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ImageService {
 
-    public void salva(ImageDto i);
+    public void salva(Image i);
     public void cancella(Long id);
     public ProdottoDto aggiorna(Long id, Image i);
     public List<ImageDto> dammiImmaginiByIdProdotto(Long id);
