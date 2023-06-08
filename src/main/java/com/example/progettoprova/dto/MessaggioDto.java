@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MessaggioDto {
 
-
-    @JsonIgnore
     private Long id;
     private String oggetto;
     private String testo;
     private LocalDateTime dataInvio;
+    private String mittenteNome;
+    private String destinatarioNome;
     private Long mittenteId;
     private Long destinatarioId;
 }

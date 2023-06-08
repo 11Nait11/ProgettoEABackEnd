@@ -13,8 +13,10 @@ public class Messaggio {
     @GeneratedValue
     private Long id;
 
-    private String oggetto;
+
+    @Column(columnDefinition = "TEXT")//  > 256 caratteri
     private String testo;
+
     private LocalDateTime dataInvio;
 
     @ManyToOne

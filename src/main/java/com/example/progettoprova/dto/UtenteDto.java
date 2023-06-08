@@ -1,5 +1,6 @@
 package com.example.progettoprova.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,4 +15,5 @@ public class UtenteDto {
     private Long id;
     private String nome;
     private String cognome;
+
 }

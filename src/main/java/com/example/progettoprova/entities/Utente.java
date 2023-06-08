@@ -20,6 +20,8 @@ public class Utente {
 
     private String cognome;
 
+
+
     @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL)
     private List<Prodotto> prodotti;
 

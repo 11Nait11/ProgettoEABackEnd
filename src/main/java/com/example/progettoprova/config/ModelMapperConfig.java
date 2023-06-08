@@ -21,7 +21,7 @@ public class ModelMapperConfig {
         modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 
 //        modelMapper.createTypeMap(Image.class, ImageDto.class)
-//                .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)1
+//                .addMapping(Image::getImage, ImageDto::setImage);//nome Campo (getPippo setTopolino)
 //
 //        modelMapper.createTypeMap(ImageDto.class, Image.class)
 //                .addMapping(ImageDto::getImage, Image::setImage);

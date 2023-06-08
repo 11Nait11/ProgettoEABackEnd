@@ -40,11 +40,16 @@ public class ImageServiceImpl implements ImageService {
         return immagini.stream().map(i ->modelMapper.map(i, ImageDto.class)).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public List<ImageDto> dammiImmagini() {
+        List<Image> immagini=imageDao.dammiUnaImagePerProdotto();
+        return immagini.stream().map(i ->modelMapper.map(i, ImageDto.class)).collect(Collectors.toList());
+    }
 
 
     @Override
     public void salva(Image i) {
-
         imageDao.save(i);
         log.info(MessagesConfig.IMMAGINE_SALVATO_LOG);
     }

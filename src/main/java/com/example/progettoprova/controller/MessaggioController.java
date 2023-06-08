@@ -4,7 +4,7 @@ package com.example.progettoprova.controller;
 import com.example.progettoprova.dto.MessaggioDto;
 import com.example.progettoprova.services.MessaggioService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +20,19 @@ public class MessaggioController {
 
 
     @GetMapping("messaggi/utente/{idUtente}")
-    public ResponseEntity<List<MessaggioDto>> dammiRecensioniUtenteById(@PathVariable("idUtente") Long id){
+    public ResponseEntity<List<MessaggioDto>> dammiRecensioniUtenteById(@PathVariable("idUtente") Long id) {
         return ResponseEntity.ok(messaggioService.dammiMessaggiUtenteById(id));
     }
 
     @GetMapping("messaggi")
     public ResponseEntity<List<MessaggioDto>> dammiRecensioni() {
         return ResponseEntity.ok(messaggioService.dammiRecensioni());
+    }
+
+    @PostMapping("salva")
+    public HttpStatus salva(@RequestBody MessaggioDto m) {
+        messaggioService.salva(m);
+        return HttpStatus.OK;
     }
 
 

@@ -29,5 +29,8 @@ public class MessagesConfig {
     public static final String RECENSIONE_SALVATA_LOG = "Recensione  salvato con successo";
     public static final String RECENSIONE_CANCELLATO_ID_LOG = "Recensione  {} cancellato con successo";
 
+//    message
+    public static final String MESSAGE_NON_TROVATO_PER_UTENTE_ID = "Messaggi non trovati per l'utente : ";
+    public static final String MESSAGE_SALVATO_LOG = "Messaggio salvato nel db";
 
 }
