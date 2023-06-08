@@ -28,7 +28,6 @@ public class ProdottoController {
 
 
 
-
     @GetMapping("prodotti")
     public ResponseEntity<List<ProdottoDto>>dammiProdotti(){
         return ResponseEntity.ok(prodottoService.dammiProdotti());
@@ -36,6 +35,7 @@ public class ProdottoController {
 
     @GetMapping("prodotti/{idProdotto}")
     public ResponseEntity<ProdottoDto> dammiProdottoById(@PathVariable("idProdotto") Long id){
+        System.out.println("Contattato DammiProdottoByID");
         return ResponseEntity.ok(prodottoService.dammiProdottoById(id));
     }
 

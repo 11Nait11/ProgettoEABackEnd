@@ -39,6 +39,37 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     @Autowired
     ProdottoService prodottoService;
 
+    public static void main(String[] args) throws IOException {
+
+        SpringApplication.run(ProgettoProvaApplication.class, args);
+
+
+////        ConfigurableApplicationContext context = SpringApplication.run(ProgettoProvaApplication.class,args);
+////
+//        /**Cache */
+//    //        recupera dal context il bean di tipo CacheManger
+//    //        se hai due bean di tipo CacheManger -> context.getBean("nomeBean", CacheManager.class)
+//            CacheManager cm=context.getBean(CacheManager.class);
+//            Utente u1=new Utente();
+//            u1.setFirstName("gianni");
+//            u1.setLastName("pino");
+//    //        salvo oggetto in cache e poi lo recupero
+//            cm.getCache(CacheConfig.CACHE_FOR_UTENTE).put("gianni",u1);
+//            System.out.println(cm.getCache(CacheConfig.CACHE_FOR_UTENTE).get("gianni").get());
+//
+//        /**Sfrattare Cache*/
+////            context.getBean(CacheConfig.class).cacheEvictStudent();
+////            System.out.println(cm.getCache(CacheConfig.CACHE_FOR_UTENTE).get("gianni").get());
+
+
+    }//main
+
+    @Override
+    public void run(String... args) throws Exception {
+        creaDb();
+
+    }
+
 
     private void creaDb() throws IOException {
 
@@ -59,9 +90,9 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
 
         Prodotto prodotto = new Prodotto();
-        prodotto.setNomeProdotto("Maglietta");
-        prodotto.setDescrizione("Maglietta in cotone a righe");
-        prodotto.setPrezzo(19.99);
+        prodotto.setNomeProdotto("ScarpaNike1");
+        prodotto.setDescrizione("Bellissima Scarpa Nike");
+        prodotto.setPrezzo(99.99);
         prodotto.setCategoria("Abbigliamento");
         prodotto.setCondizione("Nuovo");
         prodotto.setDisponibilita("Disponibile");
@@ -70,22 +101,41 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         // prodotto.setUbicazione("Roma");
         prodottoDao.save(prodotto);
 
+        Image i =new Image();
+        byte[] immagine= Files.readAllBytes(Path.of("src/main/resources/img/s1.jpg"));
+        i.setProdotto(prodotto);
+        i.setImage(immagine);
+        imageDao.save(i);
+
+
         Prodotto prodotto2 = new Prodotto();
-        prodotto2.setNomeProdotto("Maglietta2");
-        prodotto2.setDescrizione("Maglietta in cotone a righe");
-        prodotto2.setPrezzo(19.99);
+        prodotto2.setNomeProdotto("Scarpa2");
+        prodotto2.setDescrizione("Bellissima Scarpa Scarpa2");
+        prodotto2.setPrezzo(79.99);
         prodotto2.setCategoria("Abbigliamento");
         prodotto2.setCondizione("Nuovo");
         prodotto2.setDisponibilita("Disponibile");;
         // prodotto.setDataAggiunta(new Date());
-        prodotto2.setVenditore(u2);
+        prodotto2.setVenditore(u1);
         // prodotto.setUbicazione("Roma");
         prodottoDao.save(prodotto2);
 
+        Image i2 =new Image();
+        byte[] immagine2= Files.readAllBytes(Path.of("src/main/resources/img/s2.jpg"));
+        i2.setProdotto(prodotto2);
+        i2.setImage(immagine2);
+        imageDao.save(i2);
+
+        Image i3 =new Image();
+        byte[] immagine3= Files.readAllBytes(Path.of("src/main/resources/img/s2-2.jpg"));
+        i3.setProdotto(prodotto2);
+        i3.setImage(immagine3);
+        imageDao.save(i3);
+
         Prodotto prodotto3 = new Prodotto();
-        prodotto3.setNomeProdotto("Maglietta3");
-        prodotto3.setDescrizione("Maglietta in cotone a righe");
-        prodotto3.setPrezzo(9.99);
+        prodotto3.setNomeProdotto("Jeans1");
+        prodotto3.setDescrizione("Bellissimo Jeans1");
+        prodotto3.setPrezzo(59.99);
         prodotto3.setCategoria("Abbigliamento");
         prodotto3.setCondizione("Nuovo");
         prodotto3.setDisponibilita("Disponibile");
@@ -94,17 +144,35 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         // prodotto.setUbicazione("Roma");
         prodottoDao.save(prodotto3);
 
-        Image i =new Image();
-        byte[] immagine= Files.readAllBytes(Path.of("src/main/resources/img/Cattura.PNG"));
-        i.setProdotto(prodotto);
-        i.setImage(immagine);
-        imageDao.save(i);
+        Image i4 =new Image();
+        byte[] immagine4= Files.readAllBytes(Path.of("src/main/resources/img/j1.jpg"));
+        i4.setProdotto(prodotto3);
+        i4.setImage(immagine4);
+        imageDao.save(i4);
 
-//        Image i2 =new Image();
-//        byte[] immagine2= Files.readAllBytes(Path.of("src/main/resources/img/al.jpg"));
-//        i2.setProdotto(prodotto);
-//        i2.setImage(immagine2);
-//        imageDao.save(i2);
+        Prodotto prodotto4 = new Prodotto();
+        prodotto4.setNomeProdotto("Camicia1");
+        prodotto4.setDescrizione("Bellissima Camicia1");
+        prodotto4.setPrezzo(79.99);
+        prodotto4.setCategoria("Abbigliamento");
+        prodotto4.setCondizione("Nuovo");
+        prodotto4.setDisponibilita("Disponibile");
+        // prodotto.setDataAggiunta(new Date());
+        prodotto4.setVenditore(u3);
+        // prodotto.setUbicazione("Roma");
+        prodottoDao.save(prodotto4);
+
+        Image i5 =new Image();
+        byte[] immagine5= Files.readAllBytes(Path.of("src/main/resources/img/c1.png"));
+        i5.setProdotto(prodotto4);
+        i5.setImage(immagine5);
+        imageDao.save(i5);
+
+
+
+
+
+
 
 
 
@@ -152,11 +220,25 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         recensioneDao.save(r2);
 
         Messaggio m=new Messaggio();
-        m.setMittente(u1);
-        m.setDestinatario(u2);
+        m.setMittente(u2);
+        m.setDestinatario(u1);
         m.setTesto("Ciao, ci sei?");
         m.setDataInvio(LocalDateTime.now());
         messaggioDao.save(m);
+
+        Messaggio m3=new Messaggio();
+        m3.setMittente(u1);
+        m3.setDestinatario(u2);
+        m3.setTesto("tutto bene , tu come stai ?");
+        m3.setDataInvio(LocalDateTime.now());
+        messaggioDao.save(m3);
+
+        Messaggio m2=new Messaggio();
+        m2.setMittente(u3);
+        m2.setDestinatario(u1);
+        m2.setTesto("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.?");
+        m2.setDataInvio(LocalDateTime.now());
+        messaggioDao.save(m2);
 
         Ordine o=new Ordine();
         o.setVenditore(u1);
@@ -180,40 +262,9 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
     }
 
-    public static void main(String[] args) throws IOException {
-
-
-
-        SpringApplication.run(ProgettoProvaApplication.class, args);
-
-
-////        ConfigurableApplicationContext context = SpringApplication.run(ProgettoProvaApplication.class,args);
-////
-//        /**Cache */
-//    //        recupera dal context il bean di tipo CacheManger
-//    //        se hai due bean di tipo CacheManger -> context.getBean("nomeBean", CacheManager.class)
-//            CacheManager cm=context.getBean(CacheManager.class);
-//            Utente u1=new Utente();
-//            u1.setFirstName("gianni");
-//            u1.setLastName("pino");
-//    //        salvo oggetto in cache e poi lo recupero
-//            cm.getCache(CacheConfig.CACHE_FOR_UTENTE).put("gianni",u1);
-//            System.out.println(cm.getCache(CacheConfig.CACHE_FOR_UTENTE).get("gianni").get());
-//
-//        /**Sfrattare Cache*/
-////            context.getBean(CacheConfig.class).cacheEvictStudent();
-////            System.out.println(cm.getCache(CacheConfig.CACHE_FOR_UTENTE).get("gianni").get());
 
 
 
 
-    }
 
-
-
-    @Override
-    public void run(String... args) throws Exception {
-        creaDb();
-
-    }
 }

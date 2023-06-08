@@ -11,14 +11,14 @@ public class Image {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "idProdotto")
     private Prodotto prodotto;
 
     @Lob
-    public byte[] image;
+    private byte[] image;
 
     @Override
     public String toString() {

@@ -19,6 +19,12 @@ public interface ImageDao extends JpaRepository<Image,Long> {
     List<Image> dammiImmaginiByIdProdotto(@Param("idProdotto") Long idProdotto);
 
 
+    @Query(
+            value = "SELECT * from image i where i.id = (select MIN(id) from image WHERE id_prodotto = i.id_prodotto)",
+            nativeQuery = true)
+    List<Image> dammiUnaImagePerProdotto();
+
+
 
 
 

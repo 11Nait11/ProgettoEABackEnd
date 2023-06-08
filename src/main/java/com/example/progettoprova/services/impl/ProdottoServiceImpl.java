@@ -69,23 +69,23 @@ public class ProdottoServiceImpl implements ProdottoService {
     @Override
     @SneakyThrows
     public void salva(ProdottoDto p) {
-        if(utenteService.dammiUtente(p.getVenditoreId())==null)
-            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
-
-        List<ImageDto> imagesDto=p.getImages();
-        p.setImages(new ArrayList<>());
-        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
-
-        System.out.println("prodotto ritornato"+prodotto);
-        for (ImageDto imageDto:imagesDto){
-            Image image=modelMapper.map(imageDto, Image.class);
-            image.setProdotto(prodotto);
-            imageService.salva(image);
-
-        }
-
-
-        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
+//        if(utenteService.dammiUtente(p.getVenditoreId())==null)
+//            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
+//
+//        List<ImageDto> imagesDto=p.getImages();
+//        p.setImages(new ArrayList<>());
+//        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
+//
+//        System.out.println("prodotto ritornato"+prodotto);
+//        for (ImageDto imageDto:imagesDto){
+//            Image image=modelMapper.map(imageDto, Image.class);
+//            image.setProdotto(prodotto);
+//            imageService.salva(image);
+//
+//        }
+//
+//
+//        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ProdottoServiceImpl implements ProdottoService {
         Optional<Prodotto> p = prodottoDao.findById(id);
         if(p.isEmpty())
             throw new ProdottoException(MessagesConfig.PRODOTTO_NON_TROVATO_ID +id);
-        p.get().setPrezzo(prodotto.getPrezzo());
+//        p.get().setPrezzo(prodotto.getPrezzo());
         prodottoDao.save(p.get());
         log.info(MessagesConfig.PRODOTTO_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(prodottoDao.save(p.get()),ProdottoDto.class);

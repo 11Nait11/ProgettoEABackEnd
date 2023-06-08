@@ -12,4 +12,6 @@ public interface ImageService {
     public void cancella(Long id);
     public ProdottoDto aggiorna(Long id, Image i);
     public List<ImageDto> dammiImmaginiByIdProdotto(Long id);
+    public List<ImageDto> dammiImmagini();
+
 }

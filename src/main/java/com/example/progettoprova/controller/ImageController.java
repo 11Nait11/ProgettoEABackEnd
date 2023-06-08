@@ -1,5 +1,6 @@
 package com.example.progettoprova.controller;
 
+import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.UtenteDto;
@@ -23,13 +24,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ImageController {
 
-    private final UtenteService utenteService;
+
     private final ImageService imageService;
-    private final ModelMapper modelMapper;
 
-    @GetMapping("images")//togliere logica da qui
-    public ResponseEntity<List<ImageDto>> dammiImagesByIdProdotto(@RequestParam Long idProdotto){
 
+
+    @GetMapping("images")
+    public ResponseEntity<List<ImageDto>> dammiImmagini() {
+        return ResponseEntity.ok(imageService.dammiImmagini());
+    }
+
+
+
+    @GetMapping("images/{idProdotto}")
+    public ResponseEntity<List<ImageDto>> dammiImagesByIdProdotto(@PathVariable("idProdotto") Long idProdotto){
         return ResponseEntity.ok(imageService.dammiImmaginiByIdProdotto(idProdotto));
     }
 
