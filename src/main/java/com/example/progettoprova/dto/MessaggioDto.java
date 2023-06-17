@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class MessaggioDto {
 
     private Long id;
+    private String oggetto;
     private String testo;
     private LocalDateTime dataInvio;
     private String mittenteNome;
