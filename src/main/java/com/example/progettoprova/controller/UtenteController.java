@@ -1,25 +1,33 @@
 package com.example.progettoprova.controller;
 
-import com.example.progettoprova.config.i18n.MessageLang;
+import com.example.progettoprova.config.security.TokenStoreJwt;
+import com.example.progettoprova.config.security.UserDetailsImpl;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
+import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.services.UtenteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/utente-api/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class UtenteController {
 
     private final UtenteService utenteService;
@@ -32,11 +40,26 @@ public class UtenteController {
     @Operation(description = "restituisce utente by id")
     @ApiResponse(description = "Resti", responseCode = "200")
     @Parameter(name ="idUtente",description = "id Utente",required = true, example = "1")
+
+
     @GetMapping("utenti/{idUtente}")
-    public ResponseEntity<UtenteDto> dammiUtente(@PathVariable("idUtente") Long idUtente){
-        return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
+    public ResponseEntity<UtenteDto> dammiUtenteById(@PathVariable("idUtente") Long idUtente){
+            return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
 
+
+//@PreAuthorize("#username.equals(authentication.getPrincipal().getUsername()) or hasRole('ADMIN')")
+//mappare con utente/{username} altrimenti conflitto con untenti/{idUtente}
+@GetMapping("utente/{username}")
+public ResponseEntity<UtenteDto> dammiUtenteByUsername(@PathVariable("username") String username) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    log.info("Authentication"+authentication);
+    if (authentication.isAuthenticated() && authentication.getName().equals(username))
+        return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
+     else
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+}
 
     @PutMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {

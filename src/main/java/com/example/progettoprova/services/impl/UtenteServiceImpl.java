@@ -1,5 +1,6 @@
 package com.example.progettoprova.services.impl;
 
+import com.example.progettoprova.config.security.TokenStoreJwt;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
@@ -45,14 +46,25 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
+        if(!TokenStoreJwt.checkId(id))
+            throw new UtenteException(MessagesConfig.UTENTE_NON_AUTORIZZATO);
         Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
         return modelMapper.map(utente,UtenteDto.class);}
 
     @Override
-    @SneakyThrows//ok
+    @SneakyThrows
     public Utente dammiEntityUtente(Long id) {
         Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
         return utente;}
+
+    @Override
+    @SneakyThrows
+    public UtenteDto dammiUtenteByUsername(String username) {
+        return modelMapper.map(
+                utenteDao.dammiUtenteByUsername(username)
+                        .orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_USERNAME+username)),
+                UtenteDto.class);
+    }
 
     @Override
     @SneakyThrows
@@ -109,8 +121,8 @@ public class UtenteServiceImpl implements UtenteService {
         if(u.isEmpty())
             throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id);
 
-        u.get().setNome(utente.getNome());
-        u.get().setCognome(utente.getCognome());
+//        u.get().setNome(utente.getNome());
+//        u.get().setCognome(utente.getCognome());
         log.info(MessagesConfig.UTENTE_AGGIORNATO_ID_LOG, id);
         return modelMapper.map(utenteDao.save(u.get()),UtenteDto.class);
     }

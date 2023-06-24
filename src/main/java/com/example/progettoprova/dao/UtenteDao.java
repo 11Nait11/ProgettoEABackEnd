@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UtenteDao extends JpaRepository<Utente,Long> {
 
@@ -25,6 +26,9 @@ public interface UtenteDao extends JpaRepository<Utente,Long> {
 
     @Query("select u.ordiniComprati from Utente u where u.id=:id")
     List<Ordine> dammiOrdiniComprati(@Param("id") Long id);
+
+    @Query("select u from Utente u where u.email=:username")
+    Optional<Utente> dammiUtenteByUsername(@Param("username") String username);
 
 }
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,6 +39,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     ImageService imageService;
     @Autowired
     ProdottoService prodottoService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) throws IOException {
 
@@ -73,19 +76,29 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
     private void creaDb() throws IOException {
 
+
         Utente u1=new Utente();
         u1.setNome("Paperino");
         u1.setCognome("Bianchi");
+        u1.setEmail(u1.getNome()+"@email.it");
+        u1.setPassword(passwordEncoder.encode("passwd"));
+        u1.setRoles("ADMIN");
         utenteDao.save(u1);
 
         Utente u2=new Utente();
         u2.setNome("Archimede");
         u2.setCognome("Rossi");
+        u2.setEmail(u2.getNome()+"@email.it");
+        u2.setPassword(passwordEncoder.encode("passwd"));
+        u2.setRoles("BASIC");
         utenteDao.save(u2);
 
         Utente u3=new Utente();
         u3.setNome("ZioPaperone");
         u3.setCognome("Gialli");
+        u3.setEmail(u3.getNome()+"@email.it");
+        u3.setPassword("passwd");
+        u2.setRoles("BASIC");
         utenteDao.save(u3);
 
 
@@ -167,7 +180,6 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         i5.setProdotto(prodotto4);
         i5.setImage(immagine5);
         imageDao.save(i5);
-
 
 
 

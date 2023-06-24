@@ -5,13 +5,15 @@ public class MessagesConfig {
 //    Utenti
     public static final String UTENTI_NON_TROVATI = "Utenti non trovati";
     public static final String UTENTE_NON_TROVATO_ID = "Utente non trovato con ID: ";
+    public static final String UTENTE_NON_TROVATO_USERNAME ="Credenziali non valide "; //"Utente non trovato con username: ";
     public static final String UTENTE_AGGIORNATO_ID_LOG = "Utente con id {} aggiornato con successo";
     public static final String UTENTE_CANCELLATO_ID_LOG = "Utente con id {} cancellato con successo";
     public static final String UTENTE_SALVATO_NOME_LOG = "Utente  {} salvato con successo";
     public static final String UTENTE_RECENSIONE_ID = "Recensioni non presenti per Utente id : ";
+    public static final String UTENTE_NON_AUTORIZZATO = "Non puoi accedere a questa pagina";
 
 //    Prodotti
-    public static final String PRODOTTI_NON_TROVATI = "Non sono oresenti Prodotti";
+    public static final String PRODOTTI_NON_TROVATI = "Non sono presenti Prodotti";
     public static final String PRODOTTO_NON_TROVATO_ID = "Prodotto non trovato con ID:";
     public static final String PRODOTTO_CANCELLATO_NOME_LOG = "Prodotto  {} cancellato con successo";
     public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto  {} salvato con successo";

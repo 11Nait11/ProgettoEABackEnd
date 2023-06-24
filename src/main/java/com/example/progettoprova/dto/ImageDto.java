@@ -13,4 +13,5 @@ public class ImageDto {
     private byte[] image;
     private Long prodottoId;
 
+
 }

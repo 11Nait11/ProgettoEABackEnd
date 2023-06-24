@@ -15,10 +15,12 @@ public class Utente {
     @Id
     @GeneratedValue
     private Long id;
-
     private String nome;
-
     private String cognome;
+    private String email;
+    private String password;
+    private String roles; //separati da ,
+
 
 
 
