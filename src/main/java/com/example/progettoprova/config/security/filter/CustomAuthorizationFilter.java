@@ -35,7 +35,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         logger.info("Authorization Header : " + authorizationHeader);
 
         if (authorizationHeader == null || (!authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) && !authorizationHeader.startsWith(SecurityConstants.BEARER_TOKEN_PREFIX))) {
-            this.logger.trace("Header Authorization non trovato!");
+//            this.logger.trace("Header Authorization non trovato!");
             log.info("Header Authorization non trovato");
             filterChain.doFilter(request, response);
             return;
@@ -43,13 +43,13 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
         if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) && uri.endsWith(SecurityConstants.LOGIN_URI_ENDING))
             || uri.endsWith(SecurityConstants.REFRESH_TOKEN_URI_ENDING)) {
-            log.info("if "+SecurityConstants.LOGIN_URI_ENDING);
+            log.info(SecurityConstants.BASIC_TOKEN_PREFIX+" "+SecurityConstants.LOGIN_URI_ENDING);
             filterChain.doFilter(request, response);
 
         } else {
 
             if(authorizationHeader != null && authorizationHeader.startsWith(SecurityConstants.BEARER_TOKEN_PREFIX) && !uri.endsWith(SecurityConstants.LOGIN_URI_ENDING)) {
-                log.info(SecurityConstants.BEARER_TOKEN_PREFIX);
+                log.info("entro if : "+SecurityConstants.BEARER_TOKEN_PREFIX);
                 try {
                     token = authorizationHeader.substring("Bearer ".length());
                     UsernamePasswordAuthenticationToken authenticationToken = TokenStoreJwt.parseToken(token);

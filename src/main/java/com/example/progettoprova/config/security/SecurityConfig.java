@@ -58,7 +58,7 @@ public class SecurityConfig {
             )
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/prodotto-api/prodotti").hasRole("ADMIN")
+//                        .requestMatchers("/prodotto-api/prodotti").hasRole("ADMIN")
 //                        .requestMatchers("/utente-api/utente/{username}").access()
                         .anyRequest().authenticated()
                 )

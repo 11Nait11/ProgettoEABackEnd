@@ -17,6 +17,7 @@ public class Messaggio {
     @Column(columnDefinition = "TEXT")//  > 256 caratteri
     private String testo;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dataInvio;
 
     @ManyToOne

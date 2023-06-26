@@ -46,7 +46,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
 
-        log.info("Authentication:");
+        log.info("Authentication");
             String username = null;
             String password = null;
             try {//prende credenziali che ha inserito utente e le confronta con il db
