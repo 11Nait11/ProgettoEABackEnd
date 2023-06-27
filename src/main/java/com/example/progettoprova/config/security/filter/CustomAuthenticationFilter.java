@@ -56,7 +56,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 password = TokenStoreJwt.decodedBase64(headerToken)[1];
 
             this.logger.trace(LogMessage.format("Credentials username '%s' and password '&s' have been found in Basic Authorization header", username, password));
-
+            log.info("Username: "+username);
+            log.info("Password: "+username);
             //chiamo il mio AuthProvider verifica presenza utente nel db
             Authentication authResult = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
             logger.info("attemptAuthentication " + authResult.toString());
