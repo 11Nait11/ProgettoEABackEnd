@@ -261,7 +261,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
         Messaggio m2=new Messaggio();
         m2.setMittente(u3);
-        m2.setDestinatario(u1);
+        m2.setDestinatario(u2);
         m2.setTesto("Lorem ipsum ??? ");
         m2.setDataInvio(LocalDateTime.now());
         messaggioDao.save(m2);
