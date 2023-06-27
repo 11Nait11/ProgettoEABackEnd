@@ -53,7 +53,7 @@ public class SecurityConfig {
             .and()
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/home/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/prodotto-api/prodotti").permitAll()
                 .requestMatchers(HttpMethod.GET, "/refreshToken").permitAll()
                 .requestMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
             )
