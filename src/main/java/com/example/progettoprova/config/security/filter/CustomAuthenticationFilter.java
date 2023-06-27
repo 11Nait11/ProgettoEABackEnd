@@ -50,11 +50,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             String username = null;
             String password = null;
             try {//prende credenziali che ha inserito utente e le confronta con il db
-                log.info("Username: "+username);
-                log.info("Password: "+username);
-
                 String authorizationHeader = request.getHeader(AUTHORIZATION);
-                log.info("Auth:"+authorizationHeader);
                 String headerToken = StringUtils.delete(authorizationHeader, SecurityConstants.BASIC_TOKEN_PREFIX).trim();
                 username = TokenStoreJwt.decodedBase64(headerToken)[0];
                 password = TokenStoreJwt.decodedBase64(headerToken)[1];
