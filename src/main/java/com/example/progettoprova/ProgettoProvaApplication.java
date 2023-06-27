@@ -176,7 +176,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         prodottoDao.save(prodotto4);
 
         Image i5 =new Image();
-        byte[] immagine5= Files.readAllBytes(Path.of("src/main/resources/img/c1.png"));
+        byte[] immagine5= Files.readAllBytes(Path.of("src/main/resources/img/c1.jpg"));
         i5.setProdotto(prodotto4);
         i5.setImage(immagine5);
         imageDao.save(i5);
