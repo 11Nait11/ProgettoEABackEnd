@@ -1,7 +1,6 @@
 package com.example.progettoprova.config.security;
 
 import com.example.progettoprova.dto.UtenteDto;
-import com.example.progettoprova.entities.Utente;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,7 @@
 package com.example.progettoprova.services.impl;
 
-import com.example.progettoprova.config.security.TokenStoreJwt;
+
+import com.example.progettoprova.config.security.TokenManager;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
@@ -46,7 +47,7 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
-        if(!TokenStoreJwt.checkId(id))
+        if(TokenManager.checkId(id))
             throw new UtenteException(MessagesConfig.UTENTE_NON_AUTORIZZATO);
         Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
         return modelMapper.map(utente,UtenteDto.class);}

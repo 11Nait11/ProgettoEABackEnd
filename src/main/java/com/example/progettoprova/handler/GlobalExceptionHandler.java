@@ -40,19 +40,10 @@ public class GlobalExceptionHandler {
     }
 
 
-
-
-
-
-
-
-
     private ServiceError errorResponse (WebRequest req, String message) {
         HttpServletRequest httpreq = (HttpServletRequest) req.resolveReference("request");
         final ServiceError output = new ServiceError(new Date(), httpreq.getRequestURI(), message);
-            //"{}" per indicare il posto in cui verranno inseriti i valori dinamici.
         log.error("Exception handler :::: {}", output.toString());
         return output;
-
     }
 }

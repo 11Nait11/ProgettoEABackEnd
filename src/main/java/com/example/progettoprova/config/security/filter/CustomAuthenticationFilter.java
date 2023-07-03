@@ -2,10 +2,9 @@ package com.example.progettoprova.config.security.filter;
 
 
 import com.example.progettoprova.config.security.SecurityConstants;
-import com.example.progettoprova.config.security.TokenStoreJwt;
+import com.example.progettoprova.config.security.TokenManager;
 import com.example.progettoprova.config.security.UserDetailsImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.StringUtils;
 
@@ -52,8 +50,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             try {//prende credenziali che ha inserito utente e le confronta con il db
                 String authorizationHeader = request.getHeader(AUTHORIZATION);
                 String headerToken = StringUtils.delete(authorizationHeader, SecurityConstants.BASIC_TOKEN_PREFIX).trim();
-                username = TokenStoreJwt.decodedBase64(headerToken)[0];
-                password = TokenStoreJwt.decodedBase64(headerToken)[1];
+                username = TokenManager.decodedBase64(headerToken)[0];
+                password = TokenManager.decodedBase64(headerToken)[1];
 
             this.logger.trace(LogMessage.format("Credentials username '%s' and password '&s' have been found in Basic Authorization header", username, password));
 
@@ -82,13 +80,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         log.info("Success ");
         UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
         log.info("Success user "+user);
-        String accessToken = TokenStoreJwt.createAccessToken(
+        String accessToken = TokenManager.createAccessToken(
                     user.getUsername(),
                     request.getRequestURL().toString(),
                     user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()),
                     user.getId()
                 );
-        String refreshToken = TokenStoreJwt.createRefreshToken(user.getUsername());
+        String refreshToken = TokenManager.createRefreshToken(user.getUsername());
         response.addHeader("access_token", accessToken);
         response.addHeader("refresh_token", refreshToken);
         log.info("access_token: "+accessToken);

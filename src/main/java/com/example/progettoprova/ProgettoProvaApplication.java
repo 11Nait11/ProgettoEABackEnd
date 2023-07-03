@@ -103,9 +103,9 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
 
         Prodotto prodotto = new Prodotto();
-        prodotto.setNomeProdotto("ScarpaNike1");
-        prodotto.setDescrizione("Bellissima Scarpa Nike");
-        prodotto.setPrezzo(99.99);
+        prodotto.setNomeProdotto("Scarpa");
+        prodotto.setDescrizione("Bellissima Scarpa");
+        prodotto.setPrezzo(9999.99);
         prodotto.setCategoria("Abbigliamento");
         prodotto.setCondizione("Nuovo");
         prodotto.setDisponibilita("Disponibile");
@@ -122,8 +122,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
 
         Prodotto prodotto2 = new Prodotto();
-        prodotto2.setNomeProdotto("Scarpa2");
-        prodotto2.setDescrizione("Bellissima Scarpa Scarpa2");
+        prodotto2.setNomeProdotto("Bracciale");
+        prodotto2.setDescrizione("bellissimo Bracciale");
         prodotto2.setPrezzo(79.99);
         prodotto2.setCategoria("Abbigliamento");
         prodotto2.setCondizione("Nuovo");
@@ -146,8 +146,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         imageDao.save(i3);
 
         Prodotto prodotto3 = new Prodotto();
-        prodotto3.setNomeProdotto("Jeans1");
-        prodotto3.setDescrizione("Bellissimo Jeans1");
+        prodotto3.setNomeProdotto("Orologio");
+        prodotto3.setDescrizione("Bellissimo Orologio");
         prodotto3.setPrezzo(59.99);
         prodotto3.setCategoria("Abbigliamento");
         prodotto3.setCondizione("Nuovo");
@@ -164,8 +164,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         imageDao.save(i4);
 
         Prodotto prodotto4 = new Prodotto();
-        prodotto4.setNomeProdotto("Camicia1");
-        prodotto4.setDescrizione("Bellissima Camicia1");
+        prodotto4.setNomeProdotto("Vestito");
+        prodotto4.setDescrizione("Bellissima Vestito");
         prodotto4.setPrezzo(79.99);
         prodotto4.setCategoria("Abbigliamento");
         prodotto4.setCondizione("Nuovo");

@@ -1,7 +1,6 @@
 package com.example.progettoprova.config.security.filter;
-
 import com.example.progettoprova.config.security.SecurityConstants;
-import com.example.progettoprova.config.security.TokenStoreJwt;
+import com.example.progettoprova.config.security.TokenManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -41,9 +40,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) && uri.endsWith(SecurityConstants.LOGIN_URI_ENDING))
+        if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) )
             || uri.endsWith(SecurityConstants.REFRESH_TOKEN_URI_ENDING)) {
-            log.info(SecurityConstants.BASIC_TOKEN_PREFIX+" "+SecurityConstants.LOGIN_URI_ENDING);
+            log.info("Basic ");
             filterChain.doFilter(request, response);
 
         } else {
@@ -52,7 +51,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 log.info("entro if : "+SecurityConstants.BEARER_TOKEN_PREFIX);
                 try {
                     token = authorizationHeader.substring("Bearer ".length());
-                    UsernamePasswordAuthenticationToken authenticationToken = TokenStoreJwt.parseToken(token);
+                    UsernamePasswordAuthenticationToken authenticationToken = TokenManager.parseToken(token);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
                 }

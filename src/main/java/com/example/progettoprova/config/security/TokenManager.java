@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class TokenStoreJwt {
+public abstract class TokenManager {
 
     private static SecretKey SECRET = new SecretKeySpec(Base64.getDecoder().decode(SecurityConstants.JWT_SECRET), "HmacSHA256");
     static Long userId=0L;
@@ -78,21 +78,41 @@ public abstract class TokenStoreJwt {
     }
 
     public static UsernamePasswordAuthenticationToken parseToken(String token) throws JOSEException, BadJOSEException, ParseException {
+        // Passo 1: Analizza il token firmato
         SignedJWT signedJWT = SignedJWT.parse(token);
+
+        // Passo 2: Verifica la firma del token utilizzando un verificatore MAC con una chiave segreta nota come SECRET
+        //qui potrebbe generare espressione di token scaduto
         signedJWT.verify(new MACVerifier(SECRET));
+
+        // Passo 3: Crea un processore JWT configurabile con un contesto di sicurezza
         ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
 
-        JWSKeySelector<SecurityContext> keySelector = new JWSVerificationKeySelector<>(JWSAlgorithm.HS256,
-                new ImmutableSecret<>(SECRET));
+        // Passo 4: Seleziona il selettore chiave JWS per la verifica con l'algoritmo di firma HS256 e la chiave segreta SECRET
+        JWSKeySelector<SecurityContext> keySelector = new JWSVerificationKeySelector<>(JWSAlgorithm.HS256, new ImmutableSecret<>(SECRET));
         jwtProcessor.setJWSKeySelector(keySelector);
+
+        // Passo 5: Processa il token firmato utilizzando il processore JWT configurato e il selettore chiave
         jwtProcessor.process(signedJWT, null);
+
+        // Passo 6: Ottiene le affermazioni JWT dal token firmato
         JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
+
+        // Passo 7: Ottiene il nome utente dall'oggetto JWTClaimsSet
         String username = claims.getSubject();
+
+        // Passo 8: Ottiene i ruoli dall'oggetto JWTClaimsSet
         var roles = (List<String>) claims.getClaim("roles");
+
+        // Passo 9: Converte i ruoli in autorizzazioni (SimpleGrantedAuthority) utilizzando la programmazione funzionale
         var authorities = roles == null ? null : roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
+        // Passo 10: Ottiene l'ID utente dall'oggetto JWTClaimsSet
         userId = claims.getLongClaim("userId");
+
+        // Passo 11: Restituisce un oggetto UsernamePasswordAuthenticationToken con il nome utente, nessuna password e le autorizzazioni ottenute dai ruoli
         return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
 

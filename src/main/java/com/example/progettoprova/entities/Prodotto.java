@@ -49,21 +49,6 @@ public class Prodotto {
 
 
 
-
-    @Override
-    public String toString() {
-        return "Prodotto{" +
-                "id=" + id +
-                ", nomeProdotto='" + nomeProdotto + '\'' +
-                '}';
-    }
-
-
-    //    @Column(nullable = false)
-//    private String ubicazione;
-//
-//
-
     @CreatedBy
     private Long createBy;
 
@@ -75,5 +60,13 @@ public class Prodotto {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "id=" + id +
+                ", nomeProdotto='" + nomeProdotto + '\'' +
+                '}';
+    }
 
 }

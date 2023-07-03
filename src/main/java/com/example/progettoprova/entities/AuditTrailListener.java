@@ -25,18 +25,18 @@ public class AuditTrailListener {
         }
     }
 
-    @PostLoad
-    private void afterLoad(Object object) {
-        if (object instanceof Utente) {
-            Utente u = (Utente) object;
-            log.info("[AUDIT] utente caricato nel database con id : " + u.getId());
-        } else if (object instanceof Prodotto) {
-            Prodotto p = (Prodotto) object;
-            log.info("[AUDIT] prodotto caricato nel database con id : " + p.getId());
-        } else if (object instanceof Recensione) {
-            Recensione r = (Recensione) object;
-            log.info("[AUDIT] recensione caricata nel database con id : " + r.getId());
-        }
-    }
+//    @PostLoad
+//    private void afterLoad(Object object) {
+//        if (object instanceof Utente) {
+//            Utente u = (Utente) object;
+//            log.info("[AUDIT] utente caricato nel database con id : " + u.getId());
+//        } else if (object instanceof Prodotto) {
+//            Prodotto p = (Prodotto) object;
+//            log.info("[AUDIT] prodotto caricato nel database con id : " + p.getId());
+//        } else if (object instanceof Recensione) {
+//            Recensione r = (Recensione) object;
+//            log.info("[AUDIT] recensione caricata nel database con id : " + r.getId());
+//        }
+//    }
 }
 

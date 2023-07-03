@@ -1,6 +1,10 @@
 package com.example.progettoprova.config;
 
+import com.example.progettoprova.config.security.UserDetailsImpl;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 import java.util.Random;
@@ -8,10 +12,18 @@ import java.util.Random;
 public class UserAuditorAware implements AuditorAware<Long> {
     @Override
     public Optional<Long> getCurrentAuditor() {
-        // logica per ricavare l'utente loggato (SpringSecurity)
-        //al momento ritorna random e va a settare campo createdBy di prodotto
-        //in realta' di tutte le entita che usano @createdBy?
-        return Optional.of(new Random().nextLong(3));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return Optional.empty();
+        }
+
+        if (authentication.getPrincipal() instanceof UserDetailsImpl) {
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            return Optional.of(Long.parseLong(userDetails.getId().toString()));
+        }
+
+        return Optional.empty();
     }
 //    /* crea bean per @CreateDate personallizato*/
 //    @Bean

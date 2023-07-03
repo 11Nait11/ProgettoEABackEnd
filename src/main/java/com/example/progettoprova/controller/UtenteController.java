@@ -1,11 +1,10 @@
 package com.example.progettoprova.controller;
 
-import com.example.progettoprova.config.security.TokenStoreJwt;
-import com.example.progettoprova.config.security.UserDetailsImpl;
+
+
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
-import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.services.UtenteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -48,18 +47,12 @@ public class UtenteController {
     }
 
 
-//@PreAuthorize("#username.equals(authentication.getPrincipal().getUsername()) or hasRole('ADMIN')")
-//mappare con utente/{username} altrimenti conflitto con untenti/{idUtente}
-@GetMapping("utente/{username}")
-public ResponseEntity<UtenteDto> dammiUtenteByUsername(@PathVariable("username") String username) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    log.info("Authentication"+authentication);
-    if (authentication.isAuthenticated() && authentication.getName().equals(username))
-        return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
-     else
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
-}
+    @GetMapping("utente/{username}")
+    @PreAuthorize("#username.equals(authentication.getPrincipal())")
+    public ResponseEntity<UtenteDto> dammiUtenteByUsername(@PathVariable("username") String username) {
+            return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
+    }
 
     @PutMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {

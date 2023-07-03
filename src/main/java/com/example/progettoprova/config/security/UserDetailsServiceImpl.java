@@ -1,7 +1,6 @@
 package com.example.progettoprova.config.security;
 
 import com.example.progettoprova.dto.UtenteDto;
-import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.services.UtenteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
