@@ -12,6 +12,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -84,6 +85,13 @@ public abstract class TokenManager {
         // Passo 2: Verifica la firma del token utilizzando un verificatore MAC con una chiave segreta nota come SECRET
         //qui potrebbe generare espressione di token scaduto
         signedJWT.verify(new MACVerifier(SECRET));
+
+
+        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+        Date currentTime = new Date();
+        if (expirationTime != null && currentTime.after(expirationTime)) {
+            throw new ExpiredJwtException(null,null,"Token Scaduto");
+        }
 
         // Passo 3: Crea un processore JWT configurabile con un contesto di sicurezza
         ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
