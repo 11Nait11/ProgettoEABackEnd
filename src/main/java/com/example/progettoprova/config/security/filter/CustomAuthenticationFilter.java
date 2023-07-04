@@ -80,13 +80,17 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         log.info("Success ");
         UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
         log.info("Success user "+user);
+
         String accessToken = TokenManager.createAccessToken(
                     user.getUsername(),
                     request.getRequestURL().toString(),
                     user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()),
                     user.getId()
                 );
-        String refreshToken = TokenManager.createRefreshToken(user.getUsername());
+        String refreshToken = TokenManager.createRefreshToken(
+                user.getUsername()
+        );
+
         response.addHeader("access_token", accessToken);
         response.addHeader("refresh_token", refreshToken);
         log.info("access_token: "+accessToken);

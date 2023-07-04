@@ -42,13 +42,11 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) )
-            || uri.endsWith(SecurityConstants.REFRESH_TOKEN_URI_ENDING)) {
+        if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) )) {
             log.info("Basic ");
             filterChain.doFilter(request, response);
 
         } else {
-
             if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstants.BEARER_TOKEN_PREFIX) && !uri.endsWith(SecurityConstants.LOGIN_URI_ENDING)) {
                 log.info("entro if : " + SecurityConstants.BEARER_TOKEN_PREFIX);
                 try {
@@ -56,6 +54,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authenticationToken = TokenManager.parseToken(token);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
+
                 } catch (ExpiredJwtException e) {
                     log.error(String.format("Token scaduto: %s", token), e);
                     response.setStatus(UNAUTHORIZED.value());
@@ -63,7 +62,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     error.put("errorMessage", "Token scaduto");
                     response.setContentType(APPLICATION_JSON_VALUE);
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     log.error(String.format("Errore Token: %s", token), e);
                     response.setStatus(FORBIDDEN.value());
                     Map<String, String> error = new HashMap<>();

@@ -7,6 +7,7 @@ import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.entities.Utente;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UtenteService {
 
@@ -24,4 +25,5 @@ public interface UtenteService {
     public void cancella(Long id);
     public UtenteDto aggiorna(Long id, UtenteDto utente);
 
+    Map<String, String> refreshToken(String authorizationHeader, String string);
 }

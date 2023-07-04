@@ -2,6 +2,7 @@ package com.example.progettoprova.services.impl;
 
 
 import com.example.progettoprova.config.security.TokenManager;
+import com.example.progettoprova.config.security.UserDetailsImpl;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
@@ -13,13 +14,20 @@ import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
 import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.services.UtenteService;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.proc.BadJOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,38 +40,38 @@ public class UtenteServiceImpl implements UtenteService {
     private final ModelMapper modelMapper;
 
 
-
-
     @Override
     @SneakyThrows//ok
-    public List<UtenteDto> dammiUtenti(){
+    public List<UtenteDto> dammiUtenti() {
         List<Utente> utenti = utenteDao.findAll();
-        if(utenti.isEmpty())
+        if (utenti.isEmpty())
             throw new UtenteException(MessagesConfig.UTENTI_NON_TROVATI);
         List<UtenteDto> utendto = utenti.stream().map(u -> modelMapper.map(u, UtenteDto.class)).collect(Collectors.toList());
-        return  utendto;
+        return utendto;
     }
 
     @Override
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
-        if(TokenManager.checkId(id))
+        if (TokenManager.checkId(id))
             throw new UtenteException(MessagesConfig.UTENTE_NON_AUTORIZZATO);
-        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
-        return modelMapper.map(utente,UtenteDto.class);}
+        Utente utente = utenteDao.findById(id).orElseThrow(() -> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID + id));
+        return modelMapper.map(utente, UtenteDto.class);
+    }
 
     @Override
     @SneakyThrows
     public Utente dammiEntityUtente(Long id) {
-        Utente utente=utenteDao.findById(id).orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id));
-        return utente;}
+        Utente utente = utenteDao.findById(id).orElseThrow(() -> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID + id));
+        return utente;
+    }
 
     @Override
     @SneakyThrows
     public UtenteDto dammiUtenteByUsername(String username) {
         return modelMapper.map(
                 utenteDao.dammiUtenteByUsername(username)
-                        .orElseThrow(()-> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_USERNAME+username)),
+                        .orElseThrow(() -> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_USERNAME + username)),
                 UtenteDto.class);
     }
 
@@ -71,8 +79,8 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows
     public List<ProdottoDto> dammiProdottiUtente(Long id) {
 
-        List<Prodotto> prodotti=utenteDao.cercaProdottiByIdUtente(id);
-        if(prodotti.isEmpty())
+        List<Prodotto> prodotti = utenteDao.cercaProdottiByIdUtente(id);
+        if (prodotti.isEmpty())
             throw new ProdottoException(MessagesConfig.PRODOTTI_NON_TROVATI);
 
         return prodotti.stream().map(prodotto -> modelMapper.map(prodotto, ProdottoDto.class)).collect(Collectors.toList());
@@ -84,31 +92,34 @@ public class UtenteServiceImpl implements UtenteService {
     public List<RecensioneDto> dammiRecensioniUtente(Long id) {
 
         List<Recensione> recensioni = utenteDao.dammiRecensioni(id);
-        if(recensioni.isEmpty())
-            throw new UtenteException(MessagesConfig.UTENTE_RECENSIONE_ID+id);
+        if (recensioni.isEmpty())
+            throw new UtenteException(MessagesConfig.UTENTE_RECENSIONE_ID + id);
 
-        return recensioni.stream().map(recensione -> modelMapper.map(recensione,RecensioneDto.class)).collect(Collectors.toList());}
+        return recensioni.stream().map(recensione -> modelMapper.map(recensione, RecensioneDto.class)).collect(Collectors.toList());
+    }
 
 
     @Override
     public void salva(Utente u) {
         utenteDao.save(u);
-        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
+        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());
+    }
 
 
     @Override
     public void salvaDto(UtenteDto uD) {
-        Utente u= modelMapper.map(uD, Utente.class);
+        Utente u = modelMapper.map(uD, Utente.class);
         utenteDao.save(u);
-        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());}
+        log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());
+    }
 
 
     @Override
     @SneakyThrows
     public void cancella(Long id) {
         Optional<Utente> u = utenteDao.findById(id);
-        if(u.isEmpty())
-            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id);
+        if (u.isEmpty())
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID + id);
         utenteDao.delete(u.get());
         log.info(MessagesConfig.UTENTE_CANCELLATO_ID_LOG, id);
 
@@ -119,12 +130,33 @@ public class UtenteServiceImpl implements UtenteService {
     @SneakyThrows
     public UtenteDto aggiorna(Long id, UtenteDto utente) {
         Optional<Utente> u = utenteDao.findById(id);
-        if(u.isEmpty())
-            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+id);
+        if (u.isEmpty())
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID + id);
 
 //        u.get().setNome(utente.getNome());
 //        u.get().setCognome(utente.getCognome());
         log.info(MessagesConfig.UTENTE_AGGIORNATO_ID_LOG, id);
-        return modelMapper.map(utenteDao.save(u.get()),UtenteDto.class);
+        return modelMapper.map(utenteDao.save(u.get()), UtenteDto.class);
+    }
+
+
+    @Transactional(readOnly = true)
+    @SneakyThrows
+    public Map<String, String> refreshToken(String authorizationHeader, String issuer) {
+        String refreshToken = authorizationHeader.substring("Bearer ".length());
+        UsernamePasswordAuthenticationToken authenticationToken = TokenManager.parseToken(refreshToken);//se il token e' valido
+        String username = authenticationToken.getName();//prendo user dal db
+        Utente user = utenteDao.dammiUtenteByUsername(username).orElseThrow(() -> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_USERNAME + username));
+        UserDetailsImpl loggedUserDetails = new UserDetailsImpl(modelMapper.map(user, UtenteDto.class));
+        String accessToken =
+                TokenManager.createAccessToken(
+                        loggedUserDetails.getUsername(), issuer,
+                        loggedUserDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()), 0L
+                );
+        return Map.of(
+                "access_token", accessToken,
+                "refresh_token", refreshToken
+        );
+
     }
 }

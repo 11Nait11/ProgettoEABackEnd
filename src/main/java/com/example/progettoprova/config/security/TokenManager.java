@@ -31,7 +31,9 @@ public abstract class TokenManager {
 
     private static SecretKey SECRET = new SecretKeySpec(Base64.getDecoder().decode(SecurityConstants.JWT_SECRET), "HmacSHA256");
     static Long userId=0L;
-    public static String createAccessToken(String username, String issuer, List<String> roles, Long userId) {
+
+
+    public static String createAccessToken(String username, String issuer, List<String> roles, Long userId) {//rimuovere userId
         try {
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
                     .subject(username)
@@ -56,7 +58,6 @@ public abstract class TokenManager {
     }
 
     public static String createRefreshToken(String username) {
-        //like createAccessToken method, but without issuer, roles...
 
         try {
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
@@ -79,11 +80,10 @@ public abstract class TokenManager {
     }
 
     public static UsernamePasswordAuthenticationToken parseToken(String token) throws JOSEException, BadJOSEException, ParseException {
-        // Passo 1: Analizza il token firmato
-        SignedJWT signedJWT = SignedJWT.parse(token);
 
-        // Passo 2: Verifica la firma del token utilizzando un verificatore MAC con una chiave segreta nota come SECRET
-        //qui potrebbe generare espressione di token scaduto
+        // Analizza il token firmato
+        SignedJWT signedJWT = SignedJWT.parse(token);
+        // Verifica la firma del token utilizzando  MAC con una chiave segreta
         signedJWT.verify(new MACVerifier(SECRET));
 
 
@@ -93,26 +93,19 @@ public abstract class TokenManager {
             throw new ExpiredJwtException(null,null,"Token Scaduto");
         }
 
-        // Passo 3: Crea un processore JWT configurabile con un contesto di sicurezza
-        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
 
-        // Passo 4: Seleziona il selettore chiave JWS per la verifica con l'algoritmo di firma HS256 e la chiave segreta SECRET
+        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
         JWSKeySelector<SecurityContext> keySelector = new JWSVerificationKeySelector<>(JWSAlgorithm.HS256, new ImmutableSecret<>(SECRET));
         jwtProcessor.setJWSKeySelector(keySelector);
-
-        // Passo 5: Processa il token firmato utilizzando il processore JWT configurato e il selettore chiave
         jwtProcessor.process(signedJWT, null);
 
-        // Passo 6: Ottiene le affermazioni JWT dal token firmato
+
         JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
-
-        // Passo 7: Ottiene il nome utente dall'oggetto JWTClaimsSet
+        // username
         String username = claims.getSubject();
-
-        // Passo 8: Ottiene i ruoli dall'oggetto JWTClaimsSet
+        // role
         var roles = (List<String>) claims.getClaim("roles");
-
-        // Passo 9: Converte i ruoli in autorizzazioni (SimpleGrantedAuthority) utilizzando la programmazione funzionale
+        // role->authorities
         var authorities = roles == null ? null : roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -120,7 +113,7 @@ public abstract class TokenManager {
         // Passo 10: Ottiene l'ID utente dall'oggetto JWTClaimsSet
         userId = claims.getLongClaim("userId");
 
-        // Passo 11: Restituisce un oggetto UsernamePasswordAuthenticationToken con il nome utente, nessuna password e le autorizzazioni ottenute dai ruoli
+        // oggetto UsernamePasswordAuthenticationToken con nome utente, nessuna password
         return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
 
