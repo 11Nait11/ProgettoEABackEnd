@@ -20,10 +20,10 @@ public class LanguageResolver extends AcceptHeaderLocaleResolver {
    // codice per determinare la lingua richiesta
   // dal client sulla base dell'header "Accept-Language" inviato nella richiesta HTTP.@Override
   public Locale resolveLocale(HttpServletRequest request) {
-    String language = request.getHeader("Accept-Language");//ottengo accept-language da http header
+    String language = request.getHeader("Accept-Language");//ottengo accept-language dalla request
 
      //lista di lingue supportate legge da resource bundle. il nome file deve seguire
-     // sintassi standard "Messages_en_US.properties" (per l'inglese), "Messages_it.IT.properties" (per l'italiano),
+     // sintassi standard "Messages_en_US.properties" (per inglese), "Messages_it.IT.properties" (per italiano),
      List<Locale> supportedLocales = getSupportedLocales();
 
      Locale defaultLocale = getDefaultLocale();//lingue di default

@@ -2,6 +2,7 @@ package com.example.progettoprova.controller;
 
 
 
+import com.example.progettoprova.config.i18n.MessageLang;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -40,6 +43,13 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UtenteController {
 
     private final UtenteService utenteService;
+    private final MessageLang messageLang;
+
+    @GetMapping("/test-lang")
+    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
+
+        return ResponseEntity.ok(messageLang.getMessage("welcome"));
+    }
 
 
     @GetMapping("utenti")//ok
@@ -83,7 +93,7 @@ public class UtenteController {
     }
 
     @PostMapping("/salva")
-    public HttpStatus salva(@RequestBody UtenteDto u){
+    public HttpStatus salva(@RequestBody @Valid UtenteDto u){
         utenteService.salvaDto(u);
         return HttpStatus.OK;
     }

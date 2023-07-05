@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 @Configuration
-    public class Internationalization /*extends WebMvcConfigurerAdapter*/ {
+    public class Internationalization  {
 
         @Bean
         public AcceptHeaderLocaleResolver localeResolver() {
@@ -21,7 +21,7 @@ import java.util.Locale;
             return resolver;
         }
 
-        @Bean//questo bean restituisce un ResourceBundleMessageSource una volta instaziato
+        @Bean
         public ResourceBundleMessageSource messageSource() {
             final ResourceBundleMessageSource source = new ResourceBundleMessageSource();
 

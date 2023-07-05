@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface ImageDao extends JpaRepository<Image,Long> {
 
-
-    @Query(value = "select lo_get(i.image) from Image i where i.id = :idProdotto")
-    List<byte[]> cercaImagesByIdProdotto(@Param("idProdotto") Long idProdotto);
+//
+//    @Query(value = "select lo_get(i.image) from Image i where i.id = :idProdotto")
+//    List<byte[]> cercaImagesByIdProdotto(@Param("idProdotto") Long idProdotto);
 
     @Query("from Image i where i.id = :idProdotto")
     List<Image> dammiImmaginiByIdProdotto(@Param("idProdotto") Long idProdotto);
