@@ -1,11 +1,10 @@
 package com.example.progettoprova;
 
 import com.example.progettoprova.dao.*;
-import com.example.progettoprova.dto.ImageDto;
-import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.*;
-import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.ProdottoService;
+import com.example.progettoprova.services.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,16 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class ProgettoProvaApplication implements CommandLineRunner {
 
     @Autowired
     UtenteDao utenteDao;
+    @Autowired
+    UtenteService utenteService;
     @Autowired
     ProdottoDao prodottoDao;
     @Autowired
@@ -36,7 +34,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     @Autowired
     OrdineDao ordineDao;
     @Autowired
-    ImageService imageService;
+    ImmagineService immagineService;
     @Autowired
     ProdottoService prodottoService;
     @Autowired
@@ -78,28 +76,26 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
 
         Utente u1=new Utente();
-        u1.setNome("Paperino");
+        u1.setNome("paperino");
         u1.setCognome("Bianchi");
         u1.setEmail(u1.getNome()+"@email.it");
-        u1.setPassword(passwordEncoder.encode("passwd"));
+        u1.setPassword("passwd");
         u1.setRoles("ADMIN");
-        utenteDao.save(u1);
+        utenteService.salva(u1);
 
         Utente u2=new Utente();
-        u2.setNome("Archimede");
+        u2.setNome("archimede");
         u2.setCognome("Rossi");
         u2.setEmail(u2.getNome()+"@email.it");
-        u2.setPassword(passwordEncoder.encode("passwd"));
-        u2.setRoles("BASIC");
-        utenteDao.save(u2);
+        u2.setPassword("passwd");;
+        utenteService.salva(u2);
 
         Utente u3=new Utente();
-        u3.setNome("ZioPaperone");
+        u3.setNome("paperone");
         u3.setCognome("Gialli");
         u3.setEmail(u3.getNome()+"@email.it");
         u3.setPassword("passwd");
-        u2.setRoles("BASIC");
-        utenteDao.save(u3);
+        utenteService.salva(u3);
 
 
         Prodotto prodotto = new Prodotto();
@@ -281,8 +277,8 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 //        System.out.println("Recensioni"+utenteDao.findById(1L));
 //        System.out.println("RecensioniQuery"+utenteDao.dammiRecensioni(1L));
         //System.out.println("listaImg"+prodottoDao.dammiListaImmaginiDiUnProdottoByIdProdotto(1L));
-        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniVenduti(1L));
-        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniComprati(1L));
+//        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniVenduti(1L));
+//        System.out.println("OrdineQuery"+utenteDao.dammiOrdiniComprati(1L));
 //        System.out.println("Image"+imageService.dammiImmaginiByIdProdotto(1L));
 //        System.out.println(prodottoService.dammiImmaginiByIdProdotto(1L));
 

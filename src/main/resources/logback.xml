@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-->imposta due logger livello Error e info<-->
-    <logger name="org.springframework" level="ERROR"/>
-    <logger name="it.unical" level="INFO"/>
+
 
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

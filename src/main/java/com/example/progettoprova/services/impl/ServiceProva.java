@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ServiceProva {
 
-//passato direttamente alla funzione. qui risulta null
+
 //    @Autowired
 //    UtenteDao utenteDao;
 
@@ -32,8 +32,7 @@ public class ServiceProva {
     }
 
 
-    /** visualizzo due elementi quando ne voglio altri devo fare altra query(solo su richiesta)*/
-//    p:da dove parte size:quanti elementi (non resituisce lista ma pagina)
+ // TODO usarlo per capire tutti i prodotti nella home android
     public Page<Utente> getPaged(int p,UtenteDao utenteDao){
         return utenteDao.findAll(PageRequest.of(p,2));
     }

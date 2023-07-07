@@ -2,6 +2,7 @@ package com.example.progettoprova.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @EntityListeners(value = {AuditTrailListener.class})
-
+@Table(name = "Utente", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class Utente {
     @Id
     @GeneratedValue

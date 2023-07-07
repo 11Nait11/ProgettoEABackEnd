@@ -6,7 +6,7 @@ import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.exception.ImageException;
-import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.ImmagineService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ImageServiceImpl implements ImageService {
+public class ImmagineServiceImpl implements ImmagineService {
 
     private final ImageDao imageDao;
     private final ModelMapper modelMapper;
@@ -32,10 +32,9 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public List<ImageDto> dammiImmaginiByIdProdotto(Long id) {
         List<Image> immagini=imageDao.dammiImmaginiByIdProdotto(id);
-//        List<byte[]> immagini = imageDao.cercaImagesByIdProdotto(id);
-        System.out.println("Server sono dentro "+immagini);
+
         if (immagini.isEmpty())
-            throw new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID_PRODOTTO + id);
+            throw new ImageException(MessagesConfig.IMMAGINE_NON_TROVATO_ID_PRODOTTO + id);
 
         return immagini.stream().map(i ->modelMapper.map(i, ImageDto.class)).collect(Collectors.toList());
     }
@@ -59,7 +58,7 @@ public class ImageServiceImpl implements ImageService {
     public void cancella(Long id) {
         Optional<Image> i = imageDao.findById(id);
         if(i.isEmpty())
-            throw new ImageException(MessagesConfig.IMAGES_NON_TROVATO_ID +id);
+            throw new ImageException(MessagesConfig.IMMAGINE_NON_TROVATO_ID +id);
         imageDao.delete(i.get());
         log.info(MessagesConfig.IMMAGINE_CANCELLATO_ID_LOG+id);
     }

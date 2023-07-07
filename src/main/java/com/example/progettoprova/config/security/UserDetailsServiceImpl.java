@@ -15,13 +15,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UtenteService utenteService;
 
-    @Override
+    @Override//wrap utente in userDetails
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UtenteDto utente=utenteService.dammiUtenteByUsername(username);
         UserDetailsImpl userDetails = new UserDetailsImpl(utente);
-
         return userDetails;
     }
+
     @Autowired
     public void setUserService(UtenteService utenteService) {
         this.utenteService = utenteService;

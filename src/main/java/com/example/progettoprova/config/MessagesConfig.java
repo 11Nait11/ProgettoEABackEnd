@@ -19,11 +19,11 @@ public class MessagesConfig {
     public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto  {} salvato con successo";
     public static final String PRODOTTO_AGGIORNATO_ID_LOG = "Prodotto con id {} aggiornato con successo";
 
-//    images
-    public static final String IMAGES_NON_TROVATO_ID_PRODOTTO = "Images non trovate per Prodotto  ID:";
-    public static final String IMAGES_NON_TROVATO_ID = "Images non trovate   ID:";
-    public static final String IMMAGINE_SALVATO_LOG = "Images  salvato con successo";
-    public static final String IMMAGINE_CANCELLATO_ID_LOG = "Images  {} cancellato con successo";
+//    Immagine
+    public static final String IMMAGINE_NON_TROVATO_ID_PRODOTTO = "Immagine non trovate per Prodotto  ID:";
+    public static final String IMMAGINE_NON_TROVATO_ID = "Immagine non trovate   ID:";
+    public static final String IMMAGINE_SALVATO_LOG = "Immagine  salvato con successo";
+    public static final String IMMAGINE_CANCELLATO_ID_LOG = "Immagine  {} cancellato con successo";
 
 //    recensioni
     public static final String RECENSIONE_NON_TROVATO_ID = "Recensione non trovate ID: ";
@@ -31,8 +31,8 @@ public class MessagesConfig {
     public static final String RECENSIONE_SALVATA_LOG = "Recensione  salvato con successo";
     public static final String RECENSIONE_CANCELLATO_ID_LOG = "Recensione  {} cancellato con successo";
 
-//    message
-    public static final String MESSAGE_NON_TROVATO_PER_UTENTE_ID = "Messaggi non trovati per l'utente : ";
-    public static final String MESSAGE_SALVATO_LOG = "Messaggio salvato nel db";
+//    messaggi
+    public static final String MESSAGGIO_NON_TROVATO_PER_UTENTE_ID = "Messaggi non trovati per l'utente : ";
+    public static final String MESSAGGIO_SALVATO_LOG = "Messaggio salvato nel db";
 
 }

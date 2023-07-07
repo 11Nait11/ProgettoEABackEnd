@@ -6,7 +6,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")//abilita' auditing, nome del bean auditorProvider
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JpaAuditingConfig {
 
   @Bean // restituisce oggetto AudutoreAware per usare le annotazioni @CreateBY @CreateDate etc.

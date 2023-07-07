@@ -30,7 +30,7 @@ public class MessaggioServiceImpl implements MessaggioService {
     public List<MessaggioDto> dammiMessaggiUtenteById(Long id) {
         List<Messaggio> messaggi=messaggioDao.dammiMessaggiUtenteById(id);
         if(messaggi.isEmpty())
-            throw new MessaggioException(MessagesConfig.MESSAGE_NON_TROVATO_PER_UTENTE_ID+id);
+            throw new MessaggioException(MessagesConfig.MESSAGGIO_NON_TROVATO_PER_UTENTE_ID+id);
         log.info("Restituiti messaggi per utente con id: "+id);
         return messaggi.stream().map(messaggio -> modelMapper.map(messaggio, MessaggioDto.class)).collect(Collectors.toList());
     }
@@ -48,6 +48,6 @@ public class MessaggioServiceImpl implements MessaggioService {
     public void salva(MessaggioDto m) {
         m.setDataInvio(LocalDateTime.now());
         messaggioDao.save(modelMapper.map(m,Messaggio.class));
-        log.info(MessagesConfig.MESSAGE_SALVATO_LOG);
+        log.info(MessagesConfig.MESSAGGIO_SALVATO_LOG);
     }
 }

@@ -63,13 +63,13 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/prodotto-api/prodotti").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/utente-api/salva").permitAll()
                         .requestMatchers(HttpMethod.GET, "/refreshToken").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/doc").permitAll()
 
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .oauth2Login(Customizer.withDefaults())
                 .addFilter(new CustomAuthenticationFilter(authenticationManager))

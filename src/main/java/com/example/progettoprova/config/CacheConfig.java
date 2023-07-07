@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@EnableCaching//sara' memorizzata in cache per future richieste
+@EnableCaching//memorizzata in cache per future richieste
 @EnableScheduling
 public class CacheConfig {
     public static final String CACHE_FOR_UTENTE="UTENTE";//nome cache per oggetti utente
 
-    @Bean//salve istanza di CacheManager nel context, per recuperarlo vedi main(usa get bean dal context)
+    @Bean
     public CacheManager manager(){
         return new ConcurrentMapCacheManager(CACHE_FOR_UTENTE);//inserisce una cache(mappa) nel Contenitore delle cache
     }

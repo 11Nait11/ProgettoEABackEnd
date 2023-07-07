@@ -41,13 +41,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
-
+    //chiamato durante il processo di autenticazione per verificare le credenziali dell'utente
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException
+    {
         log.info("Authentication");
             String username = null;
             String password = null;
-            try {//prende credenziali che ha inserito utente e le confronta con il db
+
+            try
+            {//prende credenziali che ha inserito utente e le confronta con il db
                 String authorizationHeader = request.getHeader(AUTHORIZATION);
                 String headerToken = StringUtils.delete(authorizationHeader, SecurityConstants.BASIC_TOKEN_PREFIX).trim();
                 username = TokenManager.decodedBase64(headerToken)[0];
@@ -59,19 +61,19 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             Authentication authResult = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
             logger.info("attemptAuthentication " + authResult.toString());
             return authResult;
-        }
-        catch (AuthenticationException e) {
-            log.error(String.format(BAD_CREDENTIAL_MESSAGE, username, password), e);
-            throw e;
-        }
-        catch (Exception e) {
-            response.setStatus(INTERNAL_SERVER_ERROR.value());
-            Map<String, String> error = new HashMap<>();
-            error.put("errorMessage", e.getMessage());
-            response.setContentType(APPLICATION_JSON_VALUE);
-            new ObjectMapper().writeValue(response.getOutputStream(), error);
-            throw new RuntimeException(String.format("Utente non trovato username %s and password %s", username, password), e);
-        }
+            }
+            catch (AuthenticationException e) {
+                log.error(String.format(BAD_CREDENTIAL_MESSAGE, username, password), e);
+                throw e;
+            }
+            catch (Exception e) {
+                response.setStatus(INTERNAL_SERVER_ERROR.value());
+                Map<String, String> error = new HashMap<>();
+                error.put("errorMessage", e.getMessage());
+                response.setContentType(APPLICATION_JSON_VALUE);
+                new ObjectMapper().writeValue(response.getOutputStream(), error);
+                throw new RuntimeException(String.format("Utente non trovato username %s and password %s", username, password), e);
+            }
     }
 
     @Override//se utente presente nel db assegna token

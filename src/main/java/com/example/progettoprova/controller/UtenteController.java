@@ -92,8 +92,9 @@ public class UtenteController {
         return ResponseEntity.ok(utenteService.dammiProdottiUtente(idUtente));
     }
 
+
     @PostMapping("/salva")
-    public HttpStatus salva(@RequestBody @Valid UtenteDto u){
+    public HttpStatus salva(@RequestBody /*@Valid*/ UtenteDto u){
         utenteService.salvaDto(u);
         return HttpStatus.OK;
     }
@@ -121,15 +122,6 @@ public class UtenteController {
         }
     }
 
-
-
-//    non riesce ad prendere requestHeader?
-//    private final MessageLang messageLang;
-//    @GetMapping("/test-lang")
-//    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
-//        System.out.println("Valore di Locale "+locale);
-//        return ResponseEntity.ok(messageLang.getMessage("welcome"));
-//    }
 
 
 }

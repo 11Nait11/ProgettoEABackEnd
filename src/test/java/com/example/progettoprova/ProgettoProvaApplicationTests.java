@@ -6,7 +6,7 @@ import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Prodotto;
-import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.RecensioneService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -37,7 +36,7 @@ class ProgettoProvaApplicationTests {
 
 
     @Autowired
-    ImageService    imageService;
+    ImmagineService immagineService;
 
 
 

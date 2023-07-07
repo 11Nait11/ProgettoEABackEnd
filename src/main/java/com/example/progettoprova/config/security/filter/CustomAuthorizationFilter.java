@@ -21,8 +21,8 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+/**CustomAuthorizationFilter viene chiamato per ogni request http */
 @Slf4j
-//leggo request per cercare presenza token inviato dall'utente
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -35,6 +35,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         logger.info("Authroziation Request URI: " + uri);
         logger.info("Authorization Header : " + authorizationHeader);
 
+        //se non ho header delego al filtro successivo
         if (authorizationHeader == null || (!authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) && !authorizationHeader.startsWith(SecurityConstants.BEARER_TOKEN_PREFIX))) {
 //            this.logger.trace("Header Authorization non trovato!");
             log.info("Header Authorization non trovato");
@@ -42,11 +43,14 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
 
+        //se Basic delego al filtro successivo
         if ((authorizationHeader.startsWith(SecurityConstants.BASIC_TOKEN_PREFIX) )) {
             log.info("Basic ");
             filterChain.doFilter(request, response);
 
-        } else {
+        }
+        //se e' bearer valido il token jwt , aggiungo user al context(autenticato) , passo al filtro succcessivo
+        else {
             if (authorizationHeader != null && authorizationHeader.startsWith(SecurityConstants.BEARER_TOKEN_PREFIX) && !uri.endsWith(SecurityConstants.LOGIN_URI_ENDING)) {
                 log.info("entro if : " + SecurityConstants.BEARER_TOKEN_PREFIX);
                 try {

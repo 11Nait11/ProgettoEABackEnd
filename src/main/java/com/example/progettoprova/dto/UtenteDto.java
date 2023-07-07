@@ -17,7 +17,7 @@ public class UtenteDto {
     private String cognome;
     @Email(message = "{email.notvalid}")
     private String email;
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$",message = "{password.notvalid}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).{8,}$",message = "{password.notvalid}")
     private String password;
     private String roles; //separati da ,
 

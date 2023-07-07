@@ -19,13 +19,10 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsServiceImpl userDetailsService;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AccessDeniedException {
-
-
         if (authentication == null)
             return null;
 

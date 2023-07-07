@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteDao utenteDao;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -101,6 +103,9 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public void salva(Utente u) {
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
+        if(u.getRoles()==null)
+            u.setRoles("BASIC");
         utenteDao.save(u);
         log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());
     }
@@ -108,6 +113,9 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public void salvaDto(UtenteDto uD) {
+        uD.setPassword(passwordEncoder.encode(uD.getPassword()));
+        if(uD.getRoles()==null)
+            uD.setRoles("BASIC");
         Utente u = modelMapper.map(uD, Utente.class);
         utenteDao.save(u);
         log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());

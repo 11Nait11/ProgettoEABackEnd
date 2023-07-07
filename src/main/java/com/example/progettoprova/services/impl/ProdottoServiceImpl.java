@@ -3,13 +3,11 @@ package com.example.progettoprova.services.impl;
 import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ProdottoDao;
 
-import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.exception.ProdottoException;
-import com.example.progettoprova.exception.UtenteException;
-import com.example.progettoprova.services.ImageService;
+import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.ProdottoService;
 import com.example.progettoprova.services.UtenteService;
 import jakarta.transaction.Transactional;
@@ -19,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +30,7 @@ public class ProdottoServiceImpl implements ProdottoService {
     private final ProdottoDao prodottoDao;
     private final ModelMapper modelMapper;
     private final UtenteService utenteService;
-    private final ImageService imageService;
+    private final ImmagineService immagineService;
 
     @Override
     @SneakyThrows

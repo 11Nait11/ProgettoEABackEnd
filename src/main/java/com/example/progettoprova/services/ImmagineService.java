@@ -6,7 +6,7 @@ import com.example.progettoprova.entities.Image;
 
 import java.util.List;
 
-public interface ImageService {
+public interface ImmagineService {
 
     public void salva(Image i);
     public void cancella(Long id);

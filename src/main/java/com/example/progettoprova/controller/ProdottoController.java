@@ -1,21 +1,13 @@
 package com.example.progettoprova.controller;
 
 
-import com.example.progettoprova.dao.ProdottoDao;
-import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
-import com.example.progettoprova.entities.Prodotto;
-import com.example.progettoprova.services.ImageService;
 import com.example.progettoprova.services.ProdottoService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

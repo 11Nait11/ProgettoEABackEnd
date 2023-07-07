@@ -22,8 +22,6 @@ public class UserDetailsImpl implements UserDetails {
     private List<GrantedAuthority> auths;
 
 
-
-
     public UserDetailsImpl(UtenteDto utente) {
         this.id=utente.getId();
         this.username = utente.getEmail();
