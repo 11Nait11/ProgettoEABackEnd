@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -40,41 +41,55 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Utente", description = "Esplora e gestisci gli utenti del sistema")
 public class UtenteController {
 
     private final UtenteService utenteService;
     private final MessageLang messageLang;
 
-    @GetMapping("/test-lang")
-    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
 
-        return ResponseEntity.ok(messageLang.getMessage("welcome"));
-    }
+    @Operation(description = "Restituisce tutti gli utenti")
+    @ApiResponse(description = "Elenco degli utenti restituito con successo", responseCode = "200")
 
-
-    @GetMapping("utenti")//ok
-    public ResponseEntity<List<UtenteDto>> dammiUtenti(){
+    @GetMapping("utenti")
+    public ResponseEntity<List<UtenteDto>> dammiUtenti() {
         return ResponseEntity.ok(utenteService.dammiUtenti());
     }
 
-    @Operation(description = "restituisce utente by id")
-    @ApiResponse(description = "Resti", responseCode = "200")
-    @Parameter(name ="idUtente",description = "id Utente",required = true, example = "1")
+
+    @Operation(description = "Restituisce un utente dato il suo ID")
+    @ApiResponse(description = "Utente restituito con successo", responseCode = "200")
+    @Parameter(name = "idUtente", description = "ID dell'utente", required = true, example = "1")
+
     @GetMapping("utenti/{idUtente}")
-    public ResponseEntity<UtenteDto> dammiUtenteById(@PathVariable("idUtente") Long idUtente){
-            return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
+    public ResponseEntity<UtenteDto> dammiUtenteById(@PathVariable("idUtente") Long idUtente) {
+        return ResponseEntity.ok(utenteService.dammiUtente(idUtente));
     }
 
+
+    @Operation(description = "Restituisce un utente dato il suo username")
+    @ApiResponse(description = "Utente restituito con successo", responseCode = "200")
+    @Parameter(name = "username", description = "Username dell'utente", required = true, example = "Nait")
+
     @GetMapping("utente/{username}")
-    @PreAuthorize("#username.equals(authentication.getPrincipal())")
     public ResponseEntity<UtenteDto> dammiUtenteByUsername(@PathVariable("username") String username) {
-            return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
+        return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
     }
+
+
+    @Operation(description = "Aggiorna un utente dato il suo ID")
+    @ApiResponse(description = "Utente aggiornato con successo", responseCode = "200")
+    @Parameter(name = "idUtente", description = "ID dell'utente", required = true, example = "1")
 
     @PutMapping("utenti/{idUtente}")
     public ResponseEntity<UtenteDto> aggiorna(@PathVariable("idUtente") Long id, @RequestBody UtenteDto utente) {
         return ResponseEntity.ok(utenteService.aggiorna(id, utente));
     }
+
+
+    @Operation(description = "Cancella un utente dato il suo ID")
+    @ApiResponse(description = "Utente cancellato con successo", responseCode = "200")
+    @Parameter(name = "idUtente", description = "ID dell'utente", required = true, example = "1")
 
     @DeleteMapping("utenti/{idUtente}")
     public HttpStatus cancella(@PathVariable("idUtente") Long id){
@@ -82,10 +97,20 @@ public class UtenteController {
         return HttpStatus.OK;
     }
 
+
+    @Operation(description = "Restituisce le recensioni di un utente dato il suo ID")
+    @ApiResponse(description = "Elenco delle recensioni dell'utente restituito con successo", responseCode = "200")
+    @Parameter(name = "idUtente", description = "ID dell'utente", required = true, example = "1")
+
     @GetMapping("utenti/{idUtente}/recensioni")
     public ResponseEntity<List<RecensioneDto>> dammiRecensioniUtente(@PathVariable("idUtente") Long id){
         return ResponseEntity.ok(utenteService.dammiRecensioniUtente(id));
     }
+
+
+    @Operation(description = "Restituisce i prodotti di un utente dato il suo ID")
+    @ApiResponse(description = "Elenco dei prodotti dell'utente restituito con successo", responseCode = "200")
+    @Parameter(name = "idUtente", description = "ID dell'utente", required = true, example = "1")
 
     @GetMapping("utenti/{idUtente}/prodotti")//ok
     public ResponseEntity<List<ProdottoDto>> dammiProdottiVenditore(@PathVariable("idUtente") Long idUtente){
@@ -93,11 +118,17 @@ public class UtenteController {
     }
 
 
+    @Operation(description = "Salva un nuovo utente")
+    @ApiResponse(description = "Utente salvato con successo", responseCode = "200")
+
     @PostMapping("/salva")
     public HttpStatus salva(@RequestBody /*@Valid*/ UtenteDto u){
         utenteService.salvaDto(u);
         return HttpStatus.OK;
     }
+
+
+    @Operation(description = "Aggiorna il token di accesso")
 
     @GetMapping("/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -120,6 +151,12 @@ public class UtenteController {
         } else {
             throw new RuntimeException("Refresh token is missing");
         }
+    }
+
+    @GetMapping("/test-lang")
+    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
+
+        return ResponseEntity.ok(messageLang.getMessage("welcome"));
     }
 
 
