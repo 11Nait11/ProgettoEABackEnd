@@ -1,20 +1,36 @@
 package com.example.progettoprova;
 
+import com.example.progettoprova.controller.RecensioneController;
 import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.ImageDao;
 import com.example.progettoprova.dao.RecensioneDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
+import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.RecensioneService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -34,10 +50,8 @@ class ProgettoProvaApplicationTests {
     RecensioneService recensioneService;
 
 
-
     @Autowired
     ImmagineService immagineService;
-
 
 
     @Test
@@ -90,7 +104,6 @@ class ProgettoProvaApplicationTests {
 //        imageDao.save(i2);
 
 
-
         //recensioneDao.delete(r);
 
 //        annuncioDao.delete(annuncioDao.findById(1L).get());
@@ -121,44 +134,87 @@ class ProgettoProvaApplicationTests {
 //        System.out.println(new ServiceProva().getPaged(3,utenteDao).getContent());
 
 
-
-
-
-
-
-
-
-
     }
 
     @Test
     @Disabled
-    void testProdottiVendutiDaUtente(){
+    void testProdottiVendutiDaUtente() {
 
 
-       utenteDao.findAll().forEach(u-> System.out.println(u.getNome()));
+        utenteDao.findAll().forEach(u -> System.out.println(u.getNome()));
         System.out.println(utenteDao.cercaProdottiByIdUtente(1L));
 
     }
+
     @Test
     @Disabled
-    void dammiInfoProdotto(){
+    void dammiInfoProdotto() {
         Optional<Prodotto> prodotto = prodottoDao.findById(1L);
-        System.out.println("PRODOTTO "+prodotto.get());
-        ProdottoDto dto =  modelMapper.map(prodotto, ProdottoDto.class);
-        System.out.println("PRODOTTODTO "+dto);
+        System.out.println("PRODOTTO " + prodotto.get());
+        ProdottoDto dto = modelMapper.map(prodotto, ProdottoDto.class);
+        System.out.println("PRODOTTODTO " + dto);
     }
 
     @Test
     @Disabled
     void queryImage() {
 
-       //imageService.dammiImageByIdProdotto(1L);
+        //imageService.dammiImageByIdProdotto(1L);
 
     }
+
     @Test
-    void recensioneService(){
+    void recensioneService() {
         System.out.println(recensioneService.dammiRencesioni());
 
     }
+
+//    @Mock
+//    private RecensioneService recensioneServiceMock;
+//
+//    @InjectMocks
+//    private RecensioneController recensioneController;
+//
+//    private MockMvc mockMvc;
+//
+//    @Before
+//    public void setup() {
+//        mockMvc = MockMvcBuilders.standaloneSetup(recensioneController).build();
+//
+//    }
+//    @Test
+//    public void testDammiRecensioni() throws Exception {
+//        List<RecensioneDto> recensioni = new ArrayList<>();
+//
+//        RecensioneDto r1=new RecensioneDto();
+//        r1.setId(1L);
+//        r1.setCommento("Ottimo prodotto");
+//        r1.setValutazione(5);
+//        recensioni.add(r1);
+//
+//        RecensioneDto r2=new RecensioneDto();
+//        r2.setId(2L);
+//        r2.setCommento("Scarsa qualità");
+//        r2.setValutazione(2);
+//        recensioni.add(r2);
+//
+//
+//        Mockito.when(recensioneService.dammiRencesioni()).thenReturn(recensioni);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/recensione-api/recensioni"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].descrizione").value("Ottimo prodotto"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].voto").value(5))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value("2"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].descrizione").value("Scarsa qualità"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].voto").value(2));
+//    }
+
+
+
+
 }
+
+
+

@@ -3,10 +3,12 @@ package com.example.progettoprova.services.impl;
 
 import com.example.progettoprova.config.security.TokenManager;
 import com.example.progettoprova.config.security.UserDetailsImpl;
+import com.example.progettoprova.dao.MessaggioDao;
 import com.example.progettoprova.dao.UtenteDao;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
+import com.example.progettoprova.entities.Messaggio;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.entities.Recensione;
 import com.example.progettoprova.entities.Utente;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,6 +41,7 @@ import java.util.stream.Collectors;
 public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteDao utenteDao;
+    private final MessaggioDao messaggioDao;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -55,8 +59,10 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     @SneakyThrows//ok
     public UtenteDto dammiUtente(Long id) {
-        if (TokenManager.checkId(id))
+        log.info("dammi utente id "+id);
+        if (!TokenManager.checkId(id))
             throw new UtenteException(MessagesConfig.UTENTE_NON_AUTORIZZATO);
+        log.info("cechkl ok ");
         Utente utente = utenteDao.findById(id).orElseThrow(() -> new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID + id));
         return modelMapper.map(utente, UtenteDto.class);
     }
@@ -106,6 +112,7 @@ public class UtenteServiceImpl implements UtenteService {
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         if(u.getRoles()==null)
             u.setRoles("BASIC");
+
         utenteDao.save(u);
         log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());
     }
@@ -113,11 +120,23 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public void salvaDto(UtenteDto uD) {
+        String username= uD.getEmail();
         uD.setPassword(passwordEncoder.encode(uD.getPassword()));
         if(uD.getRoles()==null)
             uD.setRoles("BASIC");
         Utente u = modelMapper.map(uD, Utente.class);
         utenteDao.save(u);
+
+        Utente admin = modelMapper.map(dammiUtenteByUsername("admin@email.it"),Utente.class);
+        Utente utente = modelMapper.map(dammiUtenteByUsername(username),Utente.class);//necessario richiamarlo dal db
+
+        Messaggio benvenuto=new Messaggio();
+        benvenuto.setMittente(admin);
+        benvenuto.setDestinatario(utente);
+        benvenuto.setTesto(MessagesConfig.WELCOME);
+        benvenuto.setDataInvio(LocalDateTime.now());
+        messaggioDao.save(benvenuto);
+
         log.info(MessagesConfig.UTENTE_SALVATO_NOME_LOG, u.getCognome());
     }
 

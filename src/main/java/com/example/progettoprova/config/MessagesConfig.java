@@ -16,7 +16,7 @@ public class MessagesConfig {
     public static final String PRODOTTI_NON_TROVATI = "Non sono presenti Prodotti";
     public static final String PRODOTTO_NON_TROVATO_ID = "Prodotto non trovato con ID:";
     public static final String PRODOTTO_CANCELLATO_NOME_LOG = "Prodotto  {} cancellato con successo";
-    public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto  {} salvato con successo";
+    public static final String PRODOTTO_SALVATO_NOME_LOG = "Prodotto   salvato con successo ";
     public static final String PRODOTTO_AGGIORNATO_ID_LOG = "Prodotto con id {} aggiornato con successo";
 
 //    Immagine
@@ -34,5 +34,14 @@ public class MessagesConfig {
 //    messaggi
     public static final String MESSAGGIO_NON_TROVATO_PER_UTENTE_ID = "Messaggi non trovati per l'utente : ";
     public static final String MESSAGGIO_SALVATO_LOG = "Messaggio salvato nel db";
+
+
+    public static final String WELCOME="Benvenuto nella nostra app! Siamo entusiasti che tu abbia deciso " +
+            "di unirti alla nostra community dedicata alla moda e al riciclo. Qui, " +
+            "potrai scoprire un mondo di opportunità per dare nuova vita ai tuoi vestiti e per trovare autentici tesori fashion." +
+            "La nostra piattaforma è stata creata per facilitare la tua esperienza di shopping e vendita online. Potrai esplorare una vasta gamma di vestiti, accessori e molto altro ancora, tutto a portata di clic" +
+            "Ti invitiamo a esplorare l'app" +
+            "Il team di ....";
+
 
 }

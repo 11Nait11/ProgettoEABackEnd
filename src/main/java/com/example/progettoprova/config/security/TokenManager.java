@@ -125,5 +125,14 @@ public abstract class TokenManager {
 
         return credentials;
     }
-    public static boolean checkId(Long id){return id==userId;}
+    public static boolean checkId(Long id){
+        log.info("id "+id);
+        log.info("userID "+userId);
+
+        if(id==userId)
+            log.info("true");
+        else
+            log.info("false");
+
+        return id==userId;}
 }

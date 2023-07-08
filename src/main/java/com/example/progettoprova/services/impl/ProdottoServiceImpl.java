@@ -3,10 +3,12 @@ package com.example.progettoprova.services.impl;
 import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.ProdottoDao;
 
+import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.exception.ProdottoException;
+import com.example.progettoprova.exception.UtenteException;
 import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.ProdottoService;
 import com.example.progettoprova.services.UtenteService;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,23 +69,26 @@ public class ProdottoServiceImpl implements ProdottoService {
     @Override
     @SneakyThrows
     public void salva(ProdottoDto p) {
-//        if(utenteService.dammiUtente(p.getVenditoreId())==null)
-//            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
-//
-//        List<ImageDto> imagesDto=p.getImages();
-//        p.setImages(new ArrayList<>());
-//        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
-//
-//        System.out.println("prodotto ritornato"+prodotto);
-//        for (ImageDto imageDto:imagesDto){
-//            Image image=modelMapper.map(imageDto, Image.class);
-//            image.setProdotto(prodotto);
-//            imageService.salva(image);
-//
-//        }
-//
-//
-//        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
+        log.info("arrivo con prodotto : "+p.getNomeProdotto());
+        log.info("arrivo con prodotto : "+p.getVenditoreId());
+        if(utenteService.dammiUtente(p.getVenditoreId())==null)
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
+
+        log.info("sono dentro salva service");
+        List<ImageDto> imagesDto=p.getImages();
+        p.setImages(new ArrayList<>());
+        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
+
+        System.out.println("prodotto ritornato"+prodotto);
+        for (ImageDto imageDto:imagesDto){
+            Image image=modelMapper.map(imageDto, Image.class);
+            image.setProdotto(prodotto);
+            immagineService.salva(image);
+
+        }
+
+
+        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
     }
 
     @Override

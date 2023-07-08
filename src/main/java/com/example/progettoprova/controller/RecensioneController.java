@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/recensione-api/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
-@Tag(name = "Recensioni", description = "API per la gestione delle recensioni")
+@Tag(name = "Recensioni", description = "Gestisci le recensioni")
 public class RecensioneController {
 
     private final RecensioneService recensioneService;

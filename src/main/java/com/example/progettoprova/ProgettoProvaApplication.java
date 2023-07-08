@@ -76,9 +76,9 @@ public class ProgettoProvaApplication implements CommandLineRunner {
 
 
         Utente u1=new Utente();
-        u1.setNome("paperino");
+        u1.setNome("Vinted");
         u1.setCognome("Bianchi");
-        u1.setEmail(u1.getNome()+"@email.it");
+        u1.setEmail("admin@email.it");
         u1.setPassword("passwd");
         u1.setRoles("ADMIN");
         utenteService.salva(u1);

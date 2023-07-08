@@ -23,6 +23,7 @@ public class ProdottoDto {
     private String nomeProdotto;
     @Positive
     private double prezzo;
+    private String descrizione;
     private Long venditoreId;
     private String venditoreNome;
     private List<ImageDto> images;
