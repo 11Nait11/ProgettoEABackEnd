@@ -43,6 +43,8 @@ public class SecurityConfig {
         config.addAllowedOrigin("http://localhost:4200");
         config.addAllowedHeader("*");
         config.addExposedHeader(HttpHeaders.AUTHORIZATION);
+        config.addExposedHeader("access_token");
+        config.addExposedHeader("refresh_token");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
