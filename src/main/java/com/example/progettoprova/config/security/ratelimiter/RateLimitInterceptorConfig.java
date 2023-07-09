@@ -18,6 +18,7 @@ package com.example.progettoprova.config.security.ratelimiter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -53,10 +54,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class RateLimitInterceptorConfig implements WebMvcConfigurer {
 
     private final RateLimiterRegistry rateLimiterRegistry;
-
 
 
     @Override
@@ -64,12 +65,10 @@ public class RateLimitInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new RateLimitInterceptor(rateLimiterRegistry));
     }
 
+    @RequiredArgsConstructor
     private static class RateLimitInterceptor implements HandlerInterceptor {
         private final RateLimiterRegistry rateLimiterRegistry;
 
-        public RateLimitInterceptor(RateLimiterRegistry rateLimiterRegistry) {
-            this.rateLimiterRegistry = rateLimiterRegistry;
-        }
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -80,6 +79,7 @@ public class RateLimitInterceptorConfig implements WebMvcConfigurer {
             } else {
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 response.getWriter().write("Rate limit exceeded");
+                log.info("Rate limit exceeded");
                 return false;
             }
         }
