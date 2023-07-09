@@ -97,5 +97,15 @@ public class ProdottoController {
         return ResponseEntity.ok(prodottoDto);
     }
 
+    @Operation(description = "Salva un nuovo prodotto")
+    @ApiResponse(description = "Prodotto salvato con successo", responseCode = "200")
+
+    @PostMapping("salvaWeb")
+    public ResponseEntity<ProdottoDto> salvaWeb(@RequestBody ProdottoDto p){
+        log.info("salva prodotto");
+        ProdottoDto prodottoDto = prodottoService.salvaWeb(p);
+        return ResponseEntity.ok(prodottoDto);
+    }
+
 
 }

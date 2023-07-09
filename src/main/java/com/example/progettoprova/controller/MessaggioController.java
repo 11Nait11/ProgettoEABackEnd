@@ -2,6 +2,7 @@ package com.example.progettoprova.controller;
 
 
 import com.example.progettoprova.dto.MessaggioDto;
+import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.MessaggioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -49,6 +50,13 @@ public class MessaggioController {
     public HttpStatus salva(@RequestBody MessaggioDto m) {
         messaggioService.salva(m);
         return HttpStatus.OK;
+    }
+
+
+    @GetMapping("contatti/utente/{idUtente}")
+    public ResponseEntity<List<UtenteDto>> dammiContatti(@PathVariable("idUtente") Long idUtente) {
+        List<UtenteDto> utenteDtoList = messaggioService.getContattiByIdUtente(idUtente);
+        return ResponseEntity.ok(utenteDtoList);
     }
 
 

@@ -21,6 +21,9 @@ public interface ProdottoService {
     public List<Image> dammiImmaginiByIdProdotto(Long id);
 
 
+    public ProdottoDto salvaWeb(ProdottoDto p);
+
+
 
 
 }

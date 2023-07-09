@@ -137,4 +137,33 @@ public class ProdottoServiceImpl implements ProdottoService {
     }
 
 
+    @Override
+    @SneakyThrows
+    public ProdottoDto salvaWeb(ProdottoDto p) {
+        log.info("arrivo con prodotto : "+p.getNomeProdotto());
+        log.info("arrivo con prodotto : "+p.getVenditoreId());
+        if(utenteService.dammiUtente(p.getVenditoreId())==null)
+            throw new UtenteException(MessagesConfig.UTENTE_NON_TROVATO_ID+p.getVenditoreId());
+
+        log.info("sono dentro salva service");
+        List<ImageDto> imagesDto=p.getImages();
+        p.setImages(new ArrayList<>());
+        Prodotto prodotto = prodottoDao.save(modelMapper.map(p, Prodotto.class));
+
+        System.out.println("prodotto ritornato"+prodotto);
+        for (ImageDto imageDto:imagesDto){
+            Image image=modelMapper.map(imageDto, Image.class);
+            image.setProdotto(prodotto);
+            immagineService.salva(image);
+
+        }
+
+        ProdottoDto prodottoDto = modelMapper.map(prodotto, ProdottoDto.class);
+
+
+        log.info(MessagesConfig.PRODOTTO_SALVATO_NOME_LOG+p.getNomeProdotto());
+
+        return prodottoDto;
+    }
+
 }

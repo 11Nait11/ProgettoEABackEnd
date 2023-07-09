@@ -3,7 +3,9 @@ package com.example.progettoprova.services.impl;
 import com.example.progettoprova.config.MessagesConfig;
 import com.example.progettoprova.dao.MessaggioDao;
 import com.example.progettoprova.dto.MessaggioDto;
+import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.entities.Messaggio;
+import com.example.progettoprova.entities.Utente;
 import com.example.progettoprova.exception.ImageException;
 import com.example.progettoprova.exception.MessaggioException;
 import com.example.progettoprova.services.MessaggioService;
@@ -49,5 +51,13 @@ public class MessaggioServiceImpl implements MessaggioService {
         m.setDataInvio(LocalDateTime.now());
         messaggioDao.save(modelMapper.map(m,Messaggio.class));
         log.info(MessagesConfig.MESSAGGIO_SALVATO_LOG);
+    }
+
+    public List <UtenteDto> getContattiByIdUtente(Long idUtente){
+
+        List<Utente> utentiList = messaggioDao.findContattiByIdUtente(idUtente);
+
+        List <UtenteDto> utentiDtoList = utentiList.stream().map(utente -> modelMapper.map(utente, UtenteDto.class)).collect(Collectors.toList());
+        return utentiDtoList;
     }
 }
