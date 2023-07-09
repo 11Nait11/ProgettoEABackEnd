@@ -12,7 +12,7 @@ public class RateLimiterConfig {
     @Bean
     public RateLimiterRegistry rateLimiterRegistry() {
         io.github.resilience4j.ratelimiter.RateLimiterConfig rateLimiterConfig = io.github.resilience4j.ratelimiter.RateLimiterConfig.custom()
-                .limitForPeriod(5)
+                .limitForPeriod(30)
                 .limitRefreshPeriod(Duration.ofSeconds(60))
                 .timeoutDuration(Duration.ZERO)
                 .build();
