@@ -44,4 +44,12 @@ public class RecensioneController {
         return ResponseEntity.ok(r);
     }
 
+
+    //Dato l'id di un venditore restituisce tutte le recensioni che ha ricevuto quel venditore
+    @GetMapping("recensioni/{idUtente}")
+    public ResponseEntity<List<RecensioneDto>> dammiRecensioniByIdUtente(@PathVariable Long idUtente) {
+        List<RecensioneDto> recensioniDto = recensioneService.dammiRencesioniByIdUtenteRecensito(idUtente);
+        return ResponseEntity.ok(recensioniDto);
+    }
+
 }

@@ -5,6 +5,7 @@ import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.entities.Prodotto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProdottoService {
     public List<ProdottoDto> dammiProdotti();
@@ -18,6 +19,8 @@ public interface ProdottoService {
     public ProdottoDto aggiorna(Long id, ProdottoDto utente);
 
     public List<Image> dammiImmaginiByIdProdotto(Long id);
+
+
 
 
 }

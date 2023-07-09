@@ -3,11 +3,9 @@ package com.example.progettoprova.controller;
 
 import com.example.progettoprova.dto.ProdottoDto;
 import com.example.progettoprova.services.ProdottoService;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -89,6 +87,15 @@ public class ProdottoController {
         return ResponseEntity.ok(prodottoService.dammiProdottiDiUnUtenteByIdOrdCrescByPrezzo(id));
     }
 
+
+
+
+
+    @GetMapping("prodotti/{idProdotto}")
+    public ResponseEntity<ProdottoDto> getProdottoByIdProdotto(@PathVariable Long idProdotto){
+        ProdottoDto prodottoDto = prodottoService.dammiProdottoById(idProdotto);
+        return ResponseEntity.ok(prodottoDto);
+    }
 
 
 }

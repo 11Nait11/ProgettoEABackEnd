@@ -14,4 +14,8 @@ public interface RecensioneService {
 
 //    public void cancella(Long id);
 //    public ProdottoDto aggiorna(Long id, Image i);
+
+
+
+    public List<RecensioneDto> dammiRencesioniByIdUtenteRecensito(Long idUtente);
 }

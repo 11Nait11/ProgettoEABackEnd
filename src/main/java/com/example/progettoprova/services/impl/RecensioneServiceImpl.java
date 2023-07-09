@@ -37,4 +37,17 @@ public class RecensioneServiceImpl implements RecensioneService {
         recensioneDao.save(modelMapper.map(r,Recensione.class));
         return r;
     }
+
+    @Override
+    @SneakyThrows
+    public List<RecensioneDto> dammiRencesioniByIdUtenteRecensito(Long idUtente) {
+
+        List<Recensione> recensioni = recensioneDao.findAllByUtenteRecensitoId(idUtente);
+
+        if(recensioni.isEmpty())
+            throw new RecensioneException(MessagesConfig.RENCENSIONI_NON_TROVATE);
+        log.info("Recensioni Trovate da untente" + idUtente);
+
+        return recensioni.stream().map(r->modelMapper.map(r,RecensioneDto.class)).collect(Collectors.toList());
+    }
 }

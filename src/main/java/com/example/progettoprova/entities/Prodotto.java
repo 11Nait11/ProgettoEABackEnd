@@ -1,6 +1,7 @@
 package com.example.progettoprova.entities;
 
 import com.example.progettoprova.config.JpaAuditingConfig;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
