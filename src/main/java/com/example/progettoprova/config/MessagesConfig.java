@@ -39,9 +39,9 @@ public class MessagesConfig {
     public static final String WELCOME="Benvenuto nella nostra app! Siamo entusiasti che tu abbia deciso " +
             "di unirti alla nostra community dedicata alla moda e al riciclo. Qui, " +
             "potrai scoprire un mondo di opportunità per dare nuova vita ai tuoi vestiti e per trovare autentici tesori fashion." +
-            "La nostra piattaforma è stata creata per facilitare la tua esperienza di shopping e vendita online. Potrai esplorare una vasta gamma di vestiti, accessori e molto altro ancora, tutto a portata di clic" +
-            "Ti invitiamo a esplorare l'app" +
-            "Il team di ....";
+            "La nostra piattaforma è stata creata per facilitare la tua esperienza di shopping e vendita online. Potrai esplorare una vasta gamma di vestiti, accessori e molto altro ancora, tutto a portata di clic\n" +
+            "Ti invitiamo a esplorare l'app\n" +
+            "Il team di Vinted(diciamo)";
 
 
 }

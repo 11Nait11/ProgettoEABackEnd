@@ -5,6 +5,8 @@ import com.example.progettoprova.exception.ImageException;
 import com.example.progettoprova.exception.MessaggioException;
 import com.example.progettoprova.exception.ProdottoException;
 import com.example.progettoprova.exception.UtenteException;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,18 @@ public class GlobalExceptionHandler {
                         .concat(viol.getDefaultMessage()))
                 .collect(Collectors.joining(" , "));
         return errorResponse(req, message);
+    }
+
+    //rateLimiter ex
+    @ExceptionHandler({ RequestNotPermitted.class })
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public void handleRequestNotPermitted() {
+    }
+
+    //circuitBreaker ex
+    @ExceptionHandler({CallNotPermittedException.class})
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public void handleCallNotPermittedException() {
     }
 
     //dto

@@ -10,6 +10,7 @@ import java.util.Optional;
 ;
 
 public class UserAuditorAware implements AuditorAware<Long> {
+
     @Override
     public Optional<Long> getCurrentAuditor() {
 

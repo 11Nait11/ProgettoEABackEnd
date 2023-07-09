@@ -8,6 +8,7 @@ import com.example.progettoprova.dto.RecensioneDto;
 import com.example.progettoprova.dto.UtenteDto;
 import com.example.progettoprova.services.UtenteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -52,6 +53,7 @@ public class UtenteController {
     @ApiResponse(description = "Elenco degli utenti restituito con successo", responseCode = "200")
 
     @GetMapping("utenti")
+//    @RateLimiter(name = "rateLimiterApi")
     public ResponseEntity<List<UtenteDto>> dammiUtenti() {
         return ResponseEntity.ok(utenteService.dammiUtenti());
     }
@@ -154,9 +156,9 @@ public class UtenteController {
     }
 
     @GetMapping("/test-lang")
-    public ResponseEntity<String> testLang(@RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
+    public ResponseEntity<String> testLang() {
 
-        return ResponseEntity.ok(messageLang.getMessage("welcome"));
+        return ResponseEntity.ok("Ciao");
     }
 
 

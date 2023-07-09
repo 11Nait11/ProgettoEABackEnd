@@ -1,8 +1,12 @@
 package com.example.progettoprova.controller;
 
+//import com.example.progettoprova.config.security.ratelimiter.ExternalAPICaller;
 import com.example.progettoprova.dto.ImageDto;
 import com.example.progettoprova.entities.Image;
 import com.example.progettoprova.services.ImmagineService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
@@ -24,6 +29,14 @@ public class ImageController {
 
 
     private final ImmagineService immagineService;
+//    private final ExternalAPICaller externalAPICaller;
+//
+//
+//    @GetMapping("/rate-limiter")
+//    @RateLimiter(name = "rateLimiterApi")
+//    public String rateLimitApi() {
+//        return externalAPICaller.callApi();
+//    }
 
 
 

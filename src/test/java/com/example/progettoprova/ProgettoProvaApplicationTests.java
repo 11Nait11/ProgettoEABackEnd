@@ -1,5 +1,6 @@
 package com.example.progettoprova;
 
+import com.example.progettoprova.controller.ImageController;
 import com.example.progettoprova.controller.RecensioneController;
 import com.example.progettoprova.dao.ProdottoDao;
 import com.example.progettoprova.dao.ImageDao;
@@ -11,18 +12,27 @@ import com.example.progettoprova.entities.Prodotto;
 import com.example.progettoprova.services.ImmagineService;
 import com.example.progettoprova.services.RecensioneService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -32,6 +42,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.serverError;
+import static org.assertj.core.api.ClassBasedNavigableIterableAssert.assertThat;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ProgettoProvaApplicationTests {
@@ -215,6 +230,39 @@ class ProgettoProvaApplicationTests {
 
 
 }
+
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//class ResilientAppControllerUnitTest {
+//
+//    @RegisterExtension
+//    static WireMockExtension EXTERNAL_SERVICE = WireMockExtension.newInstance()
+//            .options(WireMockConfiguration.wireMockConfig()
+//                    .port(8080))
+//            .build();
+//
+//    @Autowired
+//    private TestRestTemplate restTemplate;
+//
+////    @Test
+////    public void testCircuitBreaker() {
+////        EXTERNAL_SERVICE.stubFor(WireMock.get("/image-api/circuit-breaker")
+////                .willReturn(serverError()));
+////
+////        IntStream.rangeClosed(1, 5)
+////                .forEach(i -> {
+////                    ResponseEntity response = restTemplate.getForEntity("/api/circuit-breaker", String.class);
+////                    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+////                });
+////
+////        IntStream.rangeClosed(1, 5)
+////                .forEach(i -> {
+////                    ResponseEntity response = restTemplate.getForEntity("/api/circuit-breaker", String.class);
+////                    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+////                });
+////
+////        EXTERNAL_SERVICE.verify(5, getRequestedFor(urlEqualTo("/api/external")));
+////    }
+//}
 
 
 

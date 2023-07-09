@@ -75,12 +75,19 @@ public class ProgettoProvaApplication implements CommandLineRunner {
     private void creaDb() throws IOException {
 
 
+        Utente u0=new Utente();
+        u0.setNome("Vinted");
+        u0.setCognome("Owner");
+        u0.setEmail("admin@email.it");
+        u0.setPassword("passwd");
+        u0.setRoles("ADMIN");
+        utenteService.salva(u0);
+
         Utente u1=new Utente();
-        u1.setNome("Vinted");
-        u1.setCognome("Bianchi");
-        u1.setEmail("admin@email.it");
+        u1.setNome("utente1");
+        u1.setCognome("bianchi");
+        u1.setEmail(u1.getNome()+"@email.it");
         u1.setPassword("passwd");
-        u1.setRoles("ADMIN");
         utenteService.salva(u1);
 
         Utente u2=new Utente();
@@ -91,7 +98,7 @@ public class ProgettoProvaApplication implements CommandLineRunner {
         utenteService.salva(u2);
 
         Utente u3=new Utente();
-        u3.setNome("paperone");
+        u3.setNome("zioPaperone");
         u3.setCognome("Gialli");
         u3.setEmail(u3.getNome()+"@email.it");
         u3.setPassword("passwd");
