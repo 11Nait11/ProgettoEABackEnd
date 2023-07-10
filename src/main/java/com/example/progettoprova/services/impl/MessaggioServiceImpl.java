@@ -15,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.security.Security;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,11 +55,5 @@ public class MessaggioServiceImpl implements MessaggioService {
         log.info(MessagesConfig.MESSAGGIO_SALVATO_LOG);
     }
 
-    public List <UtenteDto> getContattiByIdUtente(Long idUtente){
 
-        List<Utente> utentiList = messaggioDao.findContattiByIdUtente(idUtente);
-
-        List <UtenteDto> utentiDtoList = utentiList.stream().map(utente -> modelMapper.map(utente, UtenteDto.class)).collect(Collectors.toList());
-        return utentiDtoList;
-    }
 }

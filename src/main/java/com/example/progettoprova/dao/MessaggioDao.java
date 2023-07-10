@@ -16,13 +16,5 @@ public interface MessaggioDao extends JpaRepository<Messaggio,Long> {
     List<Messaggio> dammiMessaggiUtenteById(@Param("id") Long id);
 
 
-    @Query("SELECT m FROM Messaggio m WHERE m.id IN (" +
-            "SELECT MAX(m2.id) FROM Messaggio m2 " +
-            "WHERE (m2.destinatario.id = :id OR m2.mittente.id = :id) " +
-            "GROUP BY CASE " +
-            "   WHEN m2.destinatario.id = :id THEN m2.mittente.id " +
-            "   ELSE m2.destinatario.id " +
-            "END)")
-    List<Utente> findContattiByIdUtente(@Param("id") Long id);
 
 }

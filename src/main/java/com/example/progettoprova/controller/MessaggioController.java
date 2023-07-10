@@ -53,11 +53,5 @@ public class MessaggioController {
     }
 
 
-    @GetMapping("contatti/utente/{idUtente}")
-    public ResponseEntity<List<UtenteDto>> dammiContatti(@PathVariable("idUtente") Long idUtente) {
-        List<UtenteDto> utenteDtoList = messaggioService.getContattiByIdUtente(idUtente);
-        return ResponseEntity.ok(utenteDtoList);
-    }
-
 
 }

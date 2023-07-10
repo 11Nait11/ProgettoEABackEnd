@@ -14,5 +14,5 @@ public interface MessaggioService {
     public void salva(MessaggioDto m);
 
 
-    List <UtenteDto> getContattiByIdUtente(Long idUtente);
+
 }

@@ -71,6 +71,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/doc").permitAll()
 
+                        //Per il web
+                        .requestMatchers(HttpMethod.GET, "/prodotto-api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/recensione-api/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(Customizer.withDefaults())
