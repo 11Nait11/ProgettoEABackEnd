@@ -74,6 +74,7 @@ public class UtenteController {
     @Parameter(name = "username", description = "Username dell'utente", required = true, example = "Nait")
 
     @GetMapping("utente/{username}")
+//    @PreAuthorize("#username.equals(authentication.getPrincipal())")
     public ResponseEntity<UtenteDto> dammiUtenteByUsername(@PathVariable("username") String username) {
         return ResponseEntity.ok(utenteService.dammiUtenteByUsername(username));
     }

@@ -75,7 +75,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/prodotto-api/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/recensione-api/**").permitAll()
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(Customizer.withDefaults())
                 .addFilter(new CustomAuthenticationFilter(authenticationManager))
